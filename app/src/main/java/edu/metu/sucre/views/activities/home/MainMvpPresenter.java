@@ -1,0 +1,16 @@
+package edu.metu.sucre.views.activities.home;
+
+
+import edu.metu.sucre.views.activities.base.MvpPresenter;
+
+/**
+ * Created by ilkay on 12/03/2017.
+ */
+
+public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V> {
+	void getKategoriler();
+	
+	void getKavramlar(int kategoriId);
+
+	void getFavoriKavramlar();
+}
