@@ -36,7 +36,7 @@ public class ActivityModule {
     @Provides
     @PerActivity
     Typeface provideTypeface(){
-        return Typeface.createFromAsset(activity.getAssets(), "gothic.TTF");
+        return Typeface.createFromAsset(activity.getAssets(), "fonts/Sketch.ttf");
     }
     
     @Provides

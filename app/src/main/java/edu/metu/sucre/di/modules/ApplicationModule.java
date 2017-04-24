@@ -74,7 +74,7 @@ public class ApplicationModule {
 		if(realmConfiguration == null) {
 			// Create a RealmConfiguration that saves the Realm file in the app's "files" directory.
 			realmConfiguration = new RealmConfiguration.Builder()
-					.name("mobss.db")
+					.name("sucre.db")
 					.migration(new DatabaseMigration())
 					.encryptionKey(new String("YhvPohxPIDXI8wneZTgYwFElAuSeWOhea8WILKRvuHeiOQYaz1RLZ4m0ZEaAP7Gc").getBytes())
 					.schemaVersion(1)
