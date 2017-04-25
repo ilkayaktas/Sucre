@@ -2,6 +2,7 @@ package edu.metu.sucre.views.activities.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
@@ -11,8 +12,10 @@ import android.widget.TextView;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
+import edu.metu.sucre.di.annotations.ActivityContext;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
@@ -21,6 +24,13 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     
     @Inject
     MainMvpPresenter<MainMvpView> mPresenter;
+
+    @Inject
+    @ActivityContext
+    Typeface typeface;
+    
+    @BindView(R.id.welcome) TextView welcome;
+    @BindView(R.id.resultView) TextView resultView;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +38,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         setContentView(R.layout.activity_main);
     
         getActivityComponent().inject(this);
-    
+        
         setUnBinder(ButterKnife.bind(this));
     
         RateMe.init(new Config(5, 10)); // 5 gün ya da 10 defa uygulama başlattıktan sonra
@@ -37,6 +47,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mPresenter.onAttach(MainActivity.this);
     
         addCustomActionBar();
+    
+        setFonts();
     }
     
     @Override
@@ -44,13 +56,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         super.onStart();
         RateMe.onStart(this);
         RateMe.showRateDialogIfNeeded(this);
-//        EventBus.getDefault().register(this);
     }
     
     @Override
     protected void onStop() {
         super.onStop();
-//        EventBus.getDefault().unregister(this);
     }
     
     @Override
@@ -87,6 +97,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         
         mActionBar.setCustomView(v);
         mActionBar.setDisplayShowCustomEnabled(true);
+    }
+    
+    private void setFonts(){
+        welcome.setTypeface(typeface);
+        resultView.setTypeface(typeface);
     }
     
 }

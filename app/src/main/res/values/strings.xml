@@ -8,5 +8,7 @@
     <string name="rateme_dialog_ok">Puan ver</string>
     <string name="rateme_dialog_cancel">Hatırlat</string>
     <string name="rateme_dialog_no">Hayır, Teşekkürler</string>
+    <string name="welcome">Kan Şekeri Ölçümünüz Nedir?</string>
+    <string name="tamam">TAMAM</string>
 
 </resources>

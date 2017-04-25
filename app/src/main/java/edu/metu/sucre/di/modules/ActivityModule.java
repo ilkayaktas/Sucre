@@ -8,6 +8,7 @@ import dagger.Provides;
 import edu.metu.sucre.controller.DataManager;
 import edu.metu.sucre.controller.services.MobssAsyncTask;
 import edu.metu.sucre.controller.strategy.Strategy;
+import edu.metu.sucre.di.annotations.ActivityContext;
 import edu.metu.sucre.di.annotations.PerActivity;
 import edu.metu.sucre.views.activities.home.MainMvpPresenter;
 import edu.metu.sucre.views.activities.home.MainMvpView;
@@ -37,6 +38,13 @@ public class ActivityModule {
     @PerActivity
     Typeface provideTypeface(){
         return Typeface.createFromAsset(activity.getAssets(), "fonts/Sketch.ttf");
+    }
+    
+    @Provides
+    @PerActivity
+    @ActivityContext
+    Typeface provideTypefaceForActivity(){
+        return Typeface.createFromAsset(activity.getAssets(), "fonts/gothic.TTF");
     }
     
     @Provides
