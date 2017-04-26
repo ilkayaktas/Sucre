@@ -51,4 +51,9 @@ ext {
     // EventBus
     eventBusVersion = "3.0.0"
 
+    // Wiliam Chart
+    williamChartVersion = "2.4.0"
+
+    // MPAndroid Chart
+//    MPAndroidChartVersion = "v3.0.2"
 }

@@ -56,4 +56,9 @@ dependencies {
     // EventBus
     compile "org.greenrobot:eventbus:$rootProject.eventBusVersion"
 
+    // Willam Chart
+    compile "com.diogobernardino:williamchart:$rootProject.williamChartVersion"
+
+    // MPAndroid Chart
+//    compile "com.github.PhilJay:MPAndroidChart:$rootProject.MPAndroidChartVersion"
 }
