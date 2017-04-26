@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import butterknife.Unbinder;
 import edu.metu.sucre.App;
 import edu.metu.sucre.R;
+import edu.metu.sucre.di.annotations.ActivityContext;
 import edu.metu.sucre.di.components.ActivityComponent;
 import edu.metu.sucre.di.components.DaggerActivityComponent;
 import edu.metu.sucre.di.modules.ActivityModule;
@@ -37,6 +38,10 @@ public class BaseActivity extends AppCompatActivity implements MvpView, BaseFrag
 
 	@Inject
 	public Typeface textFont;
+
+	@Inject
+	@ActivityContext
+	public Typeface typeface;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
