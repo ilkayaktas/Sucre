@@ -22,6 +22,7 @@ import edu.metu.sucre.di.modules.ActivityModule;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.home.MainActivity;
 import edu.metu.sucre.views.activities.splash.SplashScreenActivity;
+import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 
 /**
  * Created by iaktas on 24/04/17.
@@ -36,6 +37,6 @@ public interface ActivityComponent {
     void inject(MainActivity activity);
     
     void inject(SplashScreenActivity activity);
-
-
+    
+    void inject(SugarLevelActivity activity);
 }

@@ -1,6 +1,7 @@
 package edu.metu.sucre.views.activities.base;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -134,4 +135,13 @@ public class BaseActivity extends AppCompatActivity implements MvpView, BaseFrag
 		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
 	}
 	
+	public void startActivity(Class<?> newActivityClass){
+		// intent oluştur
+		Intent intent = new Intent(getBaseContext(), newActivityClass);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		
+		
+		// yeni Acitivity başlat
+		startActivity(intent);
+	}
 }

@@ -16,6 +16,9 @@ import edu.metu.sucre.views.activities.home.MainPresenter;
 import edu.metu.sucre.views.activities.splash.SplashScreenMvpPresenter;
 import edu.metu.sucre.views.activities.splash.SplashScreenMvpView;
 import edu.metu.sucre.views.activities.splash.SplashScreenPresenter;
+import edu.metu.sucre.views.activities.sugarlevel.SugarLevelMvpPresenter;
+import edu.metu.sucre.views.activities.sugarlevel.SugarLevelMvpView;
+import edu.metu.sucre.views.activities.sugarlevel.SugarLevelPresenter;
 
 /**
  * Created by ilkay on 10/03/2017.
@@ -50,13 +53,19 @@ public class ActivityModule {
     @Provides
     @PerActivity
     SplashScreenMvpPresenter<SplashScreenMvpView> provideSplashScreenPresenter(DataManager dataManager) {
-        return new SplashScreenPresenter<SplashScreenMvpView>(dataManager);
+        return new SplashScreenPresenter<>(dataManager);
     }
     
     @Provides
     @PerActivity
     MainMvpPresenter<MainMvpView> providesMainPresenter(DataManager dataManager){
-        return new MainPresenter<MainMvpView>(dataManager);
+        return new MainPresenter<>(dataManager);
+    }
+    
+    @Provides
+    @PerActivity
+    SugarLevelMvpPresenter<SugarLevelMvpView> providesSugarLevelPresenter(DataManager dataManager){
+        return new SugarLevelPresenter<>(dataManager);
     }
     
     @Provides

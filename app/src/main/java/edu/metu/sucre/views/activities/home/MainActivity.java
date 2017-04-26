@@ -17,10 +17,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.metu.sucre.R;
 import edu.metu.sucre.adapters.ListAdapter;
 import edu.metu.sucre.model.app.ListItem;
 import edu.metu.sucre.views.activities.base.BaseActivity;
+import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
 
@@ -121,5 +123,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     public void updateListView(List<ListItem> sugarValues) {
         ListAdapter adapter = new ListAdapter(this, sugarValues);
         listOfSugarLevel.setAdapter(adapter);
+    }
+    
+    @OnClick(R.id.resultView)
+    public void showListView(View view) {
+        startActivity(SugarLevelActivity.class);
     }
 }
