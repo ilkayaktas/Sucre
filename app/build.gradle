@@ -33,6 +33,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support.constraint:constraint-layout:$rootProject.constraintsLibraryVersion" // Constraints layout
     compile "com.android.support:design:$rootProject.supportLibraryVersion" // snackbar
+    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion" // Cardview
 
     // Test
     testCompile "junit:junit:$rootProject.junitVersion"

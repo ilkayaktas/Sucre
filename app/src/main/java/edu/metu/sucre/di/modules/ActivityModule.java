@@ -19,6 +19,12 @@ import edu.metu.sucre.views.activities.splash.SplashScreenPresenter;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelMvpPresenter;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelMvpView;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelPresenter;
+import edu.metu.sucre.views.fragments.listfragment.ListMvpPresenter;
+import edu.metu.sucre.views.fragments.listfragment.ListMvpView;
+import edu.metu.sucre.views.fragments.listfragment.ListPresenter;
+import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsMvpPresenter;
+import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsMvpView;
+import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsPresenter;
 
 /**
  * Created by ilkay on 10/03/2017.
@@ -72,6 +78,18 @@ public class ActivityModule {
     @PerActivity
     MobssAsyncTask providesMobssAsyncTask(Activity activity, Strategy strategy){
         return new MobssAsyncTask(activity, strategy);
+    }
+
+    @Provides
+    @PerActivity
+    ListMvpPresenter<ListMvpView> providesListMvpPresenter(DataManager dataManager){
+        return new ListPresenter<>(dataManager);
+    }
+
+    @Provides
+    @PerActivity
+    StatisticsMvpPresenter<StatisticsMvpView> providesStatisticsMvpPresenter(DataManager dataManager){
+        return new StatisticsPresenter<>(dataManager);
     }
     
 }

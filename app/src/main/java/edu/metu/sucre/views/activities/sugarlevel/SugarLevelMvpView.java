@@ -1,8 +1,5 @@
 package edu.metu.sucre.views.activities.sugarlevel;
 
-import java.util.List;
-
-import edu.metu.sucre.model.app.ListItem;
 import edu.metu.sucre.views.activities.base.MvpView;
 
 /**
@@ -10,5 +7,4 @@ import edu.metu.sucre.views.activities.base.MvpView;
  */
 
 public interface SugarLevelMvpView extends MvpView {
-	void updateListView(List<ListItem> sugarValues);
 }

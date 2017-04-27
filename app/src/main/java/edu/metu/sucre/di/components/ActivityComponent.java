@@ -23,6 +23,8 @@ import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.home.MainActivity;
 import edu.metu.sucre.views.activities.splash.SplashScreenActivity;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
+import edu.metu.sucre.views.fragments.listfragment.ListFragment;
+import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsFragment;
 
 /**
  * Created by iaktas on 24/04/17.
@@ -39,4 +41,8 @@ public interface ActivityComponent {
     void inject(SplashScreenActivity activity);
     
     void inject(SugarLevelActivity activity);
+
+    void inject(ListFragment fragment);
+
+    void inject(StatisticsFragment fragment);
 }

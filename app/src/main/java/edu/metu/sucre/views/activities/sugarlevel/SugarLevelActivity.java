@@ -1,11 +1,11 @@
 package edu.metu.sucre.views.activities.sugarlevel;
 
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,11 +16,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
-import edu.metu.sucre.adapters.ListAdapter;
-import edu.metu.sucre.model.app.ListItem;
+import edu.metu.sucre.adapters.ViewPagerAdapter;
 import edu.metu.sucre.views.activities.base.BaseActivity;
+import edu.metu.sucre.views.activities.base.BaseFragment;
+import edu.metu.sucre.views.fragments.listfragment.ListFragment;
+import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsFragment;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
+import edu.metu.sucre.views.widgets.viewpagers.NonScrollableViewPager;
 
 /**
  * Created by ilkay on 27/04/2017.
@@ -31,8 +34,9 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 	@Inject
 	SugarLevelMvpPresenter<SugarLevelMvpView> mPresenter;
 	
-	@BindView(R.id.list_of_sugarlevel_big) ListView listOfSugarLevel;
-	
+	@BindView(R.id.view_pager_for_fragment) NonScrollableViewPager view_pager_for_fragment;
+	private PagerAdapter mPagerAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,20 +52,19 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		mPresenter.onAttach(SugarLevelActivity.this);
 		
 		addCustomActionBar();
-		
-		temporaryInitializeList();
+
+		setViewPager();
 	}
 	
-	private void temporaryInitializeList() {
-		List<ListItem> list = new ArrayList<>();
-		for (int i = 0; i < 15; i++) {
-			ListItem listItem = new ListItem(120+5*i, i%2==0?"pre":"post", "24.04.2017");
-			list.add(listItem);
-		}
-		
-		updateListView(list);
+	private void setViewPager(){
+
+		List<BaseFragment> fragmentList = new ArrayList<>();
+		fragmentList.add(StatisticsFragment.newInstance());
+		fragmentList.add(ListFragment.newInstance());
+		mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
+		view_pager_for_fragment.setAdapter(mPagerAdapter);
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -105,9 +108,4 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		mActionBar.setDisplayShowCustomEnabled(true);
 	}
 	
-	@Override
-	public void updateListView(List<ListItem> sugarValues) {
-		ListAdapter adapter = new ListAdapter(this, sugarValues);
-		listOfSugarLevel.setAdapter(adapter);
-	}
 }
