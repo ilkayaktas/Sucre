@@ -10,5 +10,7 @@
     <string name="rateme_dialog_no">Hayır, Teşekkürler</string>
     <string name="welcome">Kan Şekeri Ölçümünüz Nedir?</string>
     <string name="tamam">TAMAM</string>
+    <string name="pre">Açlık</string>
+    <string name="post">Tokluk</string>
 
 </resources>

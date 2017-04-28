@@ -54,6 +54,6 @@ ext {
     // Wiliam Chart
     williamChartVersion = "2.4.0"
 
-    // MPAndroid Chart
-//    MPAndroidChartVersion = "v3.0.2"
+    // Toogle Button Group
+    toggleButtonGroup = "1.2.2"
 }

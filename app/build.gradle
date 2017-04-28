@@ -60,6 +60,8 @@ dependencies {
     // Willam Chart
     compile "com.diogobernardino:williamchart:$rootProject.williamChartVersion"
 
-    // MPAndroid Chart
-//    compile "com.github.PhilJay:MPAndroidChart:$rootProject.MPAndroidChartVersion"
+    // Toogle Button Group
+    compile "us.belka:androidtoggleswitch:$rootProject.toggleButtonGroup"
+
+    compile 'com.github.jhonnyx2012:horizontal-picker:1.0.5'
 }
