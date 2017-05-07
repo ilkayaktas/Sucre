@@ -12,5 +12,6 @@
     <string name="tamam">TAMAM</string>
     <string name="pre">Açlık</string>
     <string name="post">Tokluk</string>
+    <string name="show_all">Tüm Kayıtları Göster</string>
 
 </resources>

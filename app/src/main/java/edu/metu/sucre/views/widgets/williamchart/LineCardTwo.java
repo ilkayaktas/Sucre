@@ -21,8 +21,8 @@ public class LineCardTwo extends CardController {
 	private final LineChartView mChart;
 
 	private final String[] mLabels =
-			  {"", "", "", "", "START", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-						 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "FINISH", "", "", "",
+			  {"", "", "", "", "Last Week", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+						 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Today", "", "", "",
 						 ""};
 
 	private final float[][] mValues =

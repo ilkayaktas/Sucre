@@ -63,5 +63,9 @@ dependencies {
     // Toogle Button Group
     compile "us.belka:androidtoggleswitch:$rootProject.toggleButtonGroup"
 
-    compile 'com.github.jhonnyx2012:horizontal-picker:1.0.5'
+    // Date picker
+//    compile 'com.github.jhonnyx2012:horizontal-picker:1.0.5'
+
+    // Date picker
+    compile 'com.github.florent37:singledateandtimepicker:1.1.0'
 }

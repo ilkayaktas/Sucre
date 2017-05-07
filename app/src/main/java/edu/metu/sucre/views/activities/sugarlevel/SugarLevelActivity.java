@@ -21,7 +21,6 @@ import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.base.BaseFragment;
 import edu.metu.sucre.views.fragments.listfragment.ListFragment;
 import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsFragment;
-import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
 import edu.metu.sucre.views.widgets.viewpagers.NonScrollableViewPager;
 
@@ -46,8 +45,6 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		
 		setUnBinder(ButterKnife.bind(this));
 		
-		RateMe.init(new Config(5, 10)); // 5 gün ya da 10 defa uygulama başlattıktan sonra
-		
 		// Attach presenter
 		mPresenter.onAttach(SugarLevelActivity.this);
 		
@@ -59,8 +56,8 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 	private void setViewPager(){
 
 		List<BaseFragment> fragmentList = new ArrayList<>();
-		fragmentList.add(StatisticsFragment.newInstance());
 		fragmentList.add(ListFragment.newInstance());
+		fragmentList.add(StatisticsFragment.newInstance());
 		mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
 		view_pager_for_fragment.setAdapter(mPagerAdapter);
 	}

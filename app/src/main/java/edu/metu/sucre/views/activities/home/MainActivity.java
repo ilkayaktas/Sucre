@@ -4,16 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.github.jhonnyx2012.horizontalpicker.DatePickerListener;
-import com.github.jhonnyx2012.horizontalpicker.HorizontalPicker;
-
-import org.joda.time.DateTime;
+import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 
 import java.util.List;
 
@@ -24,15 +21,19 @@ import butterknife.ButterKnife;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.ListItem;
 import edu.metu.sucre.views.activities.base.BaseActivity;
+import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
 
-public class MainActivity extends BaseActivity implements MainMvpView, DatePickerListener {
+public class MainActivity extends BaseActivity implements MainMvpView {
     
     @Inject
     MainMvpPresenter<MainMvpView> mPresenter;
 
     @BindView(R.id.welcome) TextView welcome;
+    @BindView(R.id.datePicker) SingleDateAndTimePicker datepicker;
+    @BindView(R.id.button) Button button;
+            
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, DatePicke
         setUnBinder(ButterKnife.bind(this));
     
         RateMe.init(new Config(5, 10)); // 5 gün ya da 10 defa uygulama başlattıktan sonra
-
-        HorizontalPicker picker= (HorizontalPicker) findViewById(R.id.datePicker);
-        picker.setListener(this).init();
-        picker.setDate(DateTime.now());
+    
         // Attach presenter
         mPresenter.onAttach(MainActivity.this);
     
@@ -108,14 +106,14 @@ public class MainActivity extends BaseActivity implements MainMvpView, DatePicke
     
     private void setFonts(){
         welcome.setTypeface(typeface);
+        button.setTypeface(typeface);
     }
 
     @Override
     public void updateListView(List<ListItem> sugarValues) {
     }
-
-    @Override
-    public void onDateSelected(DateTime dateSelected) {
-        Log.i("HorizontalPicker","Fecha seleccionada="+dateSelected.toString());
+    
+    public void showPreviousRecords(View v){
+        startActivity(SugarLevelActivity.class);
     }
 }

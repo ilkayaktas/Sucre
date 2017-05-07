@@ -6,9 +6,8 @@
 
     <ListView
         android:id="@+id/list_of_sugarlevel_big"
-        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:background="@drawable/button_stroke"
+        android:background="@drawable/bg_gradient"
         android:layout_height="match_parent"/>
 
 </LinearLayout>
