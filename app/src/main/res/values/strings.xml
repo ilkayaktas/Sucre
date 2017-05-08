@@ -13,5 +13,6 @@
     <string name="pre">Açlık</string>
     <string name="post">Tokluk</string>
     <string name="show_all">Tüm Kayıtları Göster</string>
+    <string name="unrecognized_speech">Konuşma tanımlanamadı.</string>
 
 </resources>

@@ -38,6 +38,8 @@ public final class AppConstants {
 
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
 
+    public static final int REQ_CODE_SPEECH_INPUT = 5000;
+
     private AppConstants() {
         // This utility class is not publicly instantiable
     }

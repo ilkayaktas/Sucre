@@ -1,18 +1,24 @@
 package edu.metu.sucre.views.activities.home;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -20,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.ListItem;
+import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
@@ -33,7 +40,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @BindView(R.id.welcome) TextView welcome;
     @BindView(R.id.datePicker) SingleDateAndTimePicker datepicker;
     @BindView(R.id.button) Button button;
-            
+    @BindView(R.id.microphoneRing) ImageView microphoneRing;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,5 +124,46 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     
     public void showPreviousRecords(View v){
         startActivity(SugarLevelActivity.class);
+    }
+
+    /**
+     * Showing google speech input dialog
+     * */
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,getString(R.string.welcome));
+
+        try {
+            startActivityForResult(intent, AppConstants.REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(), getString(R.string.unrecognized_speech), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Receiving speech input
+     * */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case AppConstants.REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    Toast.makeText(this, result.get(0), Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+
+        }
+    }
+
+    public void onMicrophoneRingClicked(View view){
+        promptSpeechInput();
     }
 }
