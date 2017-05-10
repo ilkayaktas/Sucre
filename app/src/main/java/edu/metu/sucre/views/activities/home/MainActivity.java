@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 .setTopColorRes(R.color.mobss_color_green)
                 .setIcon(R.drawable.ic_check)
                 .setTitle(R.string.record_success_title)
-                .setMessage(R.string.record_success)
+                .setMessage(getString(R.string.record_success) + "\n\n" + bloodSugar.value)
                 .show();
     }
 
