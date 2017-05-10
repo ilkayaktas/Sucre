@@ -4,7 +4,7 @@ import android.app.Application;
 
 import javax.inject.Inject;
 
-import edu.metu.sucre.controller.DataManager;
+import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.di.components.ApplicationComponent;
 import edu.metu.sucre.di.components.DaggerApplicationComponent;
 import edu.metu.sucre.di.modules.ApplicationModule;
@@ -19,7 +19,7 @@ public class App extends Application {
     ApplicationComponent appComponent;
 
     @Inject
-    DataManager mDataManager;
+    IDataManager mIDataManager;
 
     @Override
     public void onCreate() {

@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import edu.metu.sucre.App;
-import edu.metu.sucre.controller.DataManager;
+import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.di.annotations.ApplicationContext;
 import edu.metu.sucre.di.modules.ApplicationModule;
 
@@ -26,6 +26,6 @@ public interface ApplicationComponent {
     
     Application application();
     
-    DataManager getDataManager();
+    IDataManager getDataManager();
     
 }

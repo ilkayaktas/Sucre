@@ -5,7 +5,7 @@ package edu.metu.sucre.views.activities.base;
  */
 
 
-import edu.metu.sucre.controller.DataManager;
+import edu.metu.sucre.controller.IDataManager;
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for
@@ -14,12 +14,12 @@ import edu.metu.sucre.controller.DataManager;
  */
 public class BasePresenter <V extends MvpView> implements MvpPresenter<V> {
 
-    private final DataManager dataManager;
+    private final IDataManager IDataManager;
 
     private V mMvpView;
 
-    public BasePresenter(DataManager dataManager) {
-        this.dataManager = dataManager;
+    public BasePresenter(IDataManager IDataManager) {
+        this.IDataManager = IDataManager;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class BasePresenter <V extends MvpView> implements MvpPresenter<V> {
         if (!isViewAttached()) throw new MvpViewNotAttachedException();
     }
 
-    public DataManager getDataManager() {
-        return dataManager;
+    public IDataManager getIDataManager() {
+        return IDataManager;
     }
 
     public static class MvpViewNotAttachedException extends RuntimeException {

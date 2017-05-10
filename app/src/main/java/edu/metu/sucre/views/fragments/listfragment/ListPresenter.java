@@ -1,7 +1,7 @@
 package edu.metu.sucre.views.fragments.listfragment;
 
 
-import edu.metu.sucre.controller.DataManager;
+import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.views.activities.base.BasePresenter;
 
 /**
@@ -9,8 +9,8 @@ import edu.metu.sucre.views.activities.base.BasePresenter;
  */
 
 public class ListPresenter<V extends ListMvpView> extends BasePresenter<V> implements ListMvpPresenter<V>{
-    public ListPresenter(DataManager dataManager) {
-        super(dataManager);
+    public ListPresenter(IDataManager IDataManager) {
+        super(IDataManager);
     }
 
 }

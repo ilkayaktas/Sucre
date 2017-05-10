@@ -7,17 +7,17 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.controller.DataManager;
-import edu.metu.sucre.controller.DataManagerImpl;
+import edu.metu.sucre.controller.api.IApiHelper;
 import edu.metu.sucre.controller.api.ApiHelper;
-import edu.metu.sucre.controller.api.ApiHelperImpl;
+import edu.metu.sucre.controller.db.IDbHelper;
 import edu.metu.sucre.controller.db.DbHelper;
-import edu.metu.sucre.controller.db.DbHelperImpl;
 import edu.metu.sucre.controller.db.crud.DatabaseManager;
 import edu.metu.sucre.controller.db.crud.DatabaseMigration;
 import edu.metu.sucre.controller.db.crud.RealmManager;
+import edu.metu.sucre.controller.pref.IPreferenceHelper;
 import edu.metu.sucre.controller.pref.PreferenceHelper;
-import edu.metu.sucre.controller.pref.PreferenceHelperImpl;
 import edu.metu.sucre.di.annotations.ApplicationContext;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -50,14 +50,14 @@ public class ApplicationModule {
 	
 	@Provides
 	@Singleton
-	DataManager provideDataManager(@ApplicationContext Context context, DbHelper mDbHelper, PreferenceHelper mPreferenceHelper, ApiHelper mApiHelper) {
-		return new DataManagerImpl( context, mDbHelper, mPreferenceHelper, mApiHelper);
+	IDataManager provideDataManager(@ApplicationContext Context context, IDbHelper mIDbHelper, IPreferenceHelper mIPreferenceHelper, IApiHelper mIApiHelper) {
+		return new DataManager( context, mIDbHelper, mIPreferenceHelper, mIApiHelper);
 	}
 	
 	@Provides
 	@Singleton
-	DbHelper provideDbHelper(DatabaseManager databaseManager) {
-		return new DbHelperImpl(databaseManager);
+	IDbHelper provideDbHelper(DatabaseManager databaseManager) {
+		return new DbHelper(databaseManager);
 	}
 	
 	@Provides
@@ -89,14 +89,14 @@ public class ApplicationModule {
 	
 	@Provides
 	@Singleton
-	PreferenceHelper providePreferencesHelper(@ApplicationContext Context context) {
-		return new PreferenceHelperImpl(context);
+	IPreferenceHelper providePreferencesHelper(@ApplicationContext Context context) {
+		return new PreferenceHelper(context);
 	}
 	
 	@Provides
 	@Singleton
-	ApiHelper provideApiHelper() {
-		return new ApiHelperImpl();
+	IApiHelper provideApiHelper() {
+		return new ApiHelper();
 	}
 	
 }

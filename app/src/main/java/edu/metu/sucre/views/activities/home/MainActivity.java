@@ -15,17 +15,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
+import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
+import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.ListItem;
+import edu.metu.sucre.model.app.SugarMeasurementType;
 import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
@@ -38,6 +43,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     MainMvpPresenter<MainMvpView> mPresenter;
 
     @BindView(R.id.welcome) TextView welcome;
+    @BindView(R.id.toggleSwitch) ToggleSwitch toggleSwitch;
     @BindView(R.id.datePicker) SingleDateAndTimePicker datepicker;
     @BindView(R.id.button) Button button;
     @BindView(R.id.microphoneRing) ImageView microphoneRing;
@@ -121,7 +127,19 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Override
     public void updateListView(List<ListItem> sugarValues) {
     }
-    
+
+    @Override
+    public void updateUIAfterRecord(BloodSugar bloodSugar) {
+        Toast.makeText(this, getString(R.string.record_success), Toast.LENGTH_LONG).show();
+
+        new LovelyInfoDialog(this)
+                .setTopColorRes(R.color.mobss_color_green)
+                .setIcon(R.drawable.ic_check)
+                .setTitle(R.string.record_success_title)
+                .setMessage(R.string.record_success)
+                .show();
+    }
+
     public void showPreviousRecords(View v){
         startActivity(SugarLevelActivity.class);
     }
@@ -155,7 +173,15 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Toast.makeText(this, result.get(0), Toast.LENGTH_SHORT).show();
+
+                    try {
+
+                        // save blood sugar value
+                        saveBloodSugar(Integer.valueOf(result.get(0)));
+
+                    }catch (NumberFormatException e){
+                        Toast.makeText(this, getString(R.string.say_number), Toast.LENGTH_LONG).show();
+                    }
                 }
                 break;
             }
@@ -165,5 +191,18 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     public void onMicrophoneRingClicked(View view){
         promptSpeechInput();
+    }
+
+    private void saveBloodSugar(int bloodSugarValue){
+        Date date = datepicker.getDate();
+        SugarMeasurementType sugarMeasurementType;
+        if(toggleSwitch.getCheckedTogglePosition() == 0){
+            sugarMeasurementType = SugarMeasurementType.PRE;
+        } else{
+            sugarMeasurementType = SugarMeasurementType.POST;
+        }
+
+        // save record
+        mPresenter.saveBloodSugar(new BloodSugar(date, bloodSugarValue, sugarMeasurementType));
     }
 }

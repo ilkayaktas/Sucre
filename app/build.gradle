@@ -64,8 +64,8 @@ dependencies {
     compile "us.belka:androidtoggleswitch:$rootProject.toggleButtonGroup"
 
     // Date picker
-//    compile 'com.github.jhonnyx2012:horizontal-picker:1.0.5'
+    compile "com.github.florent37:singledateandtimepicker:$rootProject.datepicker"
 
-    // Date picker
-    compile 'com.github.florent37:singledateandtimepicker:1.1.0'
+    // Lovely Dialog
+    compile "com.yarolegovich:lovely-dialog:$rootProject.lovelydialog"
 }

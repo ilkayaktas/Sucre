@@ -5,7 +5,7 @@ import android.graphics.Typeface;
 
 import dagger.Module;
 import dagger.Provides;
-import edu.metu.sucre.controller.DataManager;
+import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.controller.services.MobssAsyncTask;
 import edu.metu.sucre.controller.strategy.Strategy;
 import edu.metu.sucre.di.annotations.ActivityContext;
@@ -58,20 +58,20 @@ public class ActivityModule {
     
     @Provides
     @PerActivity
-    SplashScreenMvpPresenter<SplashScreenMvpView> provideSplashScreenPresenter(DataManager dataManager) {
-        return new SplashScreenPresenter<>(dataManager);
+    SplashScreenMvpPresenter<SplashScreenMvpView> provideSplashScreenPresenter(IDataManager IDataManager) {
+        return new SplashScreenPresenter<>(IDataManager);
     }
     
     @Provides
     @PerActivity
-    MainMvpPresenter<MainMvpView> providesMainPresenter(DataManager dataManager){
-        return new MainPresenter<>(dataManager);
+    MainMvpPresenter<MainMvpView> providesMainPresenter(IDataManager IDataManager){
+        return new MainPresenter<>(IDataManager);
     }
     
     @Provides
     @PerActivity
-    SugarLevelMvpPresenter<SugarLevelMvpView> providesSugarLevelPresenter(DataManager dataManager){
-        return new SugarLevelPresenter<>(dataManager);
+    SugarLevelMvpPresenter<SugarLevelMvpView> providesSugarLevelPresenter(IDataManager IDataManager){
+        return new SugarLevelPresenter<>(IDataManager);
     }
     
     @Provides
@@ -82,14 +82,14 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    ListMvpPresenter<ListMvpView> providesListMvpPresenter(DataManager dataManager){
-        return new ListPresenter<>(dataManager);
+    ListMvpPresenter<ListMvpView> providesListMvpPresenter(IDataManager IDataManager){
+        return new ListPresenter<>(IDataManager);
     }
 
     @Provides
     @PerActivity
-    StatisticsMvpPresenter<StatisticsMvpView> providesStatisticsMvpPresenter(DataManager dataManager){
-        return new StatisticsPresenter<>(dataManager);
+    StatisticsMvpPresenter<StatisticsMvpView> providesStatisticsMvpPresenter(IDataManager IDataManager){
+        return new StatisticsPresenter<>(IDataManager);
     }
     
 }

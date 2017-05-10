@@ -14,5 +14,8 @@
     <string name="post">Tokluk</string>
     <string name="show_all">Tüm Kayıtları Göster</string>
     <string name="unrecognized_speech">Konuşma tanımlanamadı.</string>
+    <string name="say_number">Lütfen sadece sayı söyleyiniz.</string>
+    <string name="record_success">Kan şeker değeriniz başarıyla kaydedildi.</string>
+    <string name="record_success_title">Kayıt Başarılı</string>
 
 </resources>

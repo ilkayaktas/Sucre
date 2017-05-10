@@ -1,7 +1,8 @@
 package edu.metu.sucre.views.activities.home;
 
 
-import edu.metu.sucre.controller.DataManager;
+import edu.metu.sucre.controller.IDataManager;
+import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.views.activities.base.BasePresenter;
 
 /**
@@ -11,8 +12,8 @@ import edu.metu.sucre.views.activities.base.BasePresenter;
 public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 		implements MainMvpPresenter<V>{
 	
-	public MainPresenter(DataManager dataManager) {
-		super(dataManager);
+	public MainPresenter(IDataManager IDataManager) {
+		super(IDataManager);
 	}
 	
 	@Override
@@ -26,5 +27,12 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
 	@Override
 	public void getFavoriKavramlar() {
+	}
+
+	@Override
+	public void saveBloodSugar(BloodSugar bloodSugar) {
+		getIDataManager().saveBloodSugar(bloodSugar);
+
+		getMvpView().updateUIAfterRecord(bloodSugar);
 	}
 }

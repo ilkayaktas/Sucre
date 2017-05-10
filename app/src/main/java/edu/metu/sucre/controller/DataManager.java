@@ -1,30 +1,65 @@
-/*
- * Copyright (C) 2017 MINDORKS NEXTGEN PRIVATE LIMITED
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.mindorks.com/license/apache-v2
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License
- */
-
 package edu.metu.sucre.controller;
 
+import android.content.Context;
 
-import edu.metu.sucre.controller.api.ApiHelper;
-import edu.metu.sucre.controller.db.DbHelper;
-import edu.metu.sucre.controller.pref.PreferenceHelper;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import edu.metu.sucre.controller.api.IApiHelper;
+import edu.metu.sucre.controller.db.IDbHelper;
+import edu.metu.sucre.controller.pref.IPreferenceHelper;
+import edu.metu.sucre.di.annotations.ApplicationContext;
+import edu.metu.sucre.model.app.BloodSugar;
 
 /**
- * Created by iaktas on 27/01/17.
+ * Created by ilkay on 11/03/2017.
  */
 
-public interface DataManager extends DbHelper, PreferenceHelper, ApiHelper {
+@Singleton
+public class DataManager implements IDataManager {
+	
+	private final Context mContext;
+	private final IDbHelper mIDbHelper;
+	private final IPreferenceHelper mIPreferenceHelper;
+	private final IApiHelper mIApiHelper;
+	
+	@Inject
+	public DataManager(@ApplicationContext Context mContext, IDbHelper mIDbHelper, IPreferenceHelper mIPreferenceHelper, IApiHelper mIApiHelper) {
+		this.mContext = mContext;
+		this.mIDbHelper = mIDbHelper;
+		this.mIPreferenceHelper = mIPreferenceHelper;
+		this.mIApiHelper = mIApiHelper;
+	}
 
+	@Override
+	public void initializeDatabase() {
 
+	}
+
+	@Override
+	public List<BloodSugar> getBloodSugar() {
+		return null;
+	}
+
+	@Override
+	public void saveBloodSugar(BloodSugar bloodSugar) {
+		mIDbHelper.saveBloodSugar(bloodSugar);
+	}
+
+	@Override
+	public void doApiCall() {
+
+	}
+
+	@Override
+	public boolean getDatabaseCreatedStatus() {
+		return false;
+	}
+
+	@Override
+	public void setDatabaseCreatedStatus() {
+
+	}
 }

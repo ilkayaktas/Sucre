@@ -1,6 +1,6 @@
 package edu.metu.sucre.views.activities.sugarlevel;
 
-import edu.metu.sucre.controller.DataManager;
+import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.views.activities.base.BasePresenter;
 
 /**
@@ -10,7 +10,7 @@ import edu.metu.sucre.views.activities.base.BasePresenter;
 public class SugarLevelPresenter <V extends SugarLevelMvpView> extends BasePresenter<V>
 		implements SugarLevelMvpPresenter<V> {
 	
-	public SugarLevelPresenter(DataManager dataManager) {
-		super(dataManager);
+	public SugarLevelPresenter(IDataManager IDataManager) {
+		super(IDataManager);
 	}
 }
