@@ -74,7 +74,8 @@ public class ListFragment extends BaseFragment implements ListMvpView{
     public void updateBloodSugarList(List<BloodSugar> bloodSugarList) {
         List<ListItem> sugarValues = new ArrayList<>();
         for ( BloodSugar bloodSugar: bloodSugarList) {
-            sugarValues.add(new ListItem(bloodSugar.value, bloodSugar.date.toString(), bloodSugar.sugarMeasurementType.toString() ));
+            sugarValues.add(new ListItem(bloodSugar.value, bloodSugar.date.toString(),
+                    bloodSugar.sugarMeasurementType.toString() ));
         }
         ListAdapter adapter = new ListAdapter(getBaseActivity(), sugarValues);
         fragment_list.setAdapter(adapter);

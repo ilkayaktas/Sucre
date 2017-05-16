@@ -13,10 +13,10 @@ import io.realm.annotations.PrimaryKey;
 
 public class RealmBloodSugar extends RealmObject {
     @PrimaryKey
-    String uuid;
-    Date date;
-    int value;
-    int sugarMeasurementType; // 1 means pre, 2 means post
+    public String uuid;
+    public Date date;
+    public int value;
+    public int sugarMeasurementType; // 1 means pre, 2 means post
 
     public RealmBloodSugar(){
 
