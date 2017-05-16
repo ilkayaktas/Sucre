@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
 import edu.metu.sucre.adapters.ListAdapter;
+import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.ListItem;
 import edu.metu.sucre.views.activities.base.BaseFragment;
 
@@ -48,7 +49,7 @@ public class ListFragment extends BaseFragment implements ListMvpView{
 
         mPresenter.onAttach(this);
 
-        temporaryInitializeList();
+        mPresenter.getAllBloodSugarMeasurements();
 
         return view;
     }
@@ -69,19 +70,14 @@ public class ListFragment extends BaseFragment implements ListMvpView{
         super.onDestroyView();
     }
 
-    private void temporaryInitializeList() {
-        List<ListItem> list = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            ListItem listItem = new ListItem(120+5*i, i%2==0?"pre":"post", "24.04.2017");
-            list.add(listItem);
+    @Override
+    public void updateBloodSugarList(List<BloodSugar> bloodSugarList) {
+        List<ListItem> sugarValues = new ArrayList<>();
+        for ( BloodSugar bloodSugar: bloodSugarList) {
+            sugarValues.add(new ListItem(bloodSugar.value, bloodSugar.date.toString(), bloodSugar.sugarMeasurementType.toString() ));
         }
-
-        updateListView(list);
-    }
-
-    public void updateListView(List<ListItem> sugarValues) {
         ListAdapter adapter = new ListAdapter(getBaseActivity(), sugarValues);
         fragment_list.setAdapter(adapter);
-    }
 
+    }
 }

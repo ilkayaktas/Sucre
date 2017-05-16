@@ -1,7 +1,10 @@
 package edu.metu.sucre.views.fragments.listfragment;
 
 
+import java.util.List;
+
 import edu.metu.sucre.controller.IDataManager;
+import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.views.activities.base.BasePresenter;
 
 /**
@@ -13,4 +16,9 @@ public class ListPresenter<V extends ListMvpView> extends BasePresenter<V> imple
         super(IDataManager);
     }
 
+    @Override
+    public void getAllBloodSugarMeasurements() {
+        List<BloodSugar> bloodSugarList =  getIDataManager().getBloodSugar();
+        getMvpView().updateBloodSugarList(bloodSugarList);
+    }
 }

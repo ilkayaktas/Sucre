@@ -1,6 +1,9 @@
 package edu.metu.sucre.views.fragments.listfragment;
 
 
+import java.util.List;
+
+import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.views.activities.base.MvpView;
 
 /**
@@ -8,4 +11,5 @@ import edu.metu.sucre.views.activities.base.MvpView;
  */
 
 public interface ListMvpView extends MvpView {
+    void updateBloodSugarList(List<BloodSugar> bloodSugarList);
 }

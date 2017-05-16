@@ -10,9 +10,9 @@ import io.realm.RealmObject;
  */
 
 public class RealmBloodSugar extends RealmObject {
-    Date date;
-    int value;
-    int sugarMeasurementType; // 1 means pre, 2 means post
+    public Date date;
+    public int value;
+    public int sugarMeasurementType; // 1 means pre, 2 means post
 
     public RealmBloodSugar(){
 

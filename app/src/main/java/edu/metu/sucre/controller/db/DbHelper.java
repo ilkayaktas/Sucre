@@ -1,6 +1,7 @@
 package edu.metu.sucre.controller.db;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.inject.Singleton;
 
 import edu.metu.sucre.controller.db.crud.DatabaseManager;
 import edu.metu.sucre.model.app.BloodSugar;
+import edu.metu.sucre.model.app.SugarMeasurementType;
 import edu.metu.sucre.model.db.realm.RealmBloodSugar;
 
 /**
@@ -16,27 +18,36 @@ import edu.metu.sucre.model.db.realm.RealmBloodSugar;
 
 @Singleton
 public class DbHelper implements IDbHelper {
-	
-	private final DatabaseManager databaseManager;
-	
-	@Inject
-	public DbHelper(DatabaseManager databaseManager) {
-		this.databaseManager = databaseManager;
-	}
-	
-	@Override
-	public void initializeDatabase() {
 
-	}
-	
-	@Override
-	public List<BloodSugar> getBloodSugar() {
-		return null;
-	}
+    private final DatabaseManager databaseManager;
 
-	@Override
-	public void saveBloodSugar(BloodSugar bloodSugar) {
-		databaseManager.saveOrUpdate(new RealmBloodSugar(bloodSugar));
-	}
+    @Inject
+    public DbHelper(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
+    }
+
+    @Override
+    public void initializeDatabase() {
+
+    }
+
+    @Override
+    public List<BloodSugar> getBloodSugar() {
+        List<RealmBloodSugar> realmBloodSugarList = databaseManager.getAll(RealmBloodSugar.class);
+
+        List<BloodSugar> bloodSugarList = new ArrayList<>();
+
+        for (RealmBloodSugar realmBloodSugar : realmBloodSugarList) {
+            bloodSugarList.add(new BloodSugar(realmBloodSugar.date,
+                                                realmBloodSugar.value,
+                    SugarMeasurementType.PRE));
+        }
+        return bloodSugarList;
+    }
+
+    @Override
+    public void saveBloodSugar(BloodSugar bloodSugar) {
+        databaseManager.saveOrUpdate(new RealmBloodSugar(bloodSugar));
+    }
 
 }

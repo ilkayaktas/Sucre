@@ -40,7 +40,7 @@ public class DataManager implements IDataManager {
 
 	@Override
 	public List<BloodSugar> getBloodSugar() {
-		return null;
+		return mIDbHelper.getBloodSugar();
 	}
 
 	@Override

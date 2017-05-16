@@ -9,10 +9,21 @@ public enum SugarMeasurementType {
     POST(2);
 
     private int value;
+
     SugarMeasurementType(int value) {
         this.value = value;
     }
 
     public int getValue(){return value;}
+
+    public String toString(){
+        if(value == 1){
+            return "AÇLIK";
+        } else if(value == 2){
+            return "TOKLUK";
+        } else{
+            return "";
+        }
+    }
 
 }
