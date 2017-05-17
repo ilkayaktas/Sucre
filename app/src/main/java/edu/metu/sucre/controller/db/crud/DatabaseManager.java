@@ -10,6 +10,7 @@ public interface DatabaseManager<E>{
 	void saveOrUpdate(Iterable<E> objects);
 	void saveOrUpdateAsync(Object object);
 	List<Object> getAll(Class clss);
+	List<Object> getAll(Class clss, String field, boolean isDescending);
 	List<Object> get(Class clss, String fieldName, int equalValue);
 	List<Object> get(Class clss, String fieldName, boolean equalValue);
 	List<Object> get(Class clss, String fieldName, String equalValue);

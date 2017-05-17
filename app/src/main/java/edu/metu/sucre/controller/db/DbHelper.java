@@ -33,14 +33,14 @@ public class DbHelper implements IDbHelper {
 
     @Override
     public List<BloodSugar> getBloodSugar() {
-        List<RealmBloodSugar> realmBloodSugarList = databaseManager.getAll(RealmBloodSugar.class);
+        List<RealmBloodSugar> realmBloodSugarList = databaseManager.getAll(RealmBloodSugar.class, "date", true);
 
         List<BloodSugar> bloodSugarList = new ArrayList<>();
 
         for (RealmBloodSugar realmBloodSugar : realmBloodSugarList) {
             bloodSugarList.add(new BloodSugar(realmBloodSugar.date,
                                                 realmBloodSugar.value,
-                    SugarMeasurementType.PRE));
+                    realmBloodSugar.sugarMeasurementType == 1 ? SugarMeasurementType.PRE : SugarMeasurementType.POST));
         }
         return bloodSugarList;
     }

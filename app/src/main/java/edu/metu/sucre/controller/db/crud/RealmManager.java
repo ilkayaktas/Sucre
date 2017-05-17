@@ -7,6 +7,7 @@ import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 @Singleton
 public class RealmManager implements DatabaseManager {
@@ -70,6 +71,11 @@ public class RealmManager implements DatabaseManager {
 	@Override
 	public RealmResults getAll(final Class clss){
 		return realm.where(clss).findAll();
+	}
+
+	@Override
+	public RealmResults getAll(Class clss, String field, boolean isDescending) {
+		return realm.where(clss).findAll().sort(field, isDescending ? Sort.DESCENDING : Sort.ASCENDING);
 	}
 
 	@Override

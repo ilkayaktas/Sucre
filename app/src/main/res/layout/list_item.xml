@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/sugarLevel"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:textSize="28sp"
         android:textColor="@color/mobss_color_white"
@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/prePost"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="20sp"

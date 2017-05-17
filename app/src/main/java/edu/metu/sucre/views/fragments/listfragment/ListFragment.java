@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,8 +75,10 @@ public class ListFragment extends BaseFragment implements ListMvpView{
     @Override
     public void updateBloodSugarList(List<BloodSugar> bloodSugarList) {
         List<ListItem> sugarValues = new ArrayList<>();
+        DateFormat df = SimpleDateFormat.getDateTimeInstance();
+
         for ( BloodSugar bloodSugar: bloodSugarList) {
-            sugarValues.add(new ListItem(bloodSugar.value, bloodSugar.date.toString(),
+            sugarValues.add(new ListItem(bloodSugar.value, df.format(bloodSugar.date),
                     bloodSugar.sugarMeasurementType.toString() ));
         }
         ListAdapter adapter = new ListAdapter(getBaseActivity(), sugarValues);
