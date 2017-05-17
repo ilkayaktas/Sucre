@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
 import edu.metu.sucre.adapters.ViewPagerAdapter;
+import edu.metu.sucre.events.ListItemClickedEvent;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.base.BaseFragment;
 import edu.metu.sucre.views.fragments.listfragment.ListFragment;
@@ -67,13 +72,20 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		super.onStart();
 		RateMe.onStart(this);
 		RateMe.showRateDialogIfNeeded(this);
+		EventBus.getDefault().register(this);
 	}
 	
 	@Override
 	protected void onStop() {
 		super.onStop();
+		EventBus.getDefault().unregister(this);
 	}
-	
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onMessageEvent(ListItemClickedEvent event) {
+		view_pager_for_fragment.setCurrentItem(1);
+	}
+
 	@Override
 	protected void onDestroy() {
 		mPresenter.onDetach();
@@ -83,9 +95,13 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			
-			finish();
-			
+
+			if(view_pager_for_fragment.getCurrentItem() != 0) {
+				view_pager_for_fragment.setCurrentItem(0);
+			} else{
+				finish();
+			}
+
 			return true;
 		} else {
 			return super.onKeyDown(keyCode, event);

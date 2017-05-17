@@ -15,37 +15,63 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
         android:text="@string/welcome"
         android:textColor="@color/mobss_color_white"
         android:textSize="24sp"/>
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/main_constraint"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_gravity="center">
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button_stroke">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/main_constraint"
+            app:layout_constraintRight_toRightOf="@+id/main_constraint"
+            app:layout_constraintTop_toTopOf="@+id/main_constraint"
+            app:layout_constraintBottom_toBottomOf="@+id/main_constraint"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/microphone"
+                android:layout_width="65dp"
+                android:layout_height="90dp"
+                app:layout_constraintBottom_toBottomOf="@+id/microphoneRing"
+                app:layout_constraintTop_toTopOf="@+id/microphoneRing"
+                app:layout_constraintRight_toRightOf="@+id/microphoneRing"
+                app:layout_constraintLeft_toLeftOf="@+id/microphoneRing"
+                app:srcCompat="@drawable/ic_microphone"/>
+
+
+            <ImageView
+                android:id="@+id/microphoneRing"
+                android:layout_width="99dp"
+                android:layout_height="119dp"
+                android:onClick="onMicrophoneRingClicked"
+                app:srcCompat="@drawable/ic_circle"/>
+        </android.support.constraint.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/microphone"
-            android:layout_width="65dp"
-            android:layout_height="89dp"
-            app:layout_constraintBottom_toBottomOf="@+id/microphoneRing"
-            app:layout_constraintTop_toTopOf="@+id/microphoneRing"
-            app:layout_constraintRight_toRightOf="@+id/microphoneRing"
-            app:layout_constraintLeft_toLeftOf="@+id/microphoneRing"
-            app:srcCompat="@drawable/ic_microphone"/>
-
-
-        <ImageView
-            android:id="@+id/microphoneRing"
-            android:layout_width="99dp"
-            android:layout_height="119dp"
-            android:onClick="onMicrophoneRingClicked"
-            app:srcCompat="@drawable/ic_circle"/>
+            android:id="@+id/edit_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="@id/main_constraint"
+            app:layout_constraintEnd_toEndOf="@id/main_constraint"
+            android:layout_marginBottom="10dp"
+            custom:srcCompat="@drawable/ic_edit"
+            android:onClick="onManualEntryButtonClicked"/>
     </android.support.constraint.ConstraintLayout>
+
 
 
     <belka.us.androidtoggleswitch.widgets.ToggleSwitch

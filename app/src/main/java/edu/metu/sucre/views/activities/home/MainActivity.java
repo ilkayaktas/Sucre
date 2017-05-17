@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -130,8 +131,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void updateUIAfterRecord(BloodSugar bloodSugar) {
-        Toast.makeText(this, getString(R.string.record_success), Toast.LENGTH_LONG).show();
-
         new LovelyInfoDialog(this)
                 .setTopColorRes(R.color.mobss_color_green)
                 .setIcon(R.drawable.ic_check)
@@ -191,6 +190,33 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     public void onMicrophoneRingClicked(View view){
         promptSpeechInput();
+    }
+
+    public void onManualEntryButtonClicked(View view){
+        new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+                .setTopColorRes(R.color.mobss_color_blue)
+                .setTitle(R.string.welcome)
+                .setIcon(R.drawable.ic_edit)
+                .setCancelable(true)
+                .setInputFilter(R.string.text_input_error_message, new LovelyTextInputDialog.TextFilter() {
+                    @Override
+                    public boolean check(String text) {
+                        return text.matches("\\d+");
+                    }
+                })
+                .setConfirmButton(R.string.kaydet, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                    @Override
+                    public void onTextInputConfirmed(String text) {
+                        // save blood sugar value
+                        saveBloodSugar(Integer.valueOf(text));
+                    }
+                })
+                .setNegativeButton(R.string.iptal, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                })
+                .show();
     }
 
     private void saveBloodSugar(int bloodSugarValue){

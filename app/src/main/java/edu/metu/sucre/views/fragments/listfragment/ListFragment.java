@@ -58,12 +58,6 @@ public class ListFragment extends BaseFragment implements ListMvpView{
 
     @Override
     protected void setUp(View view) {
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("fragment'de tıklandı");
-            }
-        });
     }
 
     @Override

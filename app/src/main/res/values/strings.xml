@@ -9,13 +9,15 @@
     <string name="rateme_dialog_cancel">Hatırlat</string>
     <string name="rateme_dialog_no">Hayır, Teşekkürler</string>
     <string name="welcome">Kan Şekeri Ölçümünüz Nedir?</string>
-    <string name="tamam">TAMAM</string>
     <string name="pre">Açlık</string>
     <string name="post">Tokluk</string>
+    <string name="kaydet">Kaydet</string>
+    <string name="iptal">İptal</string>
     <string name="show_all">Tüm Kayıtları Göster</string>
     <string name="unrecognized_speech">Konuşma tanımlanamadı.</string>
     <string name="say_number">Lütfen sadece sayı söyleyiniz.</string>
     <string name="record_success">Kan şeker değeriniz başarıyla kaydedildi.</string>
     <string name="record_success_title">Kayıt Başarılı</string>
+    <string name="text_input_error_message">Girdiğiniz değer hatalı. Lütfen sayı giriniz.</string>
 
 </resources>
