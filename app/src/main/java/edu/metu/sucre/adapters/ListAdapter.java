@@ -47,7 +47,7 @@ public class ListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         
         if(convertView==null) {
@@ -74,7 +74,7 @@ public class ListAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new ListItemClickedEvent());
+                EventBus.getDefault().post(new ListItemClickedEvent(position));
             }
         });
         return convertView;

@@ -1,16 +1,11 @@
 package edu.metu.sucre.views.activities.sugarlevel;
 
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +16,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
 import edu.metu.sucre.adapters.ViewPagerAdapter;
-import edu.metu.sucre.events.ListItemClickedEvent;
+import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.base.BaseFragment;
 import edu.metu.sucre.views.fragments.listfragment.ListFragment;
+import edu.metu.sucre.views.fragments.listfragment.OnBloodSugarSelectedListener;
 import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsFragment;
+import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsMvpView;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
 import edu.metu.sucre.views.widgets.viewpagers.NonScrollableViewPager;
 
@@ -33,13 +30,13 @@ import edu.metu.sucre.views.widgets.viewpagers.NonScrollableViewPager;
  * Created by ilkay on 27/04/2017.
  */
 
-public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpView {
+public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpView, OnBloodSugarSelectedListener {
 	
 	@Inject
 	SugarLevelMvpPresenter<SugarLevelMvpView> mPresenter;
 	
 	@BindView(R.id.view_pager_for_fragment) NonScrollableViewPager view_pager_for_fragment;
-	private PagerAdapter mPagerAdapter;
+	private ViewPagerAdapter mPagerAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +69,11 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		super.onStart();
 		RateMe.onStart(this);
 		RateMe.showRateDialogIfNeeded(this);
-		EventBus.getDefault().register(this);
 	}
 	
 	@Override
 	protected void onStop() {
 		super.onStop();
-		EventBus.getDefault().unregister(this);
-	}
-
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	public void onMessageEvent(ListItemClickedEvent event) {
-		view_pager_for_fragment.setCurrentItem(1);
 	}
 
 	@Override
@@ -114,11 +104,17 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		mActionBar.setDisplayShowTitleEnabled(false);
 		
 		LayoutInflater inflator = LayoutInflater.from(this);
-		View v = inflator.inflate(R.layout.layout_actionbar, null);
+		View v = inflator.inflate(R.layout.layout_sugarlevel_activity_actionbar, null);
 		((TextView)v.findViewById(R.id.actionbar_title)).setTypeface(textFont);
 		
 		mActionBar.setCustomView(v);
 		mActionBar.setDisplayShowCustomEnabled(true);
 	}
 	
+	@Override
+	public void onBloodSugarSelected(List<BloodSugar> bloodSugarList) {
+		StatisticsMvpView fragment = (StatisticsMvpView) mPagerAdapter.getItem(1);
+		fragment.updateData(bloodSugarList);
+		view_pager_for_fragment.setCurrentItem(1);
+	}
 }

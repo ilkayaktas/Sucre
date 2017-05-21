@@ -5,4 +5,9 @@ package edu.metu.sucre.events;
  */
 
 public class ListItemClickedEvent {
+	public final int position;
+	
+	public ListItemClickedEvent(int position) {
+		this.position = position;
+	}
 }

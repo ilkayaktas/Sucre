@@ -4,8 +4,6 @@ import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.TextView;
@@ -20,7 +18,7 @@ import com.db.chart.view.LineChartView;
 import edu.metu.sucre.R;
 
 
-public class LineCardOne extends CardController {
+public class LineChart extends CardController {
 
 
 	private final LineChartView mChart;
@@ -29,22 +27,22 @@ public class LineCardOne extends CardController {
 	private final Context mContext;
 
 
-	private final String[] mLabels = {"Jan", "Fev", "Mar", "Apr", "Jun", "May", "Jul", "Aug", "Sep"};
+	private String[] mLabels;
 
-	private final float[][] mValues = {{3.5f, 4.7f, 4.3f, 8f, 6.5f, 9.9f, 7f, 8.3f, 7.0f},
-			  {4.5f, 2.5f, 2.5f, 9f, 4.5f, 9.5f, 5f, 8.3f, 1.8f}};
+	private float[] mValues;
 
 	private Tooltip mTip;
 
 	private Runnable mBaseAction;
 
 
-	public LineCardOne(CardView card, Context context) {
-
-		super(card);
+	public LineChart(Context context, LineChartView mChart, String[] mLabels, float[] mValues) {
 
 		mContext = context;
-		mChart = (LineChartView) card.findViewById(R.id.chart1);
+		
+		this.mChart = mChart;
+		this.mLabels = mLabels;
+		this.mValues = mValues;
 	}
 
 
@@ -62,7 +60,6 @@ public class LineCardOne extends CardController {
 		mTip.setVerticalAlignment(Tooltip.Alignment.BOTTOM_TOP);
 		mTip.setDimensions((int) Tools.fromDpToPx(58), (int) Tools.fromDpToPx(25));
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 
 			mTip.setEnterAnimation(PropertyValuesHolder.ofFloat(View.ALPHA, 1),
 					  PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f),
@@ -74,26 +71,15 @@ public class LineCardOne extends CardController {
 
 			mTip.setPivotX(Tools.fromDpToPx(65) / 2);
 			mTip.setPivotY(Tools.fromDpToPx(25));
-		}
 
 		mChart.setTooltips(mTip);
 
 		// Data
-		LineSet dataset = new LineSet(mLabels, mValues[0]);
-		dataset.setColor(Color.parseColor("#758cbb"))
-				  .setFill(Color.parseColor("#2d374c"))
-				  .setDotsColor(Color.parseColor("#758cbb"))
-				  .setThickness(4)
-				  .setDashed(new float[] {10f, 10f})
-				  .beginAt(5);
-		mChart.addData(dataset);
-
-		dataset = new LineSet(mLabels, mValues[0]);
+		LineSet  dataset = new LineSet(mLabels, mValues);
 		dataset.setColor(Color.parseColor("#b3b5bb"))
 				  .setFill(Color.parseColor("#2d374c"))
 				  .setDotsColor(Color.parseColor("#ffc755"))
-				  .setThickness(4)
-				  .endAt(6);
+				  .setThickness(4);
 		mChart.addData(dataset);
 
 		// Chart
@@ -110,7 +96,7 @@ public class LineCardOne extends CardController {
 			public void run() {
 
 				mBaseAction.run();
-				mTip.prepare(mChart.getEntriesArea(0).get(3), mValues[0][3]);
+				mTip.prepare(mChart.getEntriesArea(0).get(3), mValues[3]);
 				mChart.showTooltip(mTip, true);
 			}
 		};
@@ -120,20 +106,11 @@ public class LineCardOne extends CardController {
 		mChart.show(anim);
 	}
 
-
-	@Override
-	public void update() {
-
-		super.update();
+	public void update(float[] mValues) {
 
 		mChart.dismissAllTooltips();
-		if (firstStage) {
-			mChart.updateValues(0, mValues[1]);
-			mChart.updateValues(1, mValues[1]);
-		} else {
-			mChart.updateValues(0, mValues[0]);
-			mChart.updateValues(1, mValues[0]);
-		}
+		mChart.updateValues(0, mValues);
+		
 		mChart.getChartAnimation().setEndAction(mBaseAction);
 		mChart.notifyDataUpdate();
 	}

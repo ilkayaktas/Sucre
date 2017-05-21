@@ -17,7 +17,6 @@
 package edu.metu.sucre.views.widgets.williamchart;
 
 import android.os.Handler;
-import android.support.v7.widget.CardView;
 
 
 public class CardController {
@@ -56,31 +55,10 @@ public class CardController {
 	};
 
 
-	protected CardController(CardView card) {
+	protected CardController() {
 
 		super();
 
-//		RelativeLayout toolbar = (RelativeLayout) card.findViewById(R.id.chart_toolbar);
-//		mPlayBtn = (ImageButton) toolbar.findViewById(R.id.play);
-//		mUpdateBtn = (ImageButton) toolbar.findViewById(R.id.update);
-//
-//		mPlayBtn.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//
-//				dismiss(showAction);
-//			}
-//		});
-//
-//		mUpdateBtn.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//
-//				update();
-//			}
-//		});
 	}
 
 

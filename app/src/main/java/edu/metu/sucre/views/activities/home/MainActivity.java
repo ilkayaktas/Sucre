@@ -1,19 +1,22 @@
 package edu.metu.sucre.views.activities.home;
 
+import android.animation.Animator;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBar;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
@@ -46,7 +49,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @BindView(R.id.welcome) TextView welcome;
     @BindView(R.id.toggleSwitch) ToggleSwitch toggleSwitch;
     @BindView(R.id.datePicker) SingleDateAndTimePicker datepicker;
-    @BindView(R.id.button) Button button;
     @BindView(R.id.microphoneRing) ImageView microphoneRing;
 
 
@@ -113,7 +115,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mActionBar.setDisplayShowTitleEnabled(false);
         
         LayoutInflater inflator = LayoutInflater.from(this);
-        View v = inflator.inflate(R.layout.layout_actionbar, null);
+        View v = inflator.inflate(R.layout.layout_main_activity_actionbar, null);
         ((TextView)v.findViewById(R.id.actionbar_title)).setTypeface(textFont);
         
         mActionBar.setCustomView(v);
@@ -122,7 +124,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     
     private void setFonts(){
         welcome.setTypeface(typeface);
-        button.setTypeface(typeface);
     }
 
     @Override
@@ -140,7 +141,16 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     public void showPreviousRecords(View v){
-        startActivity(SugarLevelActivity.class);
+        YoYo.with(Techniques.Pulse)
+                .duration(500)
+                .onEnd(new YoYo.AnimatorCallback() {
+                    @Override
+                    public void call(Animator animator) {
+                        startActivity(SugarLevelActivity.class);
+                    }
+                })
+                .playOn(v);
+        
     }
 
     /**
@@ -193,11 +203,12 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     public void onManualEntryButtonClicked(View view){
-        new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+        LovelyTextInputDialog dialog = new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
                 .setTopColorRes(R.color.mobss_color_blue)
                 .setTitle(R.string.welcome)
                 .setIcon(R.drawable.ic_edit)
                 .setCancelable(true)
+                .setInputType(InputType.TYPE_CLASS_NUMBER)
                 .setInputFilter(R.string.text_input_error_message, new LovelyTextInputDialog.TextFilter() {
                     @Override
                     public boolean check(String text) {
@@ -215,8 +226,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                     @Override
                     public void onClick(View view) {
                     }
-                })
-                .show();
+                });
+        
+        dialog.show();
     }
 
     private void saveBloodSugar(int bloodSugarValue){

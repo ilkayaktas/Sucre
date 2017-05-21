@@ -68,4 +68,9 @@ dependencies {
 
     // Lovely Dialog
     compile "com.yarolegovich:lovely-dialog:$rootProject.lovelydialog"
+
+    // View Animation
+    compile "com.android.support:support-compat:$rootProject.supportLibraryVersion"
+    compile "com.daimajia.easing:library:2.0@aar"
+    compile "com.daimajia.androidanimations:library:2.2@aar"
 }
