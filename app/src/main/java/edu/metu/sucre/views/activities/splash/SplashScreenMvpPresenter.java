@@ -10,5 +10,4 @@ import edu.metu.sucre.views.activities.base.MvpPresenter;
 
 @PerActivity
 public interface SplashScreenMvpPresenter<V extends SplashScreenMvpView> extends MvpPresenter<V> {
-	void createDatabase();
 }

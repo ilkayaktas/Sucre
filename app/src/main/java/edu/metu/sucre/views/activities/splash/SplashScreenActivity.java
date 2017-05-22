@@ -2,6 +2,7 @@ package edu.metu.sucre.views.activities.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -21,8 +22,10 @@ public class SplashScreenActivity extends BaseActivity implements SplashScreenMv
 	@Inject
 	SplashScreenMvpPresenter<SplashScreenMvpView> mPresenter;
 
-	@BindView(R.id.acilisKavramlarSozlugu) TextView acilisKavramlarSozlugu;
-	@BindView(R.id.acilisKavramlarSozluguSlogan) TextView acilisKavramlarSozluguSlogan;
+	@BindView(R.id.slogan) TextView slogan;
+	
+	/** Duration of wait **/
+	private final int SPLASH_DISPLAY_LENGTH = 3000;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,25 @@ public class SplashScreenActivity extends BaseActivity implements SplashScreenMv
 		
 		changeUIFonts();
 		
-		mPresenter.createDatabase();
+		startHandler();
+	}
+	
+	private void startHandler() {
+		/* New Handler to start the Menu-Activity
+         * and close this Splash-Screen after some seconds.*/
+		new Handler().postDelayed(new Runnable(){
+			@Override
+			public void run() {
+                /* Create an Intent that will start the Menu-Activity. */
+				Intent mainIntent = new Intent(SplashScreenActivity.this,MainActivity.class);
+				SplashScreenActivity.this.startActivity(mainIntent);
+				SplashScreenActivity.this.finish();
+			}
+		}, SPLASH_DISPLAY_LENGTH);
 	}
 	
 	private void changeUIFonts(){
-		acilisKavramlarSozlugu.setTypeface(textFont);
-		acilisKavramlarSozluguSlogan.setTypeface(textFont);
+		slogan.setTypeface(typeface);
 	}
 	
 	@Override

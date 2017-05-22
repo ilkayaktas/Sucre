@@ -108,7 +108,9 @@ public class LineChart extends CardController {
 	}
 
 	public void update(float[] mValues) {
-
+		
+		this.mValues = mValues;
+		
 		mChart.dismissAllTooltips();
 		mChart.updateValues(0, mValues);
 		

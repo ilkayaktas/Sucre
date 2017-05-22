@@ -33,10 +33,6 @@ public class DataManager implements IDataManager {
 		this.mIApiHelper = mIApiHelper;
 	}
 
-	@Override
-	public void initializeDatabase() {
-
-	}
 
 	@Override
 	public List<BloodSugar> getBloodSugar() {

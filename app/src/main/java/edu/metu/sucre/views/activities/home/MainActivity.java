@@ -1,11 +1,13 @@
 package edu.metu.sucre.views.activities.home;
 
 import android.animation.Animator;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -18,7 +20,6 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
-import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.ListItem;
 import edu.metu.sucre.model.app.SugarMeasurementType;
 import edu.metu.sucre.utils.AppConstants;
+import edu.metu.sucre.utils.KeyboardUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
@@ -132,17 +134,20 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void updateUIAfterRecord(BloodSugar bloodSugar) {
-        new LovelyInfoDialog(this)
-                .setTopColorRes(R.color.mobss_color_green)
-                .setIcon(R.drawable.ic_check)
-                .setTitle(R.string.record_success_title)
-                .setMessage(getString(R.string.record_success) + "\n\n" + bloodSugar.value)
-                .show();
+//        new LovelyInfoDialog(this)
+//                .setTopColorRes(R.color.mobss_color_green)
+//                .setIcon(R.drawable.ic_check)
+//                .setTitle(R.string.record_success_title)
+//                .setMessage(getString(R.string.record_success) + "\n\n" + bloodSugar.value)
+//                .show();
+    
+        String message = getString(R.string.record_success) + "\n" + bloodSugar.value;
+        Snackbar.make(datepicker, message, Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     public void showPreviousRecords(View v){
         YoYo.with(Techniques.Pulse)
-                .duration(500)
+                .duration(200)
                 .onEnd(new YoYo.AnimatorCallback() {
                     @Override
                     public void call(Animator animator) {
@@ -203,6 +208,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     public void onManualEntryButtonClicked(View view){
+        final Activity activity = this;
+        
         LovelyTextInputDialog dialog = new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
                 .setTopColorRes(R.color.mobss_color_blue)
                 .setTitle(R.string.welcome)
@@ -218,6 +225,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 .setConfirmButton(R.string.kaydet, new LovelyTextInputDialog.OnTextInputConfirmListener() {
                     @Override
                     public void onTextInputConfirmed(String text) {
+                        KeyboardUtils.hideSoftInput(activity);
                         // save blood sugar value
                         saveBloodSugar(Integer.valueOf(text));
                     }

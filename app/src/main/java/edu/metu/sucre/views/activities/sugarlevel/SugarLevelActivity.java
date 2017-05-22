@@ -22,6 +22,7 @@ import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.base.BaseFragment;
 import edu.metu.sucre.views.fragments.listfragment.ListFragment;
 import edu.metu.sucre.views.fragments.listfragment.OnBloodSugarSelectedListener;
+import edu.metu.sucre.views.fragments.statisticsfragment.OnShareButtonClickedListener;
 import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsFragment;
 import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsMvpView;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
@@ -31,7 +32,7 @@ import edu.metu.sucre.views.widgets.viewpagers.NonScrollableViewPager;
  * Created by ilkay on 27/04/2017.
  */
 
-public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpView, OnBloodSugarSelectedListener {
+public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpView, OnBloodSugarSelectedListener, OnShareButtonClickedListener{
 	
 	@Inject
 	SugarLevelMvpPresenter<SugarLevelMvpView> mPresenter;
@@ -118,11 +119,12 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		fragment.updateData(bloodSugarList);
 		view_pager_for_fragment.setCurrentItem(1);
 	}
-
-	public void onShareButtonClicked(View view) {
+	
+	@Override
+	public void onShareButonClicked(String str) {
 		Intent share = new Intent(Intent.ACTION_SEND);
 		share.setType("text/plain");
-		share.putExtra(Intent.EXTRA_TEXT, "Your text");
-		startActivity(Intent.createChooser(share, "Share using"));
+		share.putExtra(Intent.EXTRA_TEXT, str);
+		startActivity(Intent.createChooser(share, getString(R.string.share_using)));
 	}
 }

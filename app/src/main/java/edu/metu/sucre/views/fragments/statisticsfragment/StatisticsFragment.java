@@ -1,5 +1,6 @@
 package edu.metu.sucre.views.fragments.statisticsfragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,12 +10,15 @@ import android.widget.TextView;
 
 import com.db.chart.view.LineChartView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.utils.AppConstants;
@@ -34,8 +38,9 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
     @BindView(R.id.linear_chart) LineChartView lineChartView;
     @BindView(R.id.share_with_label) TextView maxValue;
 
-
+    private OnShareButtonClickedListener mCallback;
     private LineChart lineChart;
+    private List<BloodSugar> bloodSugarList;
     
     public static StatisticsFragment newInstance(){
         Bundle args = new Bundle();
@@ -64,7 +69,18 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
         lineChart.init();
         return layout;
     }
-
+    
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        
+        try {
+            mCallback = (OnShareButtonClickedListener) context;
+        }catch (ClassCastException e){
+            throw new ClassCastException((context.toString()) + " must implement OnShareButtonClickedListener");
+        }
+    }
+    
     @Override
     public void onDestroyView() {
         mPresenter.onDetach();
@@ -73,15 +89,32 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
     
     @Override
     public void updateData(List<BloodSugar> bloodSugarList) {
-        float[] values = getValuesFromRecords(bloodSugarList);
+        this.bloodSugarList = bloodSugarList;
+        
+        // get values from blood sugar list
+        float[] values = getValuesFromRecords();
 
+        // update chart
         lineChart.update(values);
     }
-
+    
+    @OnClick(R.id.share_with)
+    public void onShareButtonClicked(View view){
+        String sharedString = generateShareString();
+        mCallback.onShareButonClicked(sharedString);
+    }
+    
+    /**
+     * Set text view fonts.
+     */
     private void setFonts(){
         maxValue.setTypeface(((BaseActivity)getActivity()).typeface);
     }
-
+    
+    /**
+     * Generate chart labels.
+     * @return
+     */
     private String [] generateLabels(){
         String [] labels = new String[AppConstants.REPORT_RECORD_HISTORY_COUNT];
 
@@ -91,7 +124,11 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
 
         return labels;
     }
-
+    
+    /**
+     * Generate initial values of chart.
+     * @return
+     */
     private float [] generateInitialValues(){
         float [] values = new float[AppConstants.REPORT_RECORD_HISTORY_COUNT];
         for (int i = 0; i < AppConstants.REPORT_RECORD_HISTORY_COUNT; i++) {
@@ -100,13 +137,17 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
 
         return values;
     }
-
-    private float [] getValuesFromRecords(List<BloodSugar> bloodSugarList){
+    
+    /**
+     * Get values from blood sugar list.
+     * @return
+     */
+    private float [] getValuesFromRecords(){
         float [] values = new float[AppConstants.REPORT_RECORD_HISTORY_COUNT];
 
         for (int i = 0, j = AppConstants.REPORT_RECORD_HISTORY_COUNT-1; i < AppConstants.REPORT_RECORD_HISTORY_COUNT; j--, i++) {
-            if(i < bloodSugarList.size()){
-                values[j] = bloodSugarList.get(i).value;
+            if(i < this.bloodSugarList.size()){
+                values[j] = this.bloodSugarList.get(i).value;
             } else{
                 values[j] = 0;
             }
@@ -114,5 +155,19 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
         }
 
         return values;
+    }
+    
+    /**
+     * Generate a string from blood sugar list. this string is shared with other applications.
+     * @return
+     */
+    private String generateShareString(){
+        String str = getActivity().getString(R.string.my_blood_measurements) + "\n";
+        DateFormat df = SimpleDateFormat.getDateTimeInstance();
+        
+        for (BloodSugar bloodSugar : bloodSugarList) {
+            str += df.format(bloodSugar.date)+"  "+bloodSugar.sugarMeasurementType.toString()+"  "+bloodSugar.value+"\n";
+        }
+        return str;
     }
 }

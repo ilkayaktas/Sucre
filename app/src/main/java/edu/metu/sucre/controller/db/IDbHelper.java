@@ -11,7 +11,6 @@ import edu.metu.sucre.model.app.BloodSugar;
 
 public interface IDbHelper {
     
-    void initializeDatabase();
     List<BloodSugar> getBloodSugar();
     void saveBloodSugar(BloodSugar bloodSugar);
 }

@@ -20,5 +20,7 @@
     <string name="record_success_title">Kayıt Başarılı</string>
     <string name="text_input_error_message">Girdiğiniz değer hatalı. Lütfen sayı giriniz.</string>
     <string name="share_results">Doktor ile Paylaş</string>
+    <string name="share_using">Paylaş</string>
+    <string name="my_blood_measurements">Kan şekeri ölçümüm aşağıdaki gibidir:</string>
 
 </resources>

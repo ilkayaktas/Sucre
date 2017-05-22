@@ -15,21 +15,4 @@ public class SplashScreenPresenter <V extends SplashScreenMvpView> extends BaseP
 		super(IDataManager);
 	}
 	
-	@Override
-	public void createDatabase() {
-		if( getIDataManager().getDatabaseCreatedStatus() ){
-			// start main activity
-			getMvpView().openMainActivity();
-			
-		} else{
-			// initialize database. Read asset folder
-			getIDataManager().initializeDatabase();
-			
-			// create db
-			getIDataManager().setDatabaseCreatedStatus();
-			
-			// start main activity
-			getMvpView().openMainActivity();
-		}
-	}
 }

@@ -27,11 +27,6 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
-    public void initializeDatabase() {
-
-    }
-
-    @Override
     public List<BloodSugar> getBloodSugar() {
         List<RealmBloodSugar> realmBloodSugarList = databaseManager.getAll(RealmBloodSugar.class, "date", true);
 
