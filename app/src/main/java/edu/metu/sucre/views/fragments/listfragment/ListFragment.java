@@ -90,10 +90,6 @@ public class ListFragment extends BaseFragment implements ListMvpView{
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-    
-    @Override
-    protected void setUp(View view) {
-    }
 
     @Override
     public void onDestroyView() {

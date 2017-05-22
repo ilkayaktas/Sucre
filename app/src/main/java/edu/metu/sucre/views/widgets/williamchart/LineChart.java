@@ -84,8 +84,9 @@ public class LineChart extends CardController {
 
 		// Chart
 		mChart.setBorderSpacing(Tools.fromDpToPx(15))
-				  .setAxisBorderValues(0, 20)
-				  .setYLabels(AxisRenderer.LabelPosition.NONE)
+				  .setAxisBorderValues(0, 500)
+				  .setYLabels(AxisRenderer.LabelPosition.OUTSIDE)
+				   .setXLabels(AxisRenderer.LabelPosition.OUTSIDE)
 				  .setLabelsColor(Color.parseColor("#6a84c3"))
 				  .setXAxis(false)
 				  .setYAxis(false);

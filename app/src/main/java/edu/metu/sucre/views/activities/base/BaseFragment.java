@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import butterknife.Unbinder;
 import edu.metu.sucre.di.components.ActivityComponent;
@@ -96,8 +95,6 @@ public abstract class BaseFragment extends Fragment implements MvpView {
     public void setUnBinder(Unbinder unBinder) {
         mUnBinder = unBinder;
     }
-
-    protected abstract void setUp(View view);
 
     @Override
     public void onDestroy() {

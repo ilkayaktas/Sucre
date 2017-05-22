@@ -19,5 +19,6 @@
     <string name="record_success">Kan şeker değeriniz başarıyla kaydedildi.</string>
     <string name="record_success_title">Kayıt Başarılı</string>
     <string name="text_input_error_message">Girdiğiniz değer hatalı. Lütfen sayı giriniz.</string>
+    <string name="share_results">Doktor ile Paylaş</string>
 
 </resources>

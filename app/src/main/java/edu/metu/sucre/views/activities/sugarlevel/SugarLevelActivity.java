@@ -1,5 +1,6 @@
 package edu.metu.sucre.views.activities.sugarlevel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.KeyEvent;
@@ -116,5 +117,12 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		StatisticsMvpView fragment = (StatisticsMvpView) mPagerAdapter.getItem(1);
 		fragment.updateData(bloodSugarList);
 		view_pager_for_fragment.setCurrentItem(1);
+	}
+
+	public void onShareButtonClicked(View view) {
+		Intent share = new Intent(Intent.ACTION_SEND);
+		share.setType("text/plain");
+		share.putExtra(Intent.EXTRA_TEXT, "Your text");
+		startActivity(Intent.createChooser(share, "Share using"));
 	}
 }

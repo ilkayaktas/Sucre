@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.db.chart.view.LineChartView;
 
@@ -16,6 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.BloodSugar;
+import edu.metu.sucre.utils.AppConstants;
+import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.base.BaseFragment;
 import edu.metu.sucre.views.widgets.williamchart.LineChart;
 
@@ -29,6 +32,9 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
     StatisticsMvpPresenter<StatisticsMvpView> mPresenter;
 
     @BindView(R.id.linear_chart) LineChartView lineChartView;
+    @BindView(R.id.share_with_label) TextView maxValue;
+
+
     private LineChart lineChart;
     
     public static StatisticsFragment newInstance(){
@@ -48,22 +54,15 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
         setUnBinder(ButterKnife.bind(this, layout));
         
         mPresenter.onAttach(this);
-    
-        String[]str={"a","a","a","a","a","a","a","a","a","a"};
-        float[]f={1.2f,1.2f,1.2f,1.2f,1.2f,1.2f,1.2f,1.2f,1.2f,1.2f};
-        lineChart = new LineChart(getContext(),lineChartView, str, f);
+
+        setFonts();
+
+        String[] labels = generateLabels();
+        float[] values = generateInitialValues();
+
+        lineChart = new LineChart(getContext(),lineChartView, labels, values);
         lineChart.init();
         return layout;
-    }
-
-    @Override
-    protected void setUp(View view) {
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("fragment'de tıklandı");
-            }
-        });
     }
 
     @Override
@@ -72,10 +71,48 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
         super.onDestroyView();
     }
     
-    
     @Override
     public void updateData(List<BloodSugar> bloodSugarList) {
-        float[]f={1.8f,1.2f,1.2f,1.8f,1.2f,1.2f,1.8f,1.2f,1.2f,1.2f};
-        lineChart.update(f);
+        float[] values = getValuesFromRecords(bloodSugarList);
+
+        lineChart.update(values);
+    }
+
+    private void setFonts(){
+        maxValue.setTypeface(((BaseActivity)getActivity()).typeface);
+    }
+
+    private String [] generateLabels(){
+        String [] labels = new String[AppConstants.REPORT_RECORD_HISTORY_COUNT];
+
+        for (int i = 0; i < AppConstants.REPORT_RECORD_HISTORY_COUNT; i++) {
+            labels[i] = ""+(i+1);
+        }
+
+        return labels;
+    }
+
+    private float [] generateInitialValues(){
+        float [] values = new float[AppConstants.REPORT_RECORD_HISTORY_COUNT];
+        for (int i = 0; i < AppConstants.REPORT_RECORD_HISTORY_COUNT; i++) {
+            values[i] = 0;
+        }
+
+        return values;
+    }
+
+    private float [] getValuesFromRecords(List<BloodSugar> bloodSugarList){
+        float [] values = new float[AppConstants.REPORT_RECORD_HISTORY_COUNT];
+
+        for (int i = 0, j = AppConstants.REPORT_RECORD_HISTORY_COUNT-1; i < AppConstants.REPORT_RECORD_HISTORY_COUNT; j--, i++) {
+            if(i < bloodSugarList.size()){
+                values[j] = bloodSugarList.get(i).value;
+            } else{
+                values[j] = 0;
+            }
+
+        }
+
+        return values;
     }
 }
