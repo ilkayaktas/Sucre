@@ -3,10 +3,12 @@ package edu.metu.sucre.views.fragments.listfragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -22,7 +24,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
-import edu.metu.sucre.adapters.ListAdapter;
+import edu.metu.sucre.adapters.RecyclerViewAdapter;
 import edu.metu.sucre.events.ListItemClickedEvent;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.ListItem;
@@ -39,7 +41,7 @@ public class ListFragment extends BaseFragment implements ListMvpView{
     @Inject
     ListMvpPresenter<ListMvpView> mPresenter;
 
-    @BindView(R.id.list_of_sugarlevel_big) ListView fragment_list;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
     private List<ListItem> sugarValues;
     private List<BloodSugar> bloodSugarList = null;
@@ -55,7 +57,7 @@ public class ListFragment extends BaseFragment implements ListMvpView{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_listview, container, false);
+        View view = inflater.inflate(R.layout.fragment_recylerview, container, false);
 
         getActivityComponent().inject(this);
 
@@ -119,8 +121,14 @@ public class ListFragment extends BaseFragment implements ListMvpView{
             sugarValues.add(new ListItem(bloodSugar.value, df.format(bloodSugar.date),
                     bloodSugar.sugarMeasurementType.toString() ));
         }
-        ListAdapter adapter = new ListAdapter(getBaseActivity(), sugarValues);
-        fragment_list.setAdapter(adapter);
+//        ListAdapter adapter = new ListAdapter(getBaseActivity(), sugarValues);
+//        fragment_list.setAdapter(adapter);
 
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getBaseActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getBaseActivity(), sugarValues);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(recyclerViewAdapter);
     }
 }

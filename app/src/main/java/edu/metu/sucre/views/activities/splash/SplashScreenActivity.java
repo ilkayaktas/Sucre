@@ -25,7 +25,7 @@ public class SplashScreenActivity extends BaseActivity implements SplashScreenMv
 	@BindView(R.id.slogan) TextView slogan;
 	
 	/** Duration of wait **/
-	private final int SPLASH_DISPLAY_LENGTH = 3000;
+	private final int SPLASH_DISPLAY_LENGTH = 1000;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
