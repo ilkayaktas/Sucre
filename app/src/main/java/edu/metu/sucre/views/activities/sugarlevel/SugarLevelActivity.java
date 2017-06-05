@@ -25,7 +25,6 @@ import edu.metu.sucre.views.fragments.listfragment.OnBloodSugarSelectedListener;
 import edu.metu.sucre.views.fragments.statisticsfragment.OnShareButtonClickedListener;
 import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsFragment;
 import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsMvpView;
-import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
 import edu.metu.sucre.views.widgets.viewpagers.NonScrollableViewPager;
 
 /**
@@ -69,8 +68,6 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 	@Override
 	protected void onStart() {
 		super.onStart();
-		RateMe.onStart(this);
-		RateMe.showRateDialogIfNeeded(this);
 	}
 	
 	@Override

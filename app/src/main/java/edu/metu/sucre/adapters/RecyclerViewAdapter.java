@@ -58,7 +58,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         ListAdapter adapter = new ListAdapter(activity, sugarValues);
         ((ViewHolder)viewHolder).detailsOfDay.setAdapter(adapter);
 
-
         ((RecyclerViewAdapter.ViewHolder)viewHolder).sugarLevel.setTypeface(activity.typeface);
         ((RecyclerViewAdapter.ViewHolder)viewHolder).prePost.setTypeface(activity.typeface);
         ((RecyclerViewAdapter.ViewHolder)viewHolder).date.setTypeface(activity.typeface);

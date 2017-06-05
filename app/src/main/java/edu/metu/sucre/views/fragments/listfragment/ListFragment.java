@@ -15,10 +15,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -114,8 +113,8 @@ public class ListFragment extends BaseFragment implements ListMvpView{
     @Override
     public void updateBloodSugarList(List<BloodSugar> bloodSugarList) {
         this.bloodSugarList = bloodSugarList;
-        
-        Map<String, List<BloodSugar>> bloodSugarMap = new HashMap<>();
+    
+        LinkedHashMap<String, List<BloodSugar>> bloodSugarMap = new LinkedHashMap<>();
         for (Iterator<BloodSugar> itr = bloodSugarList.iterator(); itr.hasNext();) {
             String key = DateUtils.getFormattedDate(itr.next().date);
 
