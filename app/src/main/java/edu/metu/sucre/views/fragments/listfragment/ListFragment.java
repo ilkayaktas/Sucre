@@ -14,10 +14,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -27,7 +28,8 @@ import edu.metu.sucre.R;
 import edu.metu.sucre.adapters.RecyclerViewAdapter;
 import edu.metu.sucre.events.ListItemClickedEvent;
 import edu.metu.sucre.model.app.BloodSugar;
-import edu.metu.sucre.model.app.ListItem;
+import edu.metu.sucre.model.app.CardItem;
+import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.base.BaseFragment;
 
 import static edu.metu.sucre.utils.AppConstants.REPORT_RECORD_HISTORY_COUNT;
@@ -43,7 +45,6 @@ public class ListFragment extends BaseFragment implements ListMvpView{
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
-    private List<ListItem> sugarValues;
     private List<BloodSugar> bloodSugarList = null;
     private OnBloodSugarSelectedListener mCallback;
     
@@ -112,23 +113,46 @@ public class ListFragment extends BaseFragment implements ListMvpView{
     
     @Override
     public void updateBloodSugarList(List<BloodSugar> bloodSugarList) {
-        sugarValues = new ArrayList<>();
         this.bloodSugarList = bloodSugarList;
         
-        DateFormat df = SimpleDateFormat.getDateTimeInstance();
+        Map<String, List<BloodSugar>> bloodSugarMap = new HashMap<>();
+        for (Iterator<BloodSugar> itr = bloodSugarList.iterator(); itr.hasNext();) {
+            String key = DateUtils.getFormattedDate(itr.next().date);
 
-        for ( BloodSugar bloodSugar: bloodSugarList) {
-            sugarValues.add(new ListItem(bloodSugar.value, df.format(bloodSugar.date),
-                    bloodSugar.sugarMeasurementType.toString() ));
+            if (bloodSugarMap.containsKey(key)){
+                itr.remove();
+            } else{
+                List<BloodSugar> list = getListAsGroup(key, bloodSugarList);
+                bloodSugarMap.put(key, list);
+            }
         }
-//        ListAdapter adapter = new ListAdapter(getBaseActivity(), sugarValues);
-//        fragment_list.setAdapter(adapter);
 
+
+        List<CardItem> listOfBloodSugarValuesAsGrouped = new ArrayList<>();
+
+        for (Iterator<List<BloodSugar>> itr = bloodSugarMap.values().iterator(); itr.hasNext();){
+            List<BloodSugar> dailyList = itr.next();
+            listOfBloodSugarValuesAsGrouped.add(new CardItem(dailyList));
+        }
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getBaseActivity());
         recyclerView.setLayoutManager(mLayoutManager);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getBaseActivity(), sugarValues);
+
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getBaseActivity(), listOfBloodSugarValuesAsGrouped);
+
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recyclerViewAdapter);
     }
+
+    private List<BloodSugar> getListAsGroup(String key, List<BloodSugar> list){
+        List<BloodSugar> newList = new ArrayList<>();
+
+        for (BloodSugar bloodSugar : list) {
+            if(key.equals(DateUtils.getFormattedDate(bloodSugar.date))){
+                newList.add(bloodSugar);
+            }
+        }
+        return newList;
+    }
+
 }

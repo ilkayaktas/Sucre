@@ -5,14 +5,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
+import edu.metu.sucre.model.app.BloodSugar;
+import edu.metu.sucre.model.app.CardItem;
 import edu.metu.sucre.model.app.ListItem;
+import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 
 /**
@@ -21,9 +26,9 @@ import edu.metu.sucre.views.activities.base.BaseActivity;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter {
     private BaseActivity activity;
-    private List<ListItem> list;
+    private List<CardItem> list;
 
-    public RecyclerViewAdapter(BaseActivity activity, List<ListItem> list) {
+    public RecyclerViewAdapter(BaseActivity activity, List<CardItem> list) {
         this.activity = activity;
         this.list = list;
     }
@@ -38,11 +43,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
-        ListItem model = list.get(position);
+        CardItem model = list.get(position);
+        List<BloodSugar> bloodSugarListOfDay = model.bloodSugarListOfDay;
 
-        ((RecyclerViewAdapter.ViewHolder)viewHolder).sugarLevel.setText(String.valueOf(model.sugarLevel));
-        ((RecyclerViewAdapter.ViewHolder)viewHolder).prePost.setText(model.prePost);
-        ((RecyclerViewAdapter.ViewHolder)viewHolder).date.setText(model.date);
+        ((ViewHolder)viewHolder).sugarLevel.setText(String.valueOf(bloodSugarListOfDay.get(0).value));
+        ((ViewHolder)viewHolder).prePost.setText(bloodSugarListOfDay.get(0).sugarMeasurementType.toString());
+        ((ViewHolder)viewHolder).date.setText(DateUtils.getFormattedDate(bloodSugarListOfDay.get(0).date));
+
+        List<ListItem> sugarValues = new ArrayList<>();
+        for ( BloodSugar bloodSugar: bloodSugarListOfDay) {
+            sugarValues.add(new ListItem(bloodSugar.value, DateUtils.getFormattedDate(bloodSugar.date),
+                    bloodSugar.sugarMeasurementType.toString()));
+        }
+        ListAdapter adapter = new ListAdapter(activity, sugarValues);
+        ((ViewHolder)viewHolder).detailsOfDay.setAdapter(adapter);
+
 
         ((RecyclerViewAdapter.ViewHolder)viewHolder).sugarLevel.setTypeface(activity.typeface);
         ((RecyclerViewAdapter.ViewHolder)viewHolder).prePost.setTypeface(activity.typeface);
@@ -59,6 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         @BindView(R.id.sugarLevel) TextView sugarLevel;
         @BindView(R.id.prePost)TextView prePost;
         @BindView(R.id.date)TextView date;
+        @BindView(R.id.details_of_day)ListView detailsOfDay;
 
         ViewHolder(View view){
             super(view);

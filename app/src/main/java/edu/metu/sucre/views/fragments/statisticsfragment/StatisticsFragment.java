@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.db.chart.view.LineChartView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +20,7 @@ import butterknife.OnClick;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.utils.AppConstants;
+import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.base.BaseFragment;
 import edu.metu.sucre.views.widgets.williamchart.LineChart;
@@ -163,10 +162,9 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
      */
     private String generateShareString(){
         String str = getActivity().getString(R.string.my_blood_measurements) + "\n";
-        DateFormat df = SimpleDateFormat.getDateTimeInstance();
-        
+
         for (BloodSugar bloodSugar : bloodSugarList) {
-            str += df.format(bloodSugar.date)+"  "+bloodSugar.sugarMeasurementType.toString()+"  "+bloodSugar.value+"\n";
+            str += DateUtils.getFormattedDate(bloodSugar.date)+"  "+bloodSugar.sugarMeasurementType.toString()+"  "+bloodSugar.value+"\n";
         }
         return str;
     }
