@@ -47,20 +47,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         List<BloodSugar> bloodSugarListOfDay = model.bloodSugarListOfDay;
 
         ((ViewHolder)viewHolder).sugarLevel.setText(String.valueOf(bloodSugarListOfDay.get(0).value));
-        ((ViewHolder)viewHolder).prePost.setText(bloodSugarListOfDay.get(0).sugarMeasurementType.toString());
         ((ViewHolder)viewHolder).date.setText(DateUtils.getFormattedDate(bloodSugarListOfDay.get(0).date));
 
         List<ListItem> sugarValues = new ArrayList<>();
         for ( BloodSugar bloodSugar: bloodSugarListOfDay) {
-            sugarValues.add(new ListItem(bloodSugar.value, DateUtils.getFormattedDate(bloodSugar.date),
+            sugarValues.add(new ListItem(bloodSugar.value, DateUtils.getFormattedDateAsHour(bloodSugar.date),
                     bloodSugar.sugarMeasurementType.toString()));
         }
         ListAdapter adapter = new ListAdapter(activity, sugarValues);
         ((ViewHolder)viewHolder).detailsOfDay.setAdapter(adapter);
 
-        ((RecyclerViewAdapter.ViewHolder)viewHolder).sugarLevel.setTypeface(activity.typeface);
-        ((RecyclerViewAdapter.ViewHolder)viewHolder).prePost.setTypeface(activity.typeface);
-        ((RecyclerViewAdapter.ViewHolder)viewHolder).date.setTypeface(activity.typeface);
+        ((ViewHolder)viewHolder).sugarLevel.setTypeface(activity.typeface);
+        ((ViewHolder)viewHolder).date.setTypeface(activity.typeface);
+        ((ViewHolder)viewHolder).lastMeasure.setTypeface(activity.typeface);
 
     }
 
@@ -71,9 +70,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.sugarLevel) TextView sugarLevel;
-        @BindView(R.id.prePost)TextView prePost;
         @BindView(R.id.date)TextView date;
         @BindView(R.id.details_of_day)ListView detailsOfDay;
+        @BindView(R.id.last_measure)TextView lastMeasure;
+        
 
         ViewHolder(View view){
             super(view);

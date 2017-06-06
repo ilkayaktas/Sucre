@@ -13,9 +13,15 @@ public class DateUtils {
         // This utility class is not publicly instantiable
     }
 
-    public final static DateFormat dateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
+    public final static DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+    public final static DateFormat hourFormat = new SimpleDateFormat("hh:mm");
 
     public static String getFormattedDate(Date date){
         return dateFormat.format(date);
     }
+    
+    public static String getFormattedDateAsHour(Date date){
+        return hourFormat.format(date);
+    }
+    
 }
