@@ -7,14 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
-import edu.metu.sucre.events.ListItemClickedEvent;
 import edu.metu.sucre.model.app.ListItem;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 
@@ -70,13 +67,13 @@ public class ListAdapter extends BaseAdapter {
         viewHolder.prePost.setTypeface(activity.typeface);
         viewHolder.date.setTypeface(activity.typeface);
 
-        convertView.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                EventBus.getDefault().post(new ListItemClickedEvent(position));
-            }
-        });
+//        convertView.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View view) {
+//                EventBus.getDefault().post(new ListItemClickedEvent(position));
+//            }
+//        });
         return convertView;
     }
 
