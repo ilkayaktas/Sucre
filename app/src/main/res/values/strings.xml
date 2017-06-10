@@ -22,5 +22,6 @@
     <string name="share_results">Doktor ile Paylaş</string>
     <string name="share_using">Paylaş</string>
     <string name="my_blood_measurements">Kan şekeri ölçümüm aşağıdaki gibidir:</string>
+    <string name="kayit_silme_islemi">Ölçüm değeriniz silinecek. Onaylıyor musunuz?</string>
 
 </resources>

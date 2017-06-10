@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
@@ -74,11 +76,25 @@ public class ListAdapter extends BaseAdapter {
         viewHolder.delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new ListItemDeletedEvent(model.uuid));
-    
-                list.remove(position);
-                
-                notifyDataSetChanged();
+            new LovelyStandardDialog(activity)
+                    .setTopColorRes(R.color.mobss_color_red)
+                    .setButtonsColorRes(R.color.mobss_color_light_gray)
+                    .setIcon(R.drawable.ic_question)
+                    .setMessage(R.string.kayit_silme_islemi)
+                    .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            EventBus.getDefault().post(new ListItemDeletedEvent(model.uuid));
+
+                            list.remove(position);
+
+                            notifyDataSetChanged();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    .show();
+
             }
         });
         return convertView;
