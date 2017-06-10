@@ -43,7 +43,12 @@ public class DataManager implements IDataManager {
 	public void saveBloodSugar(BloodSugar bloodSugar) {
 		mIDbHelper.saveBloodSugar(bloodSugar);
 	}
-
+	
+	@Override
+	public void deleteBloodSugar(String uuid) {
+		mIDbHelper.deleteBloodSugar(uuid);
+	}
+	
 	@Override
 	public void doApiCall() {
 

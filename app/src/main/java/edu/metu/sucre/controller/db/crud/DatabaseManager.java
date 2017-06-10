@@ -16,5 +16,6 @@ public interface DatabaseManager<E>{
 	List<Object> get(Class clss, String fieldName, String equalValue);
 	List<Object> get(RealmQuery query);
 	void close();
+	void delete(Class clss, String fieldName, String equalValue);
 	void deleteAll(Class clss);
 }

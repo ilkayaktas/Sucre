@@ -249,6 +249,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         }
 
         // save record
-        mPresenter.saveBloodSugar(new BloodSugar(date, bloodSugarValue, sugarMeasurementType));
+        mPresenter.saveBloodSugar(new BloodSugar(null, date, bloodSugarValue, sugarMeasurementType));
     }
 }

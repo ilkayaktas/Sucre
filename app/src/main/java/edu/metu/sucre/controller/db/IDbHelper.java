@@ -13,4 +13,5 @@ public interface IDbHelper {
     
     List<BloodSugar> getBloodSugar();
     void saveBloodSugar(BloodSugar bloodSugar);
+    void deleteBloodSugar(String uuid);
 }

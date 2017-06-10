@@ -104,7 +104,20 @@ public class RealmManager implements DatabaseManager {
 
 		realm = null;
 	}
-
+	
+	@Override
+	public void delete(Class clss, String fieldName, String equalValue) {
+		final RealmResults result = get(clss, fieldName, equalValue);
+		
+		// Delete all results
+		realm.executeTransaction(new Realm.Transaction() {
+			@Override
+			public void execute(Realm realm) {
+				result.deleteAllFromRealm();
+			}
+		});
+	}
+	
 	public Realm getRealm() {
 		return realm;
 	}

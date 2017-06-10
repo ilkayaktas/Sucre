@@ -5,13 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
+import edu.metu.sucre.events.ListItemDeletedEvent;
 import edu.metu.sucre.model.app.ListItem;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 
@@ -57,7 +61,7 @@ public class ListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        ListItem model = list.get(position);
+        final ListItem model = list.get(position);
 
         viewHolder.sugarLevel.setText(String.valueOf(model.sugarLevel));
         viewHolder.prePost.setText(model.prePost);
@@ -66,14 +70,17 @@ public class ListAdapter extends BaseAdapter {
         viewHolder.sugarLevel.setTypeface(activity.typeface);
         viewHolder.prePost.setTypeface(activity.typeface);
         viewHolder.date.setTypeface(activity.typeface);
-
-//        convertView.setOnClickListener(new View.OnClickListener(){
-//
-//            @Override
-//            public void onClick(View view) {
-//                EventBus.getDefault().post(new ListItemClickedEvent(position));
-//            }
-//        });
+    
+        viewHolder.delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new ListItemDeletedEvent(model.uuid));
+    
+                list.remove(position);
+                
+                notifyDataSetChanged();
+            }
+        });
         return convertView;
     }
 
@@ -81,6 +88,8 @@ public class ListAdapter extends BaseAdapter {
         @BindView(R.id.sugarLevel) TextView sugarLevel;
         @BindView(R.id.prePost)TextView prePost;
         @BindView(R.id.date)TextView date;
+        @BindView(R.id.delete_record)ImageButton delete;
+        
 
         ViewHolder(View view){
             ButterKnife.bind(this, view);

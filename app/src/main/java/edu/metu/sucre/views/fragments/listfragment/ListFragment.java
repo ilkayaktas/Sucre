@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 import edu.metu.sucre.R;
 import edu.metu.sucre.adapters.RecyclerViewAdapter;
 import edu.metu.sucre.events.ListItemClickedEvent;
+import edu.metu.sucre.events.ListItemDeletedEvent;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.CardItem;
 import edu.metu.sucre.utils.DateUtils;
@@ -109,7 +110,12 @@ public class ListFragment extends BaseFragment implements ListMvpView{
         }
         mCallback.onBloodSugarSelected(bloodSugarList);
     }
-    
+	
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onMessageEvent(ListItemDeletedEvent event) {
+		mPresenter.deleteBloodSugarValue(event.deletedUuid);
+	}
+	
     @Override
     public void updateBloodSugarList(List<BloodSugar> bloodSugarList) {
         this.bloodSugarList = bloodSugarList;
@@ -137,7 +143,7 @@ public class ListFragment extends BaseFragment implements ListMvpView{
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getBaseActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getBaseActivity(), listOfBloodSugarValuesAsGrouped);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getBaseActivity(), listOfBloodSugarValuesAsGrouped, recyclerView);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recyclerViewAdapter);

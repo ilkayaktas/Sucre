@@ -21,4 +21,9 @@ public class ListPresenter<V extends ListMvpView> extends BasePresenter<V> imple
         List<BloodSugar> bloodSugarList =  getIDataManager().getBloodSugar();
         getMvpView().updateBloodSugarList(bloodSugarList);
     }
+    
+    @Override
+    public void deleteBloodSugarValue(String uuid) {
+        getIDataManager().deleteBloodSugar(uuid);
+    }
 }
