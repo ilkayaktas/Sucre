@@ -57,7 +57,7 @@ dependencies {
     // EventBus
     compile "org.greenrobot:eventbus:$rootProject.eventBusVersion"
 
-    // Willam Chart
+    // William Chart
     compile "com.diogobernardino:williamchart:$rootProject.williamChartVersion"
 
     // Toogle Button Group

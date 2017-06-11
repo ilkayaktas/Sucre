@@ -141,8 +141,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 //                .setMessage(getString(R.string.record_success) + "\n\n" + bloodSugar.value)
 //                .show();
     
-        String message = getString(R.string.record_success) + "\n" + bloodSugar.value;
-        Snackbar.make(datepicker, message, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+//        String message = getString(R.string.record_success) + "\n" + bloodSugar.value;
+        String message = bloodSugar.value + " mg/dL " + getString(R.string.record_success);
+        Snackbar.make(datepicker, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
     }
 
     public void showPreviousRecords(View v){

@@ -27,10 +27,12 @@ import edu.metu.sucre.R;
 import edu.metu.sucre.adapters.RecyclerViewAdapter;
 import edu.metu.sucre.events.ListItemClickedEvent;
 import edu.metu.sucre.events.ListItemDeletedEvent;
+import edu.metu.sucre.events.ShareWithClickedEvent;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.CardItem;
 import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.base.BaseFragment;
+import edu.metu.sucre.views.fragments.statisticsfragment.OnShareButtonClickedListener;
 
 import static edu.metu.sucre.utils.AppConstants.REPORT_RECORD_HISTORY_COUNT;
 
@@ -47,6 +49,7 @@ public class ListFragment extends BaseFragment implements ListMvpView{
 
     private List<BloodSugar> bloodSugarList = null;
     private OnBloodSugarSelectedListener mCallback;
+    private OnShareButtonClickedListener mCallbackShare;
     
     public static ListFragment newInstance(){
         Bundle args = new Bundle();
@@ -77,6 +80,7 @@ public class ListFragment extends BaseFragment implements ListMvpView{
     
         try {
             mCallback = (OnBloodSugarSelectedListener) context;
+            mCallbackShare = (OnShareButtonClickedListener) context;
         }catch (ClassCastException e){
             throw new ClassCastException((context.toString()) + " must implement OnBloodSugarSelectedListener");
         }
@@ -115,7 +119,13 @@ public class ListFragment extends BaseFragment implements ListMvpView{
 	public void onMessageEvent(ListItemDeletedEvent event) {
 		mPresenter.deleteBloodSugarValue(event.deletedUuid);
 	}
-	
+    
+    
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ShareWithClickedEvent event) {
+        mCallbackShare.onShareButonClicked(event.message);
+    }
+    
     @Override
     public void updateBloodSugarList(List<BloodSugar> bloodSugarList) {
         this.bloodSugarList = bloodSugarList;

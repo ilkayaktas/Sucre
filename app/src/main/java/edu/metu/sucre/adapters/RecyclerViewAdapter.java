@@ -3,12 +3,15 @@ package edu.metu.sucre.adapters;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
+import edu.metu.sucre.events.ShareWithClickedEvent;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.CardItem;
 import edu.metu.sucre.model.app.ListItem;
@@ -51,7 +55,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
         CardItem model = list.get(position);
-        List<BloodSugar> bloodSugarListOfDay = model.bloodSugarListOfDay;
+        final List<BloodSugar> bloodSugarListOfDay = model.bloodSugarListOfDay;
 
         ((ViewHolder)viewHolder).sugarLevel.setText(String.valueOf(bloodSugarListOfDay.get(0).value));
         ((ViewHolder)viewHolder).date.setText(DateUtils.getFormattedDate(bloodSugarListOfDay.get(0).date));
@@ -67,24 +71,50 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         ((ViewHolder)viewHolder).sugarLevel.setTypeface(activity.typeface);
         ((ViewHolder)viewHolder).date.setTypeface(activity.typeface);
         ((ViewHolder)viewHolder).lastMeasure.setTypeface(activity.typeface);
+        ((ViewHolder)viewHolder).shareWithDoctor.setTypeface(activity.typeface);
 	
 	    ((ViewHolder)viewHolder).cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   EventBus.getDefault().post(new ListItemClickedEvent(position));
-                Log.d("____", "onClick: "+position);
+                
                 if(expandedViews.containsKey(position)){
-                    ((ViewHolder)viewHolder).detailsOfDay.setVisibility(View.GONE);
+                    ((ViewHolder)viewHolder).detailsOfDayLayout.setVisibility(View.GONE);
                     expandedViews.remove(position);
                 } else{
-                    ((ViewHolder)viewHolder).detailsOfDay.setVisibility(View.VISIBLE);
+                    ((ViewHolder)viewHolder).detailsOfDayLayout.setVisibility(View.VISIBLE);
                     expandedViews.put(position, true);
                 }
     
             }
         });
+    
+        ((ViewHolder)viewHolder).shareWith.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = generateShareString(bloodSugarListOfDay);
+                EventBus.getDefault().post(new ShareWithClickedEvent(message));
+            }
+        });
     }
-
+    
+    /**
+     * Generate a string from blood sugar list. this string is shared with other applications.
+     * @return
+     */
+    private String generateShareString(List<BloodSugar> bloodSugarListOfDay){
+        String str = activity.getString(R.string.my_blood_measurements) + "\n";
+        
+        for (BloodSugar bloodSugar : bloodSugarListOfDay) {
+            str += DateUtils.getFormattedDate(bloodSugar.date)+
+                    "  "+
+                    DateUtils.getFormattedDateAsHour(bloodSugar.date)+
+                    "  "+
+                    bloodSugar.sugarMeasurementType.toString()+
+                    "  "+
+                    bloodSugar.value+"\n";
+        }
+        return str;
+    }
     @Override
     public int getItemCount() {
         return list.size();
@@ -96,6 +126,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         @BindView(R.id.date)TextView date;
         @BindView(R.id.details_of_day)ListView detailsOfDay;
         @BindView(R.id.last_measure)TextView lastMeasure;
+        @BindView(R.id.share_with_doctor)TextView shareWithDoctor;
+        @BindView(R.id.share_with)ImageButton shareWith;
+        @BindView(R.id.details_of_day_layout)LinearLayout detailsOfDayLayout;
+        
         
 
         ViewHolder(View view){

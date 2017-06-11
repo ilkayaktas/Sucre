@@ -51,7 +51,7 @@ ext {
     // EventBus
     eventBusVersion = "3.0.0"
 
-    // Wiliam Chart
+    // William Chart
     williamChartVersion = "2.4.0"
 
     // Toogle Button Group
