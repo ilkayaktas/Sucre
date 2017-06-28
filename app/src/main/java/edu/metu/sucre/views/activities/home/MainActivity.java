@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import java.util.ArrayList;
@@ -50,10 +50,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @BindView(R.id.welcome) TextView welcome;
     @BindView(R.id.toggleSwitch) ToggleSwitch toggleSwitch;
-    @BindView(R.id.datePicker) SingleDateAndTimePicker datepicker;
+//    @BindView(R.id.datePicker) SingleDateAndTimePicker datepicker;
     @BindView(R.id.microphoneRing) ImageView microphoneRing;
 
-
+    private Date date = new Date(System.currentTimeMillis());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +143,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     
 //        String message = getString(R.string.record_success) + "\n" + bloodSugar.value;
         String message = bloodSugar.value + " mg/dL " + getString(R.string.record_success);
-        Snackbar.make(datepicker, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+        Snackbar.make(microphoneRing, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
     }
 
     public void showPreviousRecords(View v){
@@ -208,6 +208,29 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         promptSpeechInput();
     }
 
+
+    public void onCalendarClicked(View view) {
+        promptDatePicker();
+    }
+
+    private void promptDatePicker(){
+        new SingleDateAndTimePickerDialog.Builder(this)
+                //.bottomSheet()
+                //.curved()
+                //.minutesStep(15)
+
+                //.displayHours(false)
+                //.displayMinutes(false)
+                .minutesStep(5)
+                .bottomSheet()
+                .listener(new SingleDateAndTimePickerDialog.Listener() {
+                    @Override
+                    public void onDateSelected(Date dateValue) {
+                        date = dateValue;
+                    }
+                }).display();
+    }
+
     public void onManualEntryButtonClicked(View view){
         final Activity activity = this;
         
@@ -241,7 +264,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     private void saveBloodSugar(int bloodSugarValue){
-        Date date = datepicker.getDate();
         SugarMeasurementType sugarMeasurementType;
         if(toggleSwitch.getCheckedTogglePosition() == 0){
             sugarMeasurementType = SugarMeasurementType.PRE;
@@ -252,4 +274,5 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         // save record
         mPresenter.saveBloodSugar(new BloodSugar(null, date, bloodSugarValue, sugarMeasurementType));
     }
+
 }
