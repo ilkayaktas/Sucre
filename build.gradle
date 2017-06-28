@@ -58,7 +58,7 @@ ext {
     toggleButtonGroup = "1.2.2"
 
     // Date Picker
-    datepicker = "1.1.0"
+    datepicker = "1.1.5"
 
     // Lovely Dialog
     lovelydialog = "1.0.7"
