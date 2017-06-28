@@ -11,4 +11,6 @@
     <dimen name="carditem_detailsofday_width">220dp</dimen>
     <dimen name="carditem_detailsofdaylayout_margin">16dp</dimen>
     <dimen name="activitymain_welcome_textsize">24sp</dimen>
+    <dimen name="carditem_lastmeasurement_textsize">10sp</dimen>
+    <dimen name="carditem_sharelayout_marginend">20dp</dimen>
 </resources>

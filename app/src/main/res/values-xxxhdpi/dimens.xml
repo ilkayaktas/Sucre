@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="button_corner_radius">5dp</dimen>
-    <dimen name="mic_container_margin">70dp</dimen>
+    <dimen name="mic_container_margin">150dp</dimen>
     <dimen name="carditem_sharewith_image_width_height">40dp</dimen>
     <dimen name="listitem_datetextsize">20sp</dimen>
     <dimen name="listitem_sugarlevel_textsize">22sp</dimen>
@@ -11,4 +11,6 @@
     <dimen name="carditem_detailsofday_width">220dp</dimen>
     <dimen name="carditem_detailsofdaylayout_margin">16dp</dimen>
     <dimen name="activitymain_welcome_textsize">24sp</dimen>
+    <dimen name="carditem_lastmeasurement_textsize">12sp</dimen>
+    <dimen name="carditem_sharelayout_marginend">30dp</dimen>
 </resources>
