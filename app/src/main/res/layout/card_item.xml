@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="SON ÖLÇÜM"
+                    android:text="@string/carditem_lastmeasure_text"
                     android:textSize="10sp"/>
 
                 <TextView
@@ -64,14 +64,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:visibility="gone"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/carditem_detailsofdaylayout_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/measure_container">
 
                 <edu.metu.sucre.views.widgets.listview.ContentHeightListView
                     android:id="@+id/details_of_day"
-                    android:layout_width="220dp"
+                    android:layout_width="@dimen/carditem_detailsofday_width"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_stroke_black"
                     android:divider="@null"
@@ -99,12 +99,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
-                        android:text="DOKTOR İLE PAYLAŞ"
+                        android:text="@string/share_results"
                         android:textSize="10sp"/>
                     <ImageButton
                         android:id="@+id/share_with"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/carditem_sharewith_image_width_height"
+                        android:layout_height="@dimen/carditem_sharewith_image_width_height"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
                         android:scaleType="fitXY"

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_corner_radius">5dp</dimen>
+    <dimen name="mic_container_margin">70dp</dimen>
+    <dimen name="carditem_sharewith_image_width_height">30dp</dimen>
+    <dimen name="listitem_datetextsize">16sp</dimen>
+    <dimen name="listitem_sugarlevel_textsize">18sp</dimen>
+    <dimen name="listitem_deleterecord_width_height">30dp</dimen>
+    <dimen name="listitem_prepost_marginend">8dp</dimen>
+    <dimen name="listitem_prepost_marginstart">4dp</dimen>
+    <dimen name="carditem_detailsofday_width">180dp</dimen>
+    <dimen name="carditem_detailsofdaylayout_margin">8dp</dimen>
+    <dimen name="activitymain_welcome_textsize">22sp</dimen>
+</resources>

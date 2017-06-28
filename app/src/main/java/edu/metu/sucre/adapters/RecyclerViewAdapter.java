@@ -24,6 +24,7 @@ import edu.metu.sucre.events.ShareWithClickedEvent;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.CardItem;
 import edu.metu.sucre.model.app.ListItem;
+import edu.metu.sucre.model.app.SugarMeasurementType;
 import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 
@@ -63,7 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         List<ListItem> sugarValues = new ArrayList<>();
         for ( BloodSugar bloodSugar: bloodSugarListOfDay) {
             sugarValues.add(new ListItem(bloodSugar.uuid, bloodSugar.value, DateUtils.getFormattedDateAsHour(bloodSugar.date),
-                    bloodSugar.sugarMeasurementType.toString()));
+                    bloodSugar.sugarMeasurementType.equals(SugarMeasurementType.PRE) ? activity.getString(R.string.pre) : activity.getString(R.string.post)));
         }
         ListAdapter adapter = new ListAdapter(activity, sugarValues);
         ((ViewHolder)viewHolder).detailsOfDay.setAdapter(adapter);
@@ -109,7 +110,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
                     "  "+
                     DateUtils.getFormattedDateAsHour(bloodSugar.date)+
                     "  "+
-                    bloodSugar.sugarMeasurementType.toString()+
+                    (bloodSugar.sugarMeasurementType.equals(SugarMeasurementType.PRE) ? activity.getString(R.string.pre) : activity.getString(R.string.post))+
                     "  "+
                     bloodSugar.value+"\n";
         }
