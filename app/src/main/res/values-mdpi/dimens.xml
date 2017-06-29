@@ -6,7 +6,7 @@
     <dimen name="listitem_datetextsize">20sp</dimen>
     <dimen name="listitem_sugarlevel_textsize">22sp</dimen>
     <dimen name="listitem_deleterecord_width_height">40dp</dimen>
-    <dimen name="listitem_prepost_marginend">16dp</dimen>
+    <dimen name="listitem_prepost_marginend">4dp</dimen>
     <dimen name="listitem_prepost_marginstart">8dp</dimen>
     <dimen name="carditem_detailsofday_width">220dp</dimen>
     <dimen name="carditem_detailsofdaylayout_margin">16dp</dimen>

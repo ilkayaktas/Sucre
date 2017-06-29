@@ -14,7 +14,7 @@ public class DateUtils {
     }
 
     public final static DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-    public final static DateFormat hourFormat = new SimpleDateFormat("hh:mm");
+    public final static DateFormat hourFormat = new SimpleDateFormat("HH:mm");
 
     public static String getFormattedDate(Date date){
         return dateFormat.format(date);
