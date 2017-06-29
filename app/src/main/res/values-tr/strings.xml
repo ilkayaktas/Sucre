@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Sucre</string>
+    <string name="error_message">Hata durumu oluştu.</string>
+    <string name="slogan">Sucre bir sağlık uygulamasıdır!</string>
+
+    <string name="rateme_dialog_title">Bu Uygulamaya Puan Verin</string>
+    <string name="rateme_dialog_message">Eğer uygulamamızdan memnun kaldıysanız, lütfen birkaç saniyenizi ayırarak bize puan verin. Desteğiniz için teşekkürler!</string>
+    <string name="rateme_dialog_ok">Puan ver</string>
+    <string name="rateme_dialog_cancel">Hatırlat</string>
+    <string name="rateme_dialog_no">Hayır, Teşekkürler</string>
+    <string name="welcome">Kan Şekeri Ölçümünüz Nedir?</string>
+    <string name="pre">Açlık</string>
+    <string name="post">Tokluk</string>
+    <string name="kaydet">Kaydet</string>
+    <string name="iptal">İptal</string>
+    <string name="show_all">Tüm Kayıtları Göster</string>
+    <string name="unrecognized_speech">Konuşma tanımlanamadı.</string>
+    <string name="say_number">Lütfen sadece sayı söyleyiniz.</string>
+    <string name="record_success"> değeri başarıyla kaydedildi.</string>
+    <string name="record_success_title">Kayıt Başarılı</string>
+    <string name="text_input_error_message">Girdiğiniz değer hatalı. Lütfen sayı giriniz.</string>
+    <string name="share_results">DOKTOR İLE PAYLAŞ</string>
+    <string name="share_using">Paylaş</string>
+    <string name="my_blood_measurements">Kan şekeri ölçümüm aşağıdaki gibidir:</string>
+    <string name="kayit_silme_islemi">Ölçüm değeriniz silinecek. Onaylıyor musunuz?</string>
+    <string name="carditem_lastmeasure_text">SON ÖLÇÜM</string>
+
+</resources>
