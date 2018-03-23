@@ -25,6 +25,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -72,5 +76,12 @@ dependencies {
     // View Animation
     compile "com.android.support:support-compat:$rootProject.supportLibraryVersion"
     compile "com.daimajia.easing:library:2.0@aar"
-    compile "com.daimajia.androidanimations:library:2.2@aar"
+    compile "com.daimajia.androidanimations:library:2.3@aar"
+
+    // Facebook SDK
+    implementation 'com.facebook.android:facebook-android-sdk:4.31.0'
+
+    // Pr
+    compileOnly 'org.projectlombok:lombok:1.16.20'
+    annotationProcessor 'org.projectlombok:lombok:1.16.20'
 }

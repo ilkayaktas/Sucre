@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
-import edu.metu.sucre.adapters.ViewPagerAdapter;
+import edu.metu.sucre.views.adapters.ViewPagerAdapter;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.base.BaseFragment;

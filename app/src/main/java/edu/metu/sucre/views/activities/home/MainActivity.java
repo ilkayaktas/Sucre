@@ -16,22 +16,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
-import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import javax.inject.Inject;
-
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.facebook.AccessToken;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.ListItem;
@@ -39,9 +31,16 @@ import edu.metu.sucre.model.app.SugarMeasurementType;
 import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.utils.KeyboardUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
+import edu.metu.sucre.views.activities.login.LoginActivity;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
     
@@ -50,7 +49,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @BindView(R.id.welcome) TextView welcome;
     @BindView(R.id.toggleSwitch) ToggleSwitch toggleSwitch;
-//    @BindView(R.id.datePicker) SingleDateAndTimePicker datepicker;
     @BindView(R.id.microphoneRing) ImageView microphoneRing;
 
     private Date date = new Date(System.currentTimeMillis());
@@ -59,9 +57,15 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    
+
+        // If MainActivity is reached without the user being logged in, redirect to the Login
+        // Activity
+        if (AccessToken.getCurrentAccessToken() == null) {
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+        }
         getActivityComponent().inject(this);
-        
+
         setUnBinder(ButterKnife.bind(this));
     
         RateMe.init(new Config(5, 10)); // 5 gün ya da 10 defa uygulama başlattıktan sonra
@@ -75,6 +79,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.getFacebookProfile();
+    }
 
     @Override
     protected void onStart() {
@@ -125,7 +134,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
     
     private void setFonts(){
-        welcome.setTypeface(typeface);
+        welcome.setTypeface( fontGothic );
     }
 
     @Override

@@ -21,6 +21,7 @@ import edu.metu.sucre.di.annotations.PerActivity;
 import edu.metu.sucre.di.modules.ActivityModule;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.home.MainActivity;
+import edu.metu.sucre.views.activities.login.LoginActivity;
 import edu.metu.sucre.views.activities.splash.SplashScreenActivity;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.fragments.listfragment.ListFragment;
@@ -45,4 +46,6 @@ public interface ActivityComponent {
     void inject(ListFragment fragment);
 
     void inject(StatisticsFragment fragment);
+
+    void inject(LoginActivity loginActivity);
 }

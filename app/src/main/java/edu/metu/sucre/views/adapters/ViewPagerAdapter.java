@@ -1,4 +1,4 @@
-package edu.metu.sucre.adapters;
+package edu.metu.sucre.views.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

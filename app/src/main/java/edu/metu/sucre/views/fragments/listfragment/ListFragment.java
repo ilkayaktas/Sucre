@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
-import edu.metu.sucre.adapters.RecyclerViewAdapter;
+import edu.metu.sucre.views.adapters.RecyclerViewAdapter;
 import edu.metu.sucre.events.ListItemClickedEvent;
 import edu.metu.sucre.events.ListItemDeletedEvent;
 import edu.metu.sucre.events.ShareWithClickedEvent;

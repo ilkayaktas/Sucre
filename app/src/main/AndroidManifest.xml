@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="edu.metu.sucre">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -25,9 +27,19 @@
                   android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name=".views.activities.login.LoginActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/Theme.Design.Light.NoActionBar">
+
+        </activity>
+
         <activity
             android:name=".views.activities.sugarlevel.SugarLevelActivity"
             android:screenOrientation="portrait"/>
+
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>

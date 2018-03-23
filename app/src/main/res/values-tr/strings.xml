@@ -2,6 +2,7 @@
     <string name="app_name">Sucre</string>
     <string name="error_message">Hata durumu oluştu.</string>
     <string name="slogan">Sucre bir sağlık uygulamasıdır!</string>
+    <string name="facebook_app_id">155099978517022</string>
 
     <string name="rateme_dialog_title">Bu Uygulamaya Puan Verin</string>
     <string name="rateme_dialog_message">Eğer uygulamamızdan memnun kaldıysanız, lütfen birkaç saniyenizi ayırarak bize puan verin. Desteğiniz için teşekkürler!</string>

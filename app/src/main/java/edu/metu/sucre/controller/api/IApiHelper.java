@@ -16,11 +16,14 @@
 package edu.metu.sucre.controller.api;
 
 
+import edu.metu.sucre.model.api.User;
+import io.reactivex.Observable;
+
 /**
  * Created by iaktas on 24/04/17.
  */
 
 public interface IApiHelper {
 
-    void doApiCall();
+    Observable<User> getFacebookProfile();
 }

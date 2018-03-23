@@ -1,4 +1,4 @@
-package edu.metu.sucre.adapters;
+package edu.metu.sucre.views.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -69,10 +69,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         ListAdapter adapter = new ListAdapter(activity, sugarValues);
         ((ViewHolder)viewHolder).detailsOfDay.setAdapter(adapter);
 
-        ((ViewHolder)viewHolder).sugarLevel.setTypeface(activity.typeface);
-        ((ViewHolder)viewHolder).date.setTypeface(activity.typeface);
-        ((ViewHolder)viewHolder).lastMeasure.setTypeface(activity.typeface);
-        ((ViewHolder)viewHolder).shareWithDoctor.setTypeface(activity.typeface);
+        ((ViewHolder)viewHolder).sugarLevel.setTypeface(activity.fontGothic );
+        ((ViewHolder)viewHolder).date.setTypeface(activity.fontGothic );
+        ((ViewHolder)viewHolder).lastMeasure.setTypeface(activity.fontGothic );
+        ((ViewHolder)viewHolder).shareWithDoctor.setTypeface(activity.fontGothic );
 	
 	    ((ViewHolder)viewHolder).cardView.setOnClickListener(new View.OnClickListener() {
             @Override

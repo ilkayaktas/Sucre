@@ -1,4 +1,4 @@
-package edu.metu.sucre.adapters;
+package edu.metu.sucre.views.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -69,9 +69,9 @@ public class ListAdapter extends BaseAdapter {
         viewHolder.prePost.setText(model.prePost);
         viewHolder.date.setText(model.date);
 
-        viewHolder.sugarLevel.setTypeface(activity.typeface);
-        viewHolder.prePost.setTypeface(activity.typeface);
-        viewHolder.date.setTypeface(activity.typeface);
+        viewHolder.sugarLevel.setTypeface(activity.fontGothic );
+        viewHolder.prePost.setTypeface(activity.fontGothic );
+        viewHolder.date.setTypeface(activity.fontGothic );
     
         viewHolder.delete.setOnClickListener(new View.OnClickListener(){
             @Override

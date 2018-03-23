@@ -107,7 +107,7 @@ public class StatisticsFragment extends BaseFragment implements StatisticsMvpVie
      * Set text view fonts.
      */
     private void setFonts(){
-        maxValue.setTypeface(((BaseActivity)getActivity()).typeface);
+        maxValue.setTypeface(((BaseActivity)getActivity()).fontGothic );
     }
     
     /**

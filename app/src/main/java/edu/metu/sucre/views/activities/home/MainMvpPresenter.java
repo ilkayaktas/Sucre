@@ -16,4 +16,9 @@ public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V>
 	void getFavoriKavramlar();
 
 	void saveBloodSugar(BloodSugar bloodSugar);
+
+	void logout();
+
+	void getFacebookProfile();
+
 }

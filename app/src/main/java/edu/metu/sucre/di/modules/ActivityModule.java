@@ -2,7 +2,6 @@ package edu.metu.sucre.di.modules;
 
 import android.app.Activity;
 import android.graphics.Typeface;
-
 import dagger.Module;
 import dagger.Provides;
 import edu.metu.sucre.controller.IDataManager;
@@ -13,6 +12,9 @@ import edu.metu.sucre.di.annotations.PerActivity;
 import edu.metu.sucre.views.activities.home.MainMvpPresenter;
 import edu.metu.sucre.views.activities.home.MainMvpView;
 import edu.metu.sucre.views.activities.home.MainPresenter;
+import edu.metu.sucre.views.activities.login.LoginMvpPresenter;
+import edu.metu.sucre.views.activities.login.LoginMvpView;
+import edu.metu.sucre.views.activities.login.LoginPresenter;
 import edu.metu.sucre.views.activities.splash.SplashScreenMvpPresenter;
 import edu.metu.sucre.views.activities.splash.SplashScreenMvpView;
 import edu.metu.sucre.views.activities.splash.SplashScreenPresenter;
@@ -91,5 +93,11 @@ public class ActivityModule {
     StatisticsMvpPresenter<StatisticsMvpView> providesStatisticsMvpPresenter(IDataManager IDataManager){
         return new StatisticsPresenter<>(IDataManager);
     }
-    
+
+    @Provides
+    @PerActivity
+    LoginMvpPresenter<LoginMvpView> providesLoginMvpPresenter(IDataManager IDataManager){
+        return new LoginPresenter<>(IDataManager);
+    }
+
 }

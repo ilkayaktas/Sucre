@@ -13,9 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-
-import javax.inject.Inject;
-
 import butterknife.Unbinder;
 import edu.metu.sucre.App;
 import edu.metu.sucre.R;
@@ -24,6 +21,8 @@ import edu.metu.sucre.di.components.ActivityComponent;
 import edu.metu.sucre.di.components.DaggerActivityComponent;
 import edu.metu.sucre.di.modules.ActivityModule;
 import edu.metu.sucre.utils.CommonUtils;
+
+import javax.inject.Inject;
 
 /**
  * Created by ilkay on 09/03/2017.
@@ -42,7 +41,7 @@ public class BaseActivity extends AppCompatActivity implements MvpView, BaseFrag
 
 	@Inject
 	@ActivityContext
-	public Typeface typeface;
+	public Typeface fontGothic;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {

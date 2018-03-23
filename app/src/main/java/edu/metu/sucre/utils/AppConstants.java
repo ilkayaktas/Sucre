@@ -22,8 +22,7 @@ package edu.metu.sucre.utils;
 public final class AppConstants {
 
     public static final String SHARED_PREF_DBDREATED = "DatabaseCreated";
-    
-    
+
     public static final String STATUS_CODE_FAILED = "failed";
 
     public static final int API_STATUS_CODE_LOCAL_ERROR = 0;
@@ -41,6 +40,9 @@ public final class AppConstants {
     public static final int REQ_CODE_SPEECH_INPUT = 5000;
     
     public static final int REPORT_RECORD_HISTORY_COUNT = 10;
+
+    public static final String EMAIL = "email";
+    public static final String USER_POSTS = "user_posts";
 
     private AppConstants() {
         // This utility class is not publicly instantiable
