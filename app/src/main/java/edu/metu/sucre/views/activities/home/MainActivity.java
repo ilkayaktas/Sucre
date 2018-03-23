@@ -63,7 +63,12 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         if (AccessToken.getCurrentAccessToken() == null) {
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
+        } else{
+            if (AccessToken.getCurrentAccessToken().isExpired()){
+                AccessToken.refreshCurrentAccessTokenAsync();
+            }
         }
+
         getActivityComponent().inject(this);
 
         setUnBinder(ButterKnife.bind(this));
