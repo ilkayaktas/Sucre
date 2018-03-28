@@ -13,6 +13,7 @@ import com.facebook.login.widget.LoginButton;
 import edu.metu.sucre.R;
 import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BaseActivity;
+import edu.metu.sucre.views.activities.home.MainActivity;
 
 import javax.inject.Inject;
 import java.util.Arrays;
@@ -59,6 +60,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 			@Override
 			public void onSuccess(LoginResult loginResult) {
 				setResult(RESULT_OK);
+				Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+				startActivity(mainIntent);
 				finish();
 			}
 

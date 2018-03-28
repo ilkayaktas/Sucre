@@ -10,6 +10,7 @@ import android.speech.RecognizerIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
@@ -63,18 +65,20 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         if (AccessToken.getCurrentAccessToken() == null) {
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
-        } else{
+            finish();
+        } /*else{
             if (AccessToken.getCurrentAccessToken().isExpired()){
                 AccessToken.refreshCurrentAccessTokenAsync();
             }
-        }
+        }*/
 
+//        Log.d("_______IA_______", AccessToken.getCurrentAccessToken().getUserId() + " " + AccessToken.getCurrentAccessToken().getToken());
         getActivityComponent().inject(this);
 
         setUnBinder(ButterKnife.bind(this));
     
         RateMe.init(new Config(5, 10)); // 5 gün ya da 10 defa uygulama başlattıktan sonra
-    
+
         // Attach presenter
         mPresenter.onAttach(MainActivity.this);
     
@@ -161,15 +165,16 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     public void showPreviousRecords(View v){
-        YoYo.with(Techniques.Pulse)
-                .duration(200)
-                .onEnd(new YoYo.AnimatorCallback() {
-                    @Override
-                    public void call(Animator animator) {
-                        startActivity(SugarLevelActivity.class);
-                    }
-                })
-                .playOn(v);
+        LoginManager.getInstance().logOut();
+//        YoYo.with(Techniques.Pulse)
+//                .duration(200)
+//                .onEnd(new YoYo.AnimatorCallback() {
+//                    @Override
+//                    public void call(Animator animator) {
+//                        startActivity(SugarLevelActivity.class);
+//                    }
+//                })
+//                .playOn(v);
         
     }
 
