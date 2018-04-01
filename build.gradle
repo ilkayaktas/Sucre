@@ -9,6 +9,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "io.realm:realm-gradle-plugin:4.2.0"
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+        classpath 'com.google.gms:google-services:3.2.0' // google-services plugin
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -20,6 +21,9 @@ allprojects {
     repositories {
         jcenter()
         google()
+        maven {
+            url "https://maven.google.com" // Google's Maven repository
+        }
     }
 }
 
@@ -32,10 +36,10 @@ ext {
     minSdkVersion = 19
     targetSdkVersion = 26
     compileSdkVersion = 26
-    buildToolsVersion = '26.0.2'
+    buildToolsVersion = '27.0.2'
 
     // App dependencies
-    supportLibraryVersion = '26.1.0'
+    supportLibraryVersion = '27.0.2'
     constraintsLibraryVersion = '1.0.2'
 
     //Test dependencies

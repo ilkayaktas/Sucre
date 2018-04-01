@@ -16,11 +16,11 @@ android {
     }
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
+            // applicationIdSuffix ".debug"
         }
         release {
             debuggable false
-            applicationIdSuffix ".release"
+            // applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -84,4 +84,11 @@ dependencies {
     // Pr
     compileOnly 'org.projectlombok:lombok:1.16.20'
     annotationProcessor 'org.projectlombok:lombok:1.16.20'
+
+    // Cloud messaging
+    compile 'com.google.firebase:firebase-core:12.0.1'
+    compile 'com.google.firebase:firebase-messaging:12.0.1'
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 }
+
+apply plugin: 'com.google.gms.google-services'

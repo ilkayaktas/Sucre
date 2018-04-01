@@ -1,6 +1,7 @@
 package edu.metu.sucre;
 
 import android.app.Application;
+import com.google.firebase.FirebaseApp;
 import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.di.components.ApplicationComponent;
 import edu.metu.sucre.di.components.DaggerApplicationComponent;
@@ -23,6 +24,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        FirebaseApp.initializeApp(this);
 
         Realm.init(this);
 

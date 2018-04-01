@@ -4,6 +4,9 @@
     <string name="slogan">Sucre bir sağlık uygulamasıdır!</string>
     <string name="facebook_app_id">155099978517022</string>
 
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">HealthNetwork</string>
+
     <string name="rateme_dialog_title">Bu Uygulamaya Puan Verin</string>
     <string name="rateme_dialog_message">Eğer uygulamamızdan memnun kaldıysanız, lütfen birkaç saniyenizi ayırarak bize puan verin. Desteğiniz için teşekkürler!</string>
     <string name="rateme_dialog_ok">Puan ver</string>

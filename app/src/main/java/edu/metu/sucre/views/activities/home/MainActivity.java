@@ -1,10 +1,12 @@
 package edu.metu.sucre.views.activities.home;
 
-import android.animation.Animator;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.Snackbar;
@@ -20,11 +22,11 @@ import android.widget.Toast;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.BloodSugar;
@@ -34,7 +36,6 @@ import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.utils.KeyboardUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.login.LoginActivity;
-import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
 
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
     
@@ -60,17 +62,29 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create channel to show notifications.
+            String channelId  = getString(R.string.default_notification_channel_id);
+            String channelName = getString(R.string.default_notification_channel_name);
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+                    channelName, NotificationManager.IMPORTANCE_LOW));
+        }
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+
+        // Get token
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d("_______IA_______", "token: "+token);
+
         // If MainActivity is reached without the user being logged in, redirect to the Login
         // Activity
         if (AccessToken.getCurrentAccessToken() == null) {
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
             finish();
-        } /*else{
-            if (AccessToken.getCurrentAccessToken().isExpired()){
-                AccessToken.refreshCurrentAccessTokenAsync();
-            }
-        }*/
+        }
 
 //        Log.d("_______IA_______", AccessToken.getCurrentAccessToken().getUserId() + " " + AccessToken.getCurrentAccessToken().getToken());
         getActivityComponent().inject(this);
@@ -165,7 +179,16 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     public void showPreviousRecords(View v){
-        LoginManager.getInstance().logOut();
+        // LoginManager.getInstance().logOut();
+
+        FirebaseMessaging fm = FirebaseMessaging.getInstance();
+        String to = "APA91bE6WRDFcdj-AG__7ufG6cpP7IhoYMZQ-fjuSDN6H2MHQBuWW7-AVdST-C-TtLCe_nZKunzueScMAuK3NTbLS72hniDk_jkH7ZgsYg-8lqabAqBeh-g";
+        AtomicInteger msgId = new AtomicInteger();
+        fm.send(new RemoteMessage.Builder(to)
+                .setMessageId(String.valueOf(msgId))
+                .addData("hello", "world")
+                .build());
+
 //        YoYo.with(Techniques.Pulse)
 //                .duration(200)
 //                .onEnd(new YoYo.AnimatorCallback() {
