@@ -2,17 +2,17 @@ package edu.metu.sucre.di.modules;
 
 import android.app.Application;
 import android.content.Context;
-
-import javax.inject.Singleton;
-
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
-import edu.metu.sucre.controller.IDataManager;
+import edu.metu.sucre.BuildConfig;
 import edu.metu.sucre.controller.DataManager;
-import edu.metu.sucre.controller.api.IApiHelper;
+import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.controller.api.ApiHelper;
-import edu.metu.sucre.controller.db.IDbHelper;
+import edu.metu.sucre.controller.api.IApiHelper;
+import edu.metu.sucre.controller.api.backend.BackendService;
 import edu.metu.sucre.controller.db.DbHelper;
+import edu.metu.sucre.controller.db.IDbHelper;
 import edu.metu.sucre.controller.db.crud.DatabaseManager;
 import edu.metu.sucre.controller.db.crud.DatabaseMigration;
 import edu.metu.sucre.controller.db.crud.RealmManager;
@@ -21,6 +21,12 @@ import edu.metu.sucre.controller.pref.PreferenceHelper;
 import edu.metu.sucre.di.annotations.ApplicationContext;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import javax.inject.Singleton;
 
 /**
  * Created by ilkay on 09/03/2017.
@@ -98,5 +104,25 @@ public class ApplicationModule {
 	IApiHelper provideApiHelper() {
 		return new ApiHelper();
 	}
-	
+
+	@Provides
+	@Singleton
+	BackendService provideBackendService(){
+		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+		// set your desired log level
+		logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+		OkHttpClient okClient = new OkHttpClient.Builder()
+				.addInterceptor(logging)
+				.build();
+
+		Retrofit retrofitApi = new Retrofit.Builder()
+				.baseUrl(BuildConfig.BACKEND_ENDPOINT)
+				.addConverterFactory(GsonConverterFactory.create())
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+				.client(okClient)
+				.build();
+
+		return retrofitApi.create(BackendService.class);
+	}
 }

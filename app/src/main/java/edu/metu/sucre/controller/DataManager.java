@@ -5,6 +5,8 @@ import edu.metu.sucre.controller.api.IApiHelper;
 import edu.metu.sucre.controller.db.IDbHelper;
 import edu.metu.sucre.controller.pref.IPreferenceHelper;
 import edu.metu.sucre.di.annotations.ApplicationContext;
+import edu.metu.sucre.model.api.Channel;
+import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.api.User;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
@@ -21,32 +23,32 @@ import java.util.List;
 public class DataManager implements IDataManager {
 	
 	private final Context mContext;
-	private final IDbHelper mIDbHelper;
-	private final IPreferenceHelper mIPreferenceHelper;
-	private final IApiHelper mIApiHelper;
+	private final IDbHelper dbHelper;
+	private final IPreferenceHelper preferenceHelper;
+	private final IApiHelper apiHelper;
 	
 	@Inject
-	public DataManager(@ApplicationContext Context mContext, IDbHelper mIDbHelper, IPreferenceHelper mIPreferenceHelper, IApiHelper mIApiHelper) {
+	public DataManager(@ApplicationContext Context mContext, IDbHelper dbHelper, IPreferenceHelper preferenceHelper, IApiHelper apiHelper) {
 		this.mContext = mContext;
-		this.mIDbHelper = mIDbHelper;
-		this.mIPreferenceHelper = mIPreferenceHelper;
-		this.mIApiHelper = mIApiHelper;
+		this.dbHelper = dbHelper;
+		this.preferenceHelper = preferenceHelper;
+		this.apiHelper = apiHelper;
 	}
 
 
 	@Override
 	public List<BloodSugar> getBloodSugar() {
-		return mIDbHelper.getBloodSugar();
+		return dbHelper.getBloodSugar();
 	}
 
 	@Override
 	public void saveBloodSugar(BloodSugar bloodSugar) {
-		mIDbHelper.saveBloodSugar(bloodSugar);
+		dbHelper.saveBloodSugar(bloodSugar);
 	}
 	
 	@Override
 	public void deleteBloodSugar(String uuid) {
-		mIDbHelper.deleteBloodSugar(uuid);
+		dbHelper.deleteBloodSugar(uuid);
 	}
 	
 	@Override
@@ -60,7 +62,32 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
-	public Observable<User> getFacebookProfile() {
-		return mIApiHelper.getFacebookProfile();
+	public Observable<FBUser> getFacebookProfile() {
+		return apiHelper.getFacebookProfile();
+	}
+
+	@Override
+	public Observable<User> getUser(String userId) {
+		return apiHelper.getUser(userId);
+	}
+
+	@Override
+	public Observable<User> addUser(User user) {
+		return apiHelper.addUser(user);
+	}
+
+	@Override
+	public Observable<Channel> getUserChannels(String userId) {
+		return apiHelper.getUserChannels(userId);
+	}
+
+	@Override
+	public Observable<Channel> addChannel(Channel channel) {
+		return apiHelper.addChannel(channel);
+	}
+
+	@Override
+	public Observable<Channel> updateChannel(String id, String memberToken) {
+		return apiHelper.updateChannel(id, memberToken);
 	}
 }

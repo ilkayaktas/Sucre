@@ -6,12 +6,16 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
+import edu.metu.sucre.controller.api.backend.BackendService;
+import edu.metu.sucre.model.api.Channel;
+import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.api.User;
 import io.reactivex.Observable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -22,8 +26,11 @@ import javax.inject.Singleton;
 public class ApiHelper implements IApiHelper {
 	private static final String ME_ENDPOINT = "/me";
 
+	@Inject
+	BackendService backendService;
+
 	@Override
-	public Observable<User> getFacebookProfile() {
+	public Observable<FBUser> getFacebookProfile() {
 		return Observable.create(e -> {
 
 			Bundle params = new Bundle();
@@ -45,7 +52,32 @@ public class ApiHelper implements IApiHelper {
 		});
 	}
 
-	private User jsonToUser(JSONObject user) throws JSONException {
+	@Override
+	public Observable<User> getUser(String userId) {
+		return backendService.getUser(userId);
+	}
+
+	@Override
+	public Observable<User> addUser(User user) {
+		return backendService.addUser(user);
+	}
+
+	@Override
+	public Observable<Channel> getUserChannels(String userId) {
+		return backendService.getUserChannels(userId);
+	}
+
+	@Override
+	public Observable<Channel> addChannel(Channel channel) {
+		return backendService.addChannel(channel);
+	}
+
+	@Override
+	public Observable<Channel> updateChannel(String id, String memberToken) {
+		return backendService.updateChannel(id, memberToken);
+	}
+
+	private FBUser jsonToUser(JSONObject user) throws JSONException {
 		Uri picture = Uri.parse(user.getJSONObject("picture").getJSONObject("data").getString("url"));
 		String name = user.getString("name");
 		String id = user.getString("id");
@@ -64,6 +96,6 @@ public class ApiHelper implements IApiHelper {
 		}
 		String permissions = builder.toString();
 
-		return new User(picture, name, id, email, permissions);
+		return new FBUser(picture, name, id, email, permissions);
 	}
 }

@@ -16,6 +16,8 @@
 package edu.metu.sucre.controller.api;
 
 
+import edu.metu.sucre.model.api.Channel;
+import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.api.User;
 import io.reactivex.Observable;
 
@@ -25,5 +27,16 @@ import io.reactivex.Observable;
 
 public interface IApiHelper {
 
-    Observable<User> getFacebookProfile();
+    Observable<FBUser> getFacebookProfile();
+
+    Observable<User> getUser(String userId);
+
+    Observable<User> addUser(User user);
+
+    Observable<Channel> getUserChannels(String userId);
+
+    Observable<Channel> addChannel(Channel channel);
+
+    Observable<Channel> updateChannel(String id, String memberToken);
+
 }
