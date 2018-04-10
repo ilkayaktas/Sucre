@@ -27,6 +27,10 @@ import io.reactivex.Observable;
 
 public interface IApiHelper {
 
+    boolean login(User user, String userId, String token, String expireDate);
+
+    boolean logout(String userId, String token);
+
     Observable<FBUser> getFacebookProfile();
 
     Observable<User> getUser(String userId);

@@ -10,6 +10,16 @@ import retrofit2.http.*;
  */
 public interface BackendService {
 
+    @POST("login")
+    Observable<?> login(@Body User user,
+                        @Query(value="userId") String userId,
+                        @Query(value="token") String token,
+                        @Query(value="expiredate") String expireDate);
+
+    @POST("logout")
+    Observable<?> logout(@Query(value="userId") String userId,
+                         @Query(value="token") String token);
+
     @GET("user/get")
     Observable<User> getUser(@Query("userId") String userId);
 

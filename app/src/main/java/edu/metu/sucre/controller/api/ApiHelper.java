@@ -30,6 +30,16 @@ public class ApiHelper implements IApiHelper {
 	BackendService backendService;
 
 	@Override
+	public boolean login(User user, String userId, String token, String expireDate) {
+		return false;
+	}
+
+	@Override
+	public boolean logout(String userId, String token) {
+		return false;
+	}
+
+	@Override
 	public Observable<FBUser> getFacebookProfile() {
 		return Observable.create(e -> {
 
