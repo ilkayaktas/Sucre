@@ -35,8 +35,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView( R.layout.activity_login );
-
 		getActivityComponent().inject(this);
 		
 		setUnBinder(ButterKnife.bind(this));
@@ -47,6 +45,11 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 		mPresenter.onAttach(LoginActivity.this);
 
 		initUI();
+	}
+
+	@Override
+	protected int getActivityLayout() {
+		return R.layout.activity_login;
 	}
 
 	private void setFacebookLogin() {

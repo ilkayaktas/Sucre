@@ -28,7 +28,7 @@ import javax.inject.Inject;
  * Created by ilkay on 09/03/2017.
  */
 
-public class BaseActivity extends AppCompatActivity implements MvpView, BaseFragment.Callback{
+public abstract class BaseActivity extends AppCompatActivity implements MvpView, BaseFragment.Callback{
 
 	private ProgressDialog progressDialog;
 
@@ -46,6 +46,8 @@ public class BaseActivity extends AppCompatActivity implements MvpView, BaseFrag
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(getActivityLayout());
+
 		mActivityComponent = DaggerActivityComponent.builder()
 				.activityModule(new ActivityModule(this))
 				.applicationComponent(((App) getApplication()).getAppComponent())
@@ -54,6 +56,10 @@ public class BaseActivity extends AppCompatActivity implements MvpView, BaseFrag
 		mActivityComponent.inject(this);
 
 	}
+
+	protected abstract int getActivityLayout();
+
+	protected abstract void initUI();
 
 	public ActivityComponent getActivityComponent() {
 		return mActivityComponent;

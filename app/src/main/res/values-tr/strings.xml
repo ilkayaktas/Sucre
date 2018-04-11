@@ -29,4 +29,6 @@
     <string name="kayit_silme_islemi">Ölçüm değeriniz silinecek. Onaylıyor musunuz?</string>
     <string name="carditem_lastmeasure_text">SON ÖLÇÜM</string>
 
+    <string name="hint_enter_a_message">Mesaj yazınız!</string>
+
 </resources>

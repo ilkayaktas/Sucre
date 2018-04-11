@@ -42,8 +42,7 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sugarlevel);
-		
+
 		getActivityComponent().inject(this);
 		
 		setUnBinder(ButterKnife.bind(this));
@@ -55,7 +54,17 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 
 		setViewPager();
 	}
-	
+
+	@Override
+	protected int getActivityLayout() {
+		return R.layout.activity_sugarlevel;
+	}
+
+	@Override
+	protected void initUI() {
+
+	}
+
 	private void setViewPager(){
 
 		List<BaseFragment> fragmentList = new ArrayList<>();

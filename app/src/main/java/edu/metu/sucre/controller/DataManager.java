@@ -90,4 +90,14 @@ public class DataManager implements IDataManager {
 	public Observable<Channel> updateChannel(String id, String memberToken) {
 		return apiHelper.updateChannel(id, memberToken);
 	}
+
+	@Override
+	public boolean login(User user, String userId, String token, String expireDate) {
+		return false;
+	}
+
+	@Override
+	public boolean logout(String userId, String token) {
+		return false;
+	}
 }

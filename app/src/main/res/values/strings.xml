@@ -29,4 +29,6 @@
     <string name="kayit_silme_islemi">Record will be deleted. Are you sure?</string>
     <string name="carditem_lastmeasure_text">LAST MEASUREMENT</string>
 
+    <string name="hint_enter_a_message">Type a message!</string>
+
 </resources>

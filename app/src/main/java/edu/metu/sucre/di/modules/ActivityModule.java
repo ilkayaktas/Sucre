@@ -9,12 +9,18 @@ import edu.metu.sucre.controller.services.MobssAsyncTask;
 import edu.metu.sucre.controller.strategy.Strategy;
 import edu.metu.sucre.di.annotations.ActivityContext;
 import edu.metu.sucre.di.annotations.PerActivity;
+import edu.metu.sucre.views.activities.channels.HealthChannelsMvpPresenter;
+import edu.metu.sucre.views.activities.channels.HealthChannelsMvpView;
+import edu.metu.sucre.views.activities.channels.HealthChannelsPresenter;
 import edu.metu.sucre.views.activities.home.MainMvpPresenter;
 import edu.metu.sucre.views.activities.home.MainMvpView;
 import edu.metu.sucre.views.activities.home.MainPresenter;
 import edu.metu.sucre.views.activities.login.LoginMvpPresenter;
 import edu.metu.sucre.views.activities.login.LoginMvpView;
 import edu.metu.sucre.views.activities.login.LoginPresenter;
+import edu.metu.sucre.views.activities.messages.HealthChannelMessageMvpPresenter;
+import edu.metu.sucre.views.activities.messages.HealthChannelMessageMvpView;
+import edu.metu.sucre.views.activities.messages.HealthChannelMessagePresenter;
 import edu.metu.sucre.views.activities.splash.SplashScreenMvpPresenter;
 import edu.metu.sucre.views.activities.splash.SplashScreenMvpView;
 import edu.metu.sucre.views.activities.splash.SplashScreenPresenter;
@@ -98,6 +104,19 @@ public class ActivityModule {
     @PerActivity
     LoginMvpPresenter<LoginMvpView> providesLoginMvpPresenter(IDataManager IDataManager){
         return new LoginPresenter<>(IDataManager);
+    }
+
+
+    @Provides
+    @PerActivity
+    HealthChannelsMvpPresenter<HealthChannelsMvpView> providesHealthChannelsMvpPresenter(IDataManager IDataManager){
+        return new HealthChannelsPresenter<>(IDataManager);
+    }
+
+    @Provides
+    @PerActivity
+    HealthChannelMessageMvpPresenter<HealthChannelMessageMvpView> providesHealthChannelMessageMvpPresenter(IDataManager IDataManager){
+        return new HealthChannelMessagePresenter<>(IDataManager);
     }
 
 }

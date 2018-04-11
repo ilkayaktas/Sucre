@@ -60,7 +60,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
@@ -99,6 +98,16 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         addCustomActionBar();
     
         setFonts();
+
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initUI() {
 
     }
 

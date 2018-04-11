@@ -16,11 +16,6 @@
             android:name=".views.activities.splash.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <activity android:name=".views.activities.home.MainActivity"
@@ -36,6 +31,15 @@
         <activity
             android:name=".views.activities.sugarlevel.SugarLevelActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".views.activities.channels.HealthChannelsActivity"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <!-- [START firebase_service] -->
         <service

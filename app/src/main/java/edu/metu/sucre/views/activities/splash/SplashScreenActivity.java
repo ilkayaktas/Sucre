@@ -31,8 +31,6 @@ public class SplashScreenActivity extends BaseActivity implements SplashScreenMv
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.activity_splash_screen);
-		
 		getActivityComponent().inject(this);
 		
 		setUnBinder(ButterKnife.bind(this));
@@ -43,7 +41,17 @@ public class SplashScreenActivity extends BaseActivity implements SplashScreenMv
 		
 		startHandler();
 	}
-	
+
+	@Override
+	protected int getActivityLayout() {
+		return R.layout.activity_splash_screen;
+	}
+
+	@Override
+	protected void initUI() {
+
+	}
+
 	private void startHandler() {
 		/* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
