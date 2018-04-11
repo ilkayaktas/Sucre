@@ -30,5 +30,7 @@
     <string name="carditem_lastmeasure_text">SON ÖLÇÜM</string>
 
     <string name="hint_enter_a_message">Mesaj yazınız!</string>
+    <string name="date_header_yesterday">Dün</string>
+    <string name="date_header_today">Bugün</string>
 
 </resources>

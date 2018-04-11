@@ -12,4 +12,9 @@ public class HealthChannelMessagePresenter<V extends HealthChannelMessageMvpView
 	public HealthChannelMessagePresenter(edu.metu.sucre.controller.IDataManager IDataManager) {
 		super(IDataManager);
 	}
+
+	@Override
+	public void sendMessage(String to, String message) {
+
+	}
 }

@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
+import com.stfalcon.chatkit.utils.DateFormatter;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.Dialog;
 import edu.metu.sucre.model.app.DialogsFixtures;
@@ -19,11 +20,13 @@ import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.messages.HealthChannelMessageActivity;
 
 import javax.inject.Inject;
+import java.util.Date;
 
 
 public class HealthChannelsActivity extends BaseActivity implements HealthChannelsMvpView,
         DialogsListAdapter.OnDialogClickListener<Dialog>,
-        DialogsListAdapter.OnDialogLongClickListener<Dialog>{
+        DialogsListAdapter.OnDialogLongClickListener<Dialog>,
+        DateFormatter.Formatter{
 
     @Inject
     HealthChannelsMvpPresenter<HealthChannelsMvpView> mPresenter;
@@ -83,6 +86,7 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
 
         dialogsAdapter.setOnDialogClickListener(this);
         dialogsAdapter.setOnDialogLongClickListener(this);
+        dialogsAdapter.setDatesFormatter(this);
 
         dialogsList.setAdapter(dialogsAdapter);
     }
@@ -110,4 +114,16 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
         dialogsAdapter.addItem(dialog);
     }
 
+    @Override
+    public String format(Date date) {
+        if (DateFormatter.isToday(date)) {
+            return DateFormatter.format(date, DateFormatter.Template.TIME);
+        } else if (DateFormatter.isYesterday(date)) {
+            return getString(R.string.date_header_yesterday);
+        } else if (DateFormatter.isCurrentYear(date)) {
+            return DateFormatter.format(date, DateFormatter.Template.STRING_DAY_MONTH);
+        } else {
+            return DateFormatter.format(date, DateFormatter.Template.STRING_DAY_MONTH_YEAR);
+        }
+    }
 }

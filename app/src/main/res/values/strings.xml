@@ -30,5 +30,7 @@
     <string name="carditem_lastmeasure_text">LAST MEASUREMENT</string>
 
     <string name="hint_enter_a_message">Type a message!</string>
+    <string name="date_header_yesterday">Yesterday</string>
+    <string name="date_header_today">Today</string>
 
 </resources>
