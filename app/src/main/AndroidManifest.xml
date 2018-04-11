@@ -41,6 +41,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".views.activities.messages.HealthChannelMessageActivity"
+                  android:screenOrientation="portrait"/>
+
         <!-- [START firebase_service] -->
         <service
                 android:name=".controller.services.MyFirebaseMessagingService">
