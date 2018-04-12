@@ -33,5 +33,7 @@
     <string name="date_header_yesterday">Yesterday</string>
     <string name="date_header_today">Today</string>
     <string name="channels">Health Channels</string>
+    <string name="text_input_message">Please enter a unique name for your health channel!</string>
+    <string name="text_input_title">Health Channel Name</string>
 
 </resources>

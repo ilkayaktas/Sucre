@@ -13,4 +13,9 @@ public class HealthChannelsPresenter<V extends HealthChannelsMvpView> extends Ba
 	public HealthChannelsPresenter(IDataManager IDataManager) {
 		super(IDataManager);
 	}
+
+	@Override
+	public void addChannel(String channelName) {
+
+	}
 }

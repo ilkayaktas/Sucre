@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import butterknife.BindView;
@@ -15,9 +14,9 @@ import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.utils.DateFormatter;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.Dialog;
-import edu.metu.sucre.model.app.DialogsFixtures;
 import edu.metu.sucre.model.app.Message;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.messages.HealthChannelMessageActivity;
@@ -32,7 +31,7 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
         DateFormatter.Formatter{
 
     @Inject
-    HealthChannelsMvpPresenter<HealthChannelsMvpView> mPresenter;
+    HealthChannelsMvpPresenter<HealthChannelsMvpView> presenter;
 
     protected ImageLoader imageLoader;
     protected DialogsListAdapter<Dialog> dialogsAdapter;
@@ -49,7 +48,7 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
         setUnBinder(ButterKnife.bind(this));
 
         // Attach presenter
-        mPresenter.onAttach(HealthChannelsActivity.this);
+        presenter.onAttach(HealthChannelsActivity.this);
 
         initUI();
 
@@ -68,7 +67,7 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
 
     @Override
     protected void onDestroy() {
-        mPresenter.onDetach();
+        presenter.onDetach();
         super.onDestroy();
     }
 
@@ -86,7 +85,7 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
 
     private void initAdapter() {
         dialogsAdapter = new DialogsListAdapter<>(imageLoader); // image loader ne istersen onu yapabilirsin
-        dialogsAdapter.setItems(DialogsFixtures.getDialogs()); // dialog listesi ekleniyor.
+        //dialogsAdapter.setItems(DialogsFixtures.getDialogs()); // dialog listesi ekleniyor.
 
         dialogsAdapter.setOnDialogClickListener(this);
         dialogsAdapter.setOnDialogLongClickListener(this);
@@ -133,7 +132,13 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
 
     @OnClick(R.id.fab_channels)
     public void onChannelAddClicked(View view){
-        Log.d("_______IA_______", "channel added!");
-
+        new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+                .setTopColorRes(R.color.md_deep_orange_800)
+                .setIcon(R.drawable.ic_settings)
+                .setTitle(R.string.text_input_title)
+                .setMessage(R.string.text_input_message)
+                .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
+                .setConfirmButton(android.R.string.ok, text -> presenter.addChannel(text))
+                .show();
     }
 }
