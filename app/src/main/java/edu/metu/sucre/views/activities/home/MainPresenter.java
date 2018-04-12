@@ -53,4 +53,9 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 							throwable -> System.out.println(throwable.toString()),
 							() -> System.out.println("completed"));
 	}
+
+	@Override
+	public boolean isFacebookTokenAvailable() {
+		return getIDataManager().getFacebookToken() != null;
+	}
 }

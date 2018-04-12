@@ -16,6 +16,7 @@
 package edu.metu.sucre.controller;
 
 
+import com.facebook.AccessToken;
 import edu.metu.sucre.controller.api.IApiHelper;
 import edu.metu.sucre.controller.db.IDbHelper;
 import edu.metu.sucre.controller.pref.IPreferenceHelper;
@@ -26,5 +27,11 @@ import edu.metu.sucre.controller.pref.IPreferenceHelper;
 
 public interface IDataManager extends IDbHelper, IPreferenceHelper, IApiHelper {
 
+    String getFCMToken();
 
+    AccessToken getFacebookToken();
+
+    void subscribeToTopic(String topic);
+
+    void createChannel(String channelName);
 }

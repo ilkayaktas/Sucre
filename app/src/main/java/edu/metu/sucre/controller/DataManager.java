@@ -1,6 +1,9 @@
 package edu.metu.sucre.controller;
 
 import android.content.Context;
+import com.facebook.AccessToken;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import edu.metu.sucre.controller.api.IApiHelper;
 import edu.metu.sucre.controller.db.IDbHelper;
 import edu.metu.sucre.controller.pref.IPreferenceHelper;
@@ -22,14 +25,14 @@ import java.util.List;
 @Singleton
 public class DataManager implements IDataManager {
 	
-	private final Context mContext;
+	private final Context context;
 	private final IDbHelper dbHelper;
 	private final IPreferenceHelper preferenceHelper;
 	private final IApiHelper apiHelper;
 	
 	@Inject
-	public DataManager(@ApplicationContext Context mContext, IDbHelper dbHelper, IPreferenceHelper preferenceHelper, IApiHelper apiHelper) {
-		this.mContext = mContext;
+	public DataManager(@ApplicationContext Context context, IDbHelper dbHelper, IPreferenceHelper preferenceHelper, IApiHelper apiHelper) {
+		this.context = context;
 		this.dbHelper = dbHelper;
 		this.preferenceHelper = preferenceHelper;
 		this.apiHelper = apiHelper;
@@ -82,8 +85,8 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
-	public Observable<Channel> addChannel(Channel channel) {
-		return apiHelper.addChannel(channel);
+	public Observable<Channel> addChannel(Channel channel, String userToken) {
+		return apiHelper.addChannel(channel, userToken);
 	}
 
 	@Override
@@ -99,5 +102,29 @@ public class DataManager implements IDataManager {
 	@Override
 	public boolean logout(String userId, String token) {
 		return false;
+	}
+
+	@Override
+	public String getFCMToken() {
+		return FirebaseInstanceId.getInstance().getToken();
+	}
+
+	@Override
+	public AccessToken getFacebookToken() {
+		return AccessToken.getCurrentAccessToken();
+	}
+
+	@Override
+	public void subscribeToTopic(String topic) {
+		FirebaseMessaging.getInstance().subscribeToTopic(topic);
+	}
+
+	@Override
+	public void createChannel(String channelName) {
+		String token = getFCMToken();
+
+		if(token != null){
+			//apiHelper.addChannel(channelName, token);
+		}
 	}
 }

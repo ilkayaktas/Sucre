@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.Snackbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,9 +19,7 @@ import android.widget.Toast;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.facebook.AccessToken;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
@@ -47,7 +44,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MainActivity extends BaseActivity implements MainMvpView {
     
     @Inject
-    MainMvpPresenter<MainMvpView> mPresenter;
+    MainMvpPresenter<MainMvpView> presenter;
 
     @BindView(R.id.toolbar_title)TextView toolbar_title;
     @BindView(R.id.toggleSwitch) ToggleSwitch toggleSwitch;
@@ -69,21 +66,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                     channelName, NotificationManager.IMPORTANCE_LOW));
         }
 
-        FirebaseMessaging.getInstance().subscribeToTopic("news");
-
-        // Get token
-        String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d("_______IA_______", "token: "+token);
-
-        // If MainActivity is reached without the user being logged in, redirect to the Login
-        // Activity
-        if (AccessToken.getCurrentAccessToken() == null) {
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(loginIntent);
-            finish();
-        }
-
-//        Log.d("_______IA_______", AccessToken.getCurrentAccessToken().getUserId() + " " + AccessToken.getCurrentAccessToken().getToken());
         getActivityComponent().inject(this);
 
         setUnBinder(ButterKnife.bind(this));
@@ -91,7 +73,14 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         RateMe.init(new Config(5, 10)); // 5 gün ya da 10 defa uygulama başlattıktan sonra
 
         // Attach presenter
-        mPresenter.onAttach(MainActivity.this);
+        presenter.onAttach(MainActivity.this);
+
+        // If MainActivity is reached without the user being logged in, redirect to the Login Activity
+        if (!presenter.isFacebookTokenAvailable()) {
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish();
+        }
 
         initUI();
     }
@@ -109,7 +98,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.getFacebookProfile();
+        presenter.getFacebookProfile();
     }
 
     @Override
@@ -126,7 +115,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     
     @Override
     protected void onDestroy() {
-        mPresenter.onDetach();
+        presenter.onDetach();
         super.onDestroy();
     }
     
@@ -305,7 +294,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         }
 
         // save record
-        mPresenter.saveBloodSugar(new BloodSugar(null, date, bloodSugarValue, sugarMeasurementType));
+        presenter.saveBloodSugar(new BloodSugar(null, date, bloodSugarValue, sugarMeasurementType));
     }
 
 }

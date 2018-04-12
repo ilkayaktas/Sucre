@@ -39,7 +39,7 @@ public interface IApiHelper {
 
     Observable<Channel> getUserChannels(String userId);
 
-    Observable<Channel> addChannel(Channel channel);
+    Observable<Channel> addChannel(Channel channel, String userToken);
 
     Observable<Channel> updateChannel(String id, String memberToken);
 

@@ -78,7 +78,7 @@ public class ApiHelper implements IApiHelper {
 	}
 
 	@Override
-	public Observable<Channel> addChannel(Channel channel) {
+	public Observable<Channel> addChannel(Channel channel, String userToken) {
 		return backendService.addChannel(channel);
 	}
 
