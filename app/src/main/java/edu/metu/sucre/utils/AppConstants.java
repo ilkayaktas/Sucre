@@ -42,7 +42,7 @@ public final class AppConstants {
     public static final int REPORT_RECORD_HISTORY_COUNT = 10;
 
     public static final String EMAIL = "email";
-    public static final String USER_POSTS = "user_posts";
+    public static final String PUBLIC_PROFILE = "public_profile";
 
     private AppConstants() {
         // This utility class is not publicly instantiable

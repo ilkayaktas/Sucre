@@ -93,6 +93,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         // Attach presenter
         mPresenter.onAttach(MainActivity.this);
 
+        initUI();
     }
 
     @Override

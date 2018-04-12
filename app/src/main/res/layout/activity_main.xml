@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:custom="http://schemas.android.com/tools"
+
         android:background="@color/mobss_color_blue"
         android:fitsSystemWindows="true">
 
@@ -40,7 +40,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        android:textSize="22sp"
+                        android:textSize="34sp"
                         android:textStyle="bold"/>
                 <ImageButton
                         android:id="@+id/toolbar_settings"
@@ -60,6 +60,7 @@
 
 
     <android.support.constraint.ConstraintLayout
+            xmlns:custom="http://schemas.android.com/tools"
             android:id="@+id/main_constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +79,7 @@
                 app:layout_constraintTop_toTopOf="@+id/main_constraint"
                 app:layout_constraintStart_toStartOf="@id/main_constraint"
                 android:layout_marginBottom="10dp"
-                custom:srcCompat="@drawable/ic_calendar"
+                app:srcCompat="@drawable/ic_calendar"
                 android:onClick="onCalendarClicked"/>
 
         <ImageView
@@ -89,7 +90,7 @@
                 app:layout_constraintTop_toTopOf="@+id/main_constraint"
                 app:layout_constraintEnd_toEndOf="@id/main_constraint"
                 android:layout_marginBottom="10dp"
-                custom:srcCompat="@drawable/ic_edit"
+                app:srcCompat="@drawable/ic_edit"
                 android:onClick="onManualEntryButtonClicked"/>
 
 
@@ -122,8 +123,6 @@
                     android:layout_height="100dp"
                     app:srcCompat="@drawable/ic_circle"/>
         </android.support.constraint.ConstraintLayout>
-
-
 
         <belka.us.androidtoggleswitch.widgets.ToggleSwitch
                 android:id="@+id/toggleSwitch"

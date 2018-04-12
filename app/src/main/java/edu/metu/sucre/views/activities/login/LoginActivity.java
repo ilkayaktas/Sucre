@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 		mCallbackManager = CallbackManager.Factory.create();
 
 		// Set the initial permissions to request from the user while logging in
-		loginButton.setReadPermissions( Arrays.asList( AppConstants.EMAIL, AppConstants.USER_POSTS));
+		loginButton.setReadPermissions( Arrays.asList( AppConstants.EMAIL, AppConstants.PUBLIC_PROFILE));
 
 		// Register a callback to respond to the user
 		loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {

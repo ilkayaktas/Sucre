@@ -2,11 +2,14 @@ package edu.metu.sucre.views.activities.channels;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.RelativeLayout;
+import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.dialogs.DialogsList;
@@ -34,7 +37,8 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
     protected ImageLoader imageLoader;
     protected DialogsListAdapter<Dialog> dialogsAdapter;
     @BindView(R.id.dialogsList)  DialogsList dialogsList;
-    @BindView(R.id.healthview)  RelativeLayout relativeLayout;
+    @BindView(R.id.healthview)
+    CoordinatorLayout relativeLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,5 +129,11 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
         } else {
             return DateFormatter.format(date, DateFormatter.Template.STRING_DAY_MONTH_YEAR);
         }
+    }
+
+    @OnClick(R.id.fab_channels)
+    public void onChannelAddClicked(View view){
+        Log.d("_______IA_______", "channel added!");
+
     }
 }
