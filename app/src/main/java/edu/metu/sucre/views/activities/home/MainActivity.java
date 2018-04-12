@@ -10,11 +10,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,7 +49,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Inject
     MainMvpPresenter<MainMvpView> mPresenter;
 
-    @BindView(R.id.welcome) TextView welcome;
+    @BindView(R.id.toolbar_title)TextView toolbar_title;
     @BindView(R.id.toggleSwitch) ToggleSwitch toggleSwitch;
     @BindView(R.id.microphoneRing) ImageView microphoneRing;
 
@@ -94,10 +92,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
         // Attach presenter
         mPresenter.onAttach(MainActivity.this);
-    
-        addCustomActionBar();
-    
-        setFonts();
 
     }
 
@@ -108,7 +102,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     protected void initUI() {
-
+        setFonts();
     }
 
     @Override
@@ -152,21 +146,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         }
     }
     
-    private void addCustomActionBar(){
-        ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setDisplayShowTitleEnabled(false);
-        
-        LayoutInflater inflator = LayoutInflater.from(this);
-        View v = inflator.inflate(R.layout.layout_main_activity_actionbar, null);
-        ((TextView)v.findViewById(R.id.actionbar_title)).setTypeface(textFont);
-        
-        mActionBar.setCustomView(v);
-        mActionBar.setDisplayShowCustomEnabled(true);
-    }
-    
     private void setFonts(){
-        welcome.setTypeface( fontGothic );
+        toolbar_title.setTypeface(sketchFont);
     }
 
     @Override

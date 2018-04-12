@@ -37,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
 	private Unbinder mUnBinder;
 
 	@Inject
-	public Typeface textFont;
+	public Typeface sketchFont;
 
 	@Inject
 	@ActivityContext
@@ -131,7 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
 		TextView myActionBar = (TextView) findViewById(titleId);
 		if(myActionBar != null) {
 			myActionBar.setTextColor(Color.WHITE);
-			myActionBar.setTypeface(textFont);
+			myActionBar.setTypeface(sketchFont);
 			myActionBar.setTextSize(20);
 		}
 	}

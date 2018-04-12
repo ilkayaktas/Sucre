@@ -7,25 +7,23 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
-import edu.metu.sucre.views.adapters.ViewPagerAdapter;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.base.BaseFragment;
+import edu.metu.sucre.views.adapters.ViewPagerAdapter;
 import edu.metu.sucre.views.fragments.listfragment.ListFragment;
 import edu.metu.sucre.views.fragments.listfragment.OnBloodSugarSelectedListener;
 import edu.metu.sucre.views.fragments.statisticsfragment.OnShareButtonClickedListener;
 import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsFragment;
 import edu.metu.sucre.views.fragments.statisticsfragment.StatisticsMvpView;
 import edu.metu.sucre.views.widgets.viewpagers.NonScrollableViewPager;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ilkay on 27/04/2017.
@@ -113,7 +111,7 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		
 		LayoutInflater inflator = LayoutInflater.from(this);
 		View v = inflator.inflate(R.layout.layout_sugarlevel_activity_actionbar, null);
-		((TextView)v.findViewById(R.id.actionbar_title)).setTypeface(textFont);
+		((TextView)v.findViewById(R.id.actionbar_title)).setTypeface(sketchFont);
 		
 		mActionBar.setCustomView(v);
 		mActionBar.setDisplayShowCustomEnabled(true);
