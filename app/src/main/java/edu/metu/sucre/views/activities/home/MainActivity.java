@@ -19,6 +19,7 @@ import android.widget.Toast;
 import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
@@ -30,6 +31,7 @@ import edu.metu.sucre.model.app.SugarMeasurementType;
 import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.utils.KeyboardUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
+import edu.metu.sucre.views.activities.channels.HealthChannelsActivity;
 import edu.metu.sucre.views.activities.login.LoginActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
@@ -297,4 +299,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         presenter.saveBloodSugar(new BloodSugar(null, date, bloodSugarValue, sugarMeasurementType));
     }
 
+    @OnClick(R.id.toolbar_settings)
+    public void open(View view){
+        startActivity(HealthChannelsActivity.class);
+    }
 }

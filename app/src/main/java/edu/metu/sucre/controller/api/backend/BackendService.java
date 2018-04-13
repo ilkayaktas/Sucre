@@ -29,8 +29,8 @@ public interface BackendService {
     @GET("user/channel")
     Observable<Channel> getUserChannels(@Query("userId") String userId);
 
-    @POST("channel/add")
-    Observable<Channel> addChannel(@Body Channel channel);
+    @POST("channel/create")
+    Observable<Channel> createChannel(@Body Channel channel);
 
     @PUT("channel/update")
     Observable<Channel> updateChannel(@Query("id") String id, @Query("memberId") String memberId);

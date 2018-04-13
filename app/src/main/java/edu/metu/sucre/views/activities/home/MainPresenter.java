@@ -56,6 +56,6 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
 	@Override
 	public boolean isFacebookTokenAvailable() {
-		return getIDataManager().getFacebookToken() != null;
+		return getIDataManager().getUserId() != null;
 	}
 }

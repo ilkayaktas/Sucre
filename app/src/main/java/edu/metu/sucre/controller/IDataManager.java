@@ -16,7 +16,6 @@
 package edu.metu.sucre.controller;
 
 
-import com.facebook.AccessToken;
 import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
@@ -33,7 +32,7 @@ public interface IDataManager {
 
     String getFCMToken();
 
-    AccessToken getFacebookToken();
+    String getUserId();
 
     void subscribeToTopic(String topic);
 

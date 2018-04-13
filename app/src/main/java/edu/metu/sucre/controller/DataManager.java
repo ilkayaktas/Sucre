@@ -12,8 +12,6 @@ import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -66,8 +64,13 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
-	public AccessToken getFacebookToken() {
-		return AccessToken.getCurrentAccessToken();
+	public String getUserId() {
+		AccessToken facebookToken = AccessToken.getCurrentAccessToken();
+
+		if(facebookToken != null){
+			return facebookToken.getUserId();
+		}
+		return null;
 	}
 
 	@Override
@@ -79,19 +82,19 @@ public class DataManager implements IDataManager {
 	public void createChannel(String channelName) {
 		String fcmToken = getFCMToken();
 
-		apiHelper.createFCMGroup(channelName, fcmToken)
-				.observeOn(Schedulers.io())
-				.subscribeOn(AndroidSchedulers.mainThread())
-				.subscribe(notificationKey -> System.out.println(notificationKey));
+//		apiHelper.createFCMGroup(channelName, fcmToken)
+//				.observeOn(Schedulers.io())
+//				.subscribeOn(AndroidSchedulers.mainThread())
+//				.subscribe(notificationKey -> System.out.println(notificationKey));
 
-		AccessToken facebookToken = getFacebookToken();
+		String userId = getUserId();
 
-		if(fcmToken != null && facebookToken != null){
+		if(fcmToken != null && userId != null){
 			Channel channel = new Channel();
-			channel.owner = facebookToken.getUserId();
+			channel.owner = userId;
 			channel.channelName = channelName;
-			channel.members.add(fcmToken);
-			//apiHelper.addChannel(channelName, token);
+			channel.membersFCMTokens.add(fcmToken);
+			apiHelper.createChannel(channel);
 		}
 	}
 }

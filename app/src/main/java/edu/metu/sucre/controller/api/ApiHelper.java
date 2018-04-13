@@ -2,6 +2,7 @@ package edu.metu.sucre.controller.api;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -86,8 +87,10 @@ public class ApiHelper implements IApiHelper {
 	}
 
 	@Override
-	public Observable<Channel> addChannel(Channel channel, String userToken) {
-		return backendService.addChannel(channel);
+	public Observable<Channel> createChannel(Channel channel) {
+		return backendService.createChannel(channel)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread());
 	}
 
 	@Override
@@ -106,7 +109,37 @@ public class ApiHelper implements IApiHelper {
 			fcmGroupService.createGroup(fcmChannel)
 					.subscribeOn(Schedulers.io())
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(fcmChannelResponse -> e.onNext(fcmChannelResponse.notificationKey));
+					.subscribe(fcmChannelResponse -> {
+								if(fcmChannelResponse.notificationKey != null){
+									e.onNext(fcmChannelResponse.notificationKey);
+								} else{
+									e.onError(new Throwable(fcmChannelResponse.error));
+								}
+							},
+							throwable -> Log.d("_______IA_______", throwable.getLocalizedMessage()));
+		});
+	}
+
+	@Override
+	public Observable<String> addUserToFCMGroup(String groupName, String notificationKey, String fcmToken) {
+		FCMChannel fcmChannel = new FCMChannel();
+		fcmChannel.notificationKeyName = groupName;
+		fcmChannel.notificationKey = notificationKey;
+		fcmChannel.operation = "add";
+		fcmChannel.registrationIds.add(fcmToken);
+
+		return Observable.create(e -> {
+			fcmGroupService.createGroup(fcmChannel)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(fcmChannelResponse -> {
+								if(fcmChannelResponse.notificationKey != null){
+									e.onNext(fcmChannelResponse.notificationKey);
+								} else{
+									e.onError(new Throwable(fcmChannelResponse.error));
+								}
+							},
+							throwable -> Log.d("_______IA_______", throwable.getLocalizedMessage()));
 		});
 	}
 
