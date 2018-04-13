@@ -11,6 +11,7 @@ import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.controller.api.ApiHelper;
 import edu.metu.sucre.controller.api.IApiHelper;
 import edu.metu.sucre.controller.api.backend.BackendService;
+import edu.metu.sucre.controller.api.fcm.FCMGroupService;
 import edu.metu.sucre.controller.db.DbHelper;
 import edu.metu.sucre.controller.db.IDbHelper;
 import edu.metu.sucre.controller.db.crud.DatabaseManager;
@@ -22,6 +23,7 @@ import edu.metu.sucre.di.annotations.ApplicationContext;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -101,8 +103,8 @@ public class ApplicationModule {
 	
 	@Provides
 	@Singleton
-	IApiHelper provideApiHelper() {
-		return new ApiHelper();
+	IApiHelper provideApiHelper(BackendService backendService, FCMGroupService fcmGroupService) {
+		return new ApiHelper(backendService, fcmGroupService);
 	}
 
 	@Provides
@@ -124,5 +126,38 @@ public class ApplicationModule {
 				.build();
 
 		return retrofitApi.create(BackendService.class);
+	}
+
+	@Provides
+	@Singleton
+	FCMGroupService provideFCMGroupService(){
+		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+		// set your desired log level
+		logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+		OkHttpClient okClient = new OkHttpClient.Builder()
+				.addInterceptor(logging)
+				.addInterceptor(chain -> {
+                    Request original = chain.request();
+
+                    Request request = original.newBuilder()
+                            .addHeader("Content-Type", "application/json")
+                            .addHeader("Authorization", "key="+BuildConfig.FCM_AUTHORIZATION)
+                            .addHeader("project_id", BuildConfig.FCM_PROJECTID)
+                            .method(original.method(), original.body())
+                            .build();
+
+                    return chain.proceed(request);
+                })
+				.build();
+
+		Retrofit retrofitApi = new Retrofit.Builder()
+				.baseUrl(BuildConfig.FCM_GROUP_ENDPOINT)
+				.addConverterFactory(GsonConverterFactory.create())
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+				.client(okClient)
+				.build();
+
+		return retrofitApi.create(FCMGroupService.class);
 	}
 }

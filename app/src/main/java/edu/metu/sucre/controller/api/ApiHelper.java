@@ -7,15 +7,18 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import edu.metu.sucre.controller.api.backend.BackendService;
+import edu.metu.sucre.controller.api.fcm.FCMGroupService;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
+import edu.metu.sucre.model.api.FCMChannel;
 import edu.metu.sucre.model.api.User;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -26,8 +29,13 @@ import javax.inject.Singleton;
 public class ApiHelper implements IApiHelper {
 	private static final String ME_ENDPOINT = "/me";
 
-	@Inject
-	BackendService backendService;
+	private BackendService backendService;
+	private FCMGroupService fcmGroupService;
+
+	public ApiHelper(BackendService backendService, FCMGroupService fcmGroupService) {
+		this.backendService = backendService;
+		this.fcmGroupService = fcmGroupService;
+	}
 
 	@Override
 	public boolean login(User user, String userId, String token, String expireDate) {
@@ -85,6 +93,21 @@ public class ApiHelper implements IApiHelper {
 	@Override
 	public Observable<Channel> updateChannel(String id, String memberToken) {
 		return backendService.updateChannel(id, memberToken);
+	}
+
+	@Override
+	public Observable<String> createFCMGroup(String groupName, String fcmToken) {
+		FCMChannel fcmChannel = new FCMChannel();
+		fcmChannel.notificationKeyName = groupName;
+		fcmChannel.operation = "create";
+		fcmChannel.registrationIds.add(fcmToken);
+
+		return Observable.create(e -> {
+			fcmGroupService.createGroup(fcmChannel)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(fcmChannelResponse -> e.onNext(fcmChannelResponse.notificationKey));
+		});
 	}
 
 	private FBUser jsonToUser(JSONObject user) throws JSONException {

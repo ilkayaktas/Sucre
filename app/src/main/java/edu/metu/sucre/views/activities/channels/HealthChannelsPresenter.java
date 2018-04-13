@@ -16,6 +16,6 @@ public class HealthChannelsPresenter<V extends HealthChannelsMvpView> extends Ba
 
 	@Override
 	public void addChannel(String channelName) {
-
+		getIDataManager().createChannel(channelName);
 	}
 }

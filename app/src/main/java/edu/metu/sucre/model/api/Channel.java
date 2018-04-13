@@ -1,5 +1,6 @@
 package edu.metu.sucre.model.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,4 +16,8 @@ public class Channel {
     public String notificationKey; // notification key for FCM messages
 
     public List<String> members; // list of user ids
+
+    public Channel() {
+        members = new ArrayList<>();
+    }
 }

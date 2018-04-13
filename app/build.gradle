@@ -25,7 +25,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         all {
-            buildConfigField "String", "BACKEND_ENDPOINT", "\"localhost:8080\""
+            buildConfigField "String", "BACKEND_ENDPOINT", "\"http://localhost:8080\""
+            buildConfigField "String", "FCM_GROUP_ENDPOINT", "\"https://android.googleapis.com/gcm/\""
+            buildConfigField "String", "FCM_AUTHORIZATION", "\"$fcmAuthorization\""
+            buildConfigField "String", "FCM_PROJECTID", "\"$fcmProjectId\""
         }
     }
     compileOptions {

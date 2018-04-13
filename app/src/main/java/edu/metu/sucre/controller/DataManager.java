@@ -10,9 +10,10 @@ import edu.metu.sucre.controller.pref.IPreferenceHelper;
 import edu.metu.sucre.di.annotations.ApplicationContext;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
-import edu.metu.sucre.model.api.User;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -55,53 +56,8 @@ public class DataManager implements IDataManager {
 	}
 	
 	@Override
-	public boolean getDatabaseCreatedStatus() {
-		return false;
-	}
-
-	@Override
-	public void setDatabaseCreatedStatus() {
-
-	}
-
-	@Override
 	public Observable<FBUser> getFacebookProfile() {
 		return apiHelper.getFacebookProfile();
-	}
-
-	@Override
-	public Observable<User> getUser(String userId) {
-		return apiHelper.getUser(userId);
-	}
-
-	@Override
-	public Observable<User> addUser(User user) {
-		return apiHelper.addUser(user);
-	}
-
-	@Override
-	public Observable<Channel> getUserChannels(String userId) {
-		return apiHelper.getUserChannels(userId);
-	}
-
-	@Override
-	public Observable<Channel> addChannel(Channel channel, String userToken) {
-		return apiHelper.addChannel(channel, userToken);
-	}
-
-	@Override
-	public Observable<Channel> updateChannel(String id, String memberToken) {
-		return apiHelper.updateChannel(id, memberToken);
-	}
-
-	@Override
-	public boolean login(User user, String userId, String token, String expireDate) {
-		return false;
-	}
-
-	@Override
-	public boolean logout(String userId, String token) {
-		return false;
 	}
 
 	@Override
@@ -121,9 +77,20 @@ public class DataManager implements IDataManager {
 
 	@Override
 	public void createChannel(String channelName) {
-		String token = getFCMToken();
+		String fcmToken = getFCMToken();
 
-		if(token != null){
+		apiHelper.createFCMGroup(channelName, fcmToken)
+				.observeOn(Schedulers.io())
+				.subscribeOn(AndroidSchedulers.mainThread())
+				.subscribe(notificationKey -> System.out.println(notificationKey));
+
+		AccessToken facebookToken = getFacebookToken();
+
+		if(fcmToken != null && facebookToken != null){
+			Channel channel = new Channel();
+			channel.owner = facebookToken.getUserId();
+			channel.channelName = channelName;
+			channel.members.add(fcmToken);
 			//apiHelper.addChannel(channelName, token);
 		}
 	}

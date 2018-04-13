@@ -17,15 +17,19 @@ package edu.metu.sucre.controller;
 
 
 import com.facebook.AccessToken;
-import edu.metu.sucre.controller.api.IApiHelper;
-import edu.metu.sucre.controller.db.IDbHelper;
-import edu.metu.sucre.controller.pref.IPreferenceHelper;
+import edu.metu.sucre.model.api.FBUser;
+import edu.metu.sucre.model.app.BloodSugar;
+import io.reactivex.Observable;
+
+import java.util.List;
 
 /**
  * Created by iaktas on 27/01/17.
  */
 
-public interface IDataManager extends IDbHelper, IPreferenceHelper, IApiHelper {
+public interface IDataManager {
+
+    Observable<FBUser> getFacebookProfile();
 
     String getFCMToken();
 
@@ -34,4 +38,10 @@ public interface IDataManager extends IDbHelper, IPreferenceHelper, IApiHelper {
     void subscribeToTopic(String topic);
 
     void createChannel(String channelName);
+
+    List<BloodSugar> getBloodSugar();
+
+    void saveBloodSugar(BloodSugar bloodSugar);
+
+    void deleteBloodSugar(String uuid);
 }
