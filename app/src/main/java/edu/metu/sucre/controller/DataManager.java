@@ -12,6 +12,9 @@ import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -94,7 +97,16 @@ public class DataManager implements IDataManager {
 			channel.owner = userId;
 			channel.channelName = channelName;
 			channel.membersFCMTokens.add(fcmToken);
-			apiHelper.createChannel(channel);
+			Disposable disposal = apiHelper.createChannel(channel)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(ch -> {
+						// here !!! you got channel.
+						System.out.println(ch.id + " "
+								+ ch.channelName + " "
+								+ ch.notificationKey + " "
+								+ ch.owner+" ");
+					}, throwable -> System.out.println(throwable.getMessage()));
 		}
 	}
 }

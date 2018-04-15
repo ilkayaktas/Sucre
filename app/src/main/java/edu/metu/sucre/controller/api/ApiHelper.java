@@ -88,9 +88,7 @@ public class ApiHelper implements IApiHelper {
 
 	@Override
 	public Observable<Channel> createChannel(Channel channel) {
-		return backendService.createChannel(channel)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread());
+		return backendService.createChannel(channel);
 	}
 
 	@Override

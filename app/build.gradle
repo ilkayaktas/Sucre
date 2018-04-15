@@ -25,7 +25,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         all {
-            buildConfigField "String", "BACKEND_ENDPOINT", "\"http://localhost:8080/\""
+            buildConfigField "String", "BACKEND_ENDPOINT", "\"http://192.168.1.26:8080/\""
             buildConfigField "String", "FCM_GROUP_ENDPOINT", "\"https://iid.googleapis.com/\""
             buildConfigField "String", "FCM_AUTHORIZATION", "\"$fcmAuthorization\""
             buildConfigField "String", "FCM_PROJECTID", "\"$fcmProjectId\""
@@ -101,8 +101,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.16.20'
 
     // Cloud messaging
-    compile 'com.google.firebase:firebase-core:12.0.1'
-    compile 'com.google.firebase:firebase-messaging:12.0.1'
+    compile 'com.google.firebase:firebase-core:15.0.0'
+    compile 'com.google.firebase:firebase-messaging:15.0.0'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
     // Retrofit
