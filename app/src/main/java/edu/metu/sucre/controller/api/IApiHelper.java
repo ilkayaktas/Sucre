@@ -37,7 +37,7 @@ public interface IApiHelper {
 
     Observable<User> getUser(String userId);
 
-    Observable<User> addUser(User user);
+    Observable<User> saveUser(User user);
 
     Observable<List<Channel>> getUserChannels(String userId, String fcmToken);
 

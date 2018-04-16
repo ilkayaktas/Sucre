@@ -74,8 +74,8 @@ public class ApiHelper implements IApiHelper {
 	}
 
 	@Override
-	public Observable<User> addUser(User user) {
-		return backendService.addUser(user);
+	public Observable<User> saveUser(User user) {
+		return backendService.saveUser(user);
 	}
 
 	@Override

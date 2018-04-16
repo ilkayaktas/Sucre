@@ -25,8 +25,8 @@ public interface BackendService {
     @GET("user/get")
     Observable<User> getUser(@Query("userId") String userId);
 
-    @POST("user/add")
-    Observable<User> addUser(@Body User user);
+    @POST("user/save")
+    Observable<User> saveUser(@Body User user);
 
     @GET("user/channel")
     Observable<List<Channel>> getUserChannels(@Query("userId") String userId, @Query("fcmToken") String fcmToken);

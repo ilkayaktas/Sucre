@@ -10,6 +10,7 @@ import edu.metu.sucre.controller.pref.IPreferenceHelper;
 import edu.metu.sucre.di.annotations.ApplicationContext;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
+import edu.metu.sucre.model.api.User;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
 
@@ -52,7 +53,12 @@ public class DataManager implements IDataManager {
 	public void deleteBloodSugar(String uuid) {
 		dbHelper.deleteBloodSugar(uuid);
 	}
-	
+
+	@Override
+	public Observable<User> saveUser(User user) {
+		return apiHelper.saveUser(user);
+	}
+
 	@Override
 	public Observable<FBUser> getFacebookProfile() {
 		return apiHelper.getFacebookProfile();

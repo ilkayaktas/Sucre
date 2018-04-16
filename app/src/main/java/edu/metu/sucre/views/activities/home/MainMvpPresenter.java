@@ -9,11 +9,6 @@ import edu.metu.sucre.views.activities.base.MvpPresenter;
  */
 
 public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V> {
-	void getKategoriler();
-	
-	void getKavramlar(int kategoriId);
-
-	void getFavoriKavramlar();
 
 	void saveBloodSugar(BloodSugar bloodSugar);
 

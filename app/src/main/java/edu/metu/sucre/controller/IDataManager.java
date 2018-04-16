@@ -18,6 +18,7 @@ package edu.metu.sucre.controller;
 
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
+import edu.metu.sucre.model.api.User;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
 
@@ -46,4 +47,6 @@ public interface IDataManager {
     void saveBloodSugar(BloodSugar bloodSugar);
 
     void deleteBloodSugar(String uuid);
+
+    Observable<User> saveUser(User user);
 }
