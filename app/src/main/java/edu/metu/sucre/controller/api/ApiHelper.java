@@ -74,6 +74,11 @@ public class ApiHelper implements IApiHelper {
 	}
 
 	@Override
+	public Observable<User> getUserByEmail(String email) {
+		return backendService.getUserByEmail(email);
+	}
+
+	@Override
 	public Observable<User> saveUser(User user) {
 		return backendService.saveUser(user);
 	}

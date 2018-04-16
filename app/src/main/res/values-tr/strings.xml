@@ -35,4 +35,7 @@
     <string name="channels">Sağlık Kanalları</string>
     <string name="text_input_message">Lütfen sağlık kanalına bir isim veriniz!</string>
     <string name="text_input_title">Sağlık Kanalı İsmi</string>
+
+    <string name="text_input_message_messagescreen">Lütfen kullanıcının e-posta adresini giriniz!</string>
+    <string name="text_input_title_messagescreen">Kanala Kullanıcı Ekle</string>
 </resources>

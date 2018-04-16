@@ -5,15 +5,18 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.utils.DateFormatter;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.Message;
 import edu.metu.sucre.model.app.MessagesFixtures;
@@ -34,8 +37,9 @@ public class HealthChannelMessageActivity extends BaseActivity
 					DateFormatter.Formatter  {
 	
 	@Inject
-	HealthChannelMessageMvpPresenter<HealthChannelMessageMvpView> mPresenter;
+	HealthChannelMessageMvpPresenter<HealthChannelMessageMvpView> presenter;
 
+	@BindView(R.id.toolbar_title) TextView toolbarTitle;
 	@BindView(R.id.messagesList) MessagesList messagesList;
 	@BindView(R.id.input) MessageInput input;
 
@@ -58,7 +62,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 		setUnBinder(ButterKnife.bind(this));
 		
 		// Attach presenter
-		mPresenter.onAttach(HealthChannelMessageActivity.this);
+		presenter.onAttach(HealthChannelMessageActivity.this);
 
 		initUI();
 	}
@@ -70,6 +74,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 	@Override
 	protected void initUI() {
+		toolbarTitle.setTypeface(sketchFont);
 
 		input.setInputListener(this);
 		input.setAttachmentsListener(this);
@@ -87,7 +92,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 	@Override
 	protected void onDestroy() {
-		mPresenter.onDetach();
+		presenter.onDetach();
 		super.onDestroy();
 	}
 	
@@ -192,5 +197,17 @@ public class HealthChannelMessageActivity extends BaseActivity
 		} else {
 			return DateFormatter.format(date, DateFormatter.Template.STRING_DAY_MONTH_YEAR);
 		}
+	}
+
+	@OnClick(R.id.iv_addUser)
+	public void onAddUserClicked(){
+		new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+				.setTopColorRes(R.color.md_deep_orange_800)
+				.setIcon(R.drawable.ic_settings)
+				.setTitle(R.string.text_input_title_messagescreen)
+				.setMessage(R.string.text_input_message_messagescreen)
+				.setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
+				.setConfirmButton(android.R.string.ok, email -> presenter.addUserToChannel(email))
+				.show();
 	}
 }

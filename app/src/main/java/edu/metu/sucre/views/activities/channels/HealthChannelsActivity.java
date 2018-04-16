@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +37,10 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
 
     protected ImageLoader imageLoader;
     protected DialogsListAdapter<Dialog> dialogsAdapter;
-    @BindView(R.id.dialogsList)  DialogsList dialogsList;
-    @BindView(R.id.healthview)
-    CoordinatorLayout relativeLayout;
+
+    @BindView(R.id.toolbar_title) TextView toolbarTitle;
+    @BindView(R.id.dialogsList) DialogsList dialogsList;
+    @BindView(R.id.healthview) CoordinatorLayout relativeLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +64,8 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
 
     @Override
     protected void initUI() {
+        toolbarTitle.setTypeface(sketchFont);
+
         imageLoader = (imageView, url) -> {
             if(!url.isEmpty())
             Picasso.with(HealthChannelsActivity.this).load(url).into(imageView);

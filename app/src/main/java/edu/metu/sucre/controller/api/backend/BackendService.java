@@ -25,6 +25,9 @@ public interface BackendService {
     @GET("user/get")
     Observable<User> getUser(@Query("userId") String userId);
 
+    @GET("user/get")
+    Observable<User> getUserByEmail(@Query("email") String email);
+
     @POST("user/save")
     Observable<User> saveUser(@Body User user);
 

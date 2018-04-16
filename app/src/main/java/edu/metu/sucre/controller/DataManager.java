@@ -80,6 +80,11 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
+	public Observable<User> getUserByEmail(String email) {
+		return apiHelper.getUserByEmail(email);
+	}
+
+	@Override
 	public void subscribeToTopic(String topic) {
 		FirebaseMessaging.getInstance().subscribeToTopic(topic);
 	}

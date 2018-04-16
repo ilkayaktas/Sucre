@@ -36,4 +36,7 @@
     <string name="text_input_message">Please enter a unique name for your health channel!</string>
     <string name="text_input_title">Health Channel Name</string>
 
+    <string name="text_input_message_messagescreen">Please enter email address of user!</string>
+    <string name="text_input_title_messagescreen">Add User Into Channel</string>
+
 </resources>

@@ -36,6 +36,8 @@ public interface IDataManager {
 
     String getUserId();
 
+    Observable<User> getUserByEmail(String email);
+
     void subscribeToTopic(String topic);
 
     Observable<Channel>  createChannel(String channelName);
