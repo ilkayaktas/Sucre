@@ -21,6 +21,8 @@ import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.api.User;
 import io.reactivex.Observable;
 
+import java.util.List;
+
 /**
  * Created by iaktas on 24/04/17.
  */
@@ -37,7 +39,7 @@ public interface IApiHelper {
 
     Observable<User> addUser(User user);
 
-    Observable<Channel> getUserChannels(String userId);
+    Observable<List<Channel>> getUserChannels(String userId, String fcmToken);
 
     Observable<Channel> createChannel(Channel channel);
 

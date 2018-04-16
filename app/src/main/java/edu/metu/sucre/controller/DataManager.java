@@ -93,4 +93,12 @@ public class DataManager implements IDataManager {
 		    throw new IllegalArgumentException("Error on Facebook login or Firebase Cloud Messaging!");
         }
 	}
+
+	@Override
+	public Observable<List<Channel>> getUserChannels() {
+		String fcmToken = getFCMToken();
+		String userId = getUserId();
+
+		return apiHelper.getUserChannels(userId, fcmToken);
+	}
 }

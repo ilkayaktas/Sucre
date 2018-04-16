@@ -62,8 +62,13 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
 
     @Override
     protected void initUI() {
-        imageLoader = (imageView, url) -> Picasso.with(HealthChannelsActivity.this).load(url).into(imageView);
+        imageLoader = (imageView, url) -> {
+            if(!url.isEmpty())
+            Picasso.with(HealthChannelsActivity.this).load(url).into(imageView);
+        };
         initAdapter();
+
+        presenter.getUserChannels();
     }
 
     @Override

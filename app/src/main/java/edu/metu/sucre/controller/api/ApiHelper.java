@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Singleton;
+import java.util.List;
 
 /**
  * Created by ilkay on 12/03/2017.
@@ -78,8 +79,8 @@ public class ApiHelper implements IApiHelper {
 	}
 
 	@Override
-	public Observable<Channel> getUserChannels(String userId) {
-		return backendService.getUserChannels(userId);
+	public Observable<List<Channel>> getUserChannels(String userId, String fcmToken) {
+		return backendService.getUserChannels(userId, fcmToken);
 	}
 
 	@Override

@@ -5,6 +5,8 @@ import edu.metu.sucre.model.api.User;
 import io.reactivex.Observable;
 import retrofit2.http.*;
 
+import java.util.List;
+
 /**
  * Created by ilkayaktas on 8.04.2018 at 19:33.
  */
@@ -27,7 +29,7 @@ public interface BackendService {
     Observable<User> addUser(@Body User user);
 
     @GET("user/channel")
-    Observable<Channel> getUserChannels(@Query("userId") String userId);
+    Observable<List<Channel>> getUserChannels(@Query("userId") String userId, @Query("fcmToken") String fcmToken);
 
     @POST("channel/create")
     Observable<Channel> createChannel(@Body Channel channel);

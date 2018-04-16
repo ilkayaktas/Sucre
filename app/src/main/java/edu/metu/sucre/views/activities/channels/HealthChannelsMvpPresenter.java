@@ -9,4 +9,6 @@ import edu.metu.sucre.views.activities.base.MvpPresenter;
 
 public interface HealthChannelsMvpPresenter<V extends HealthChannelsMvpView> extends MvpPresenter<V> {
     void addChannel(String channelName);
+
+    void getUserChannels();
 }

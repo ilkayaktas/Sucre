@@ -39,6 +39,8 @@ public interface IDataManager {
 
     Observable<Channel>  createChannel(String channelName);
 
+    Observable<List<Channel>> getUserChannels();
+
     List<BloodSugar> getBloodSugar();
 
     void saveBloodSugar(BloodSugar bloodSugar);

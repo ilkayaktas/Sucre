@@ -34,10 +34,23 @@ public class HealthChannelsPresenter<V extends HealthChannelsMvpView> extends Ba
         getIDataManager().createChannel(channelName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::createDialog, throwable -> onError(throwable.getMessage()));
+                .subscribe(this::createDialog, throwable -> onError("Group name exists!"));
     }
 
-    private void onError(String message) {
+	@SuppressLint("CheckResult")
+	@Override
+	public void getUserChannels() {
+		getIDataManager().getUserChannels()
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(channels -> {
+					for (Channel ch : channels) {
+					    createDialog(ch);
+					}
+				}, throwable -> onError(throwable.getMessage()));
+	}
+
+	private void onError(String message) {
 	    getMvpView().showErrorToast(message);
     }
 
