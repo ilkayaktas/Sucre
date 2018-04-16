@@ -43,7 +43,7 @@ public interface IApiHelper {
 
     Observable<Channel> updateChannel(String id, String memberToken);
 
-    Observable<String> createFCMGroup(String groupName, String fcmToken);
-
-    Observable<String> addUserToFCMGroup(String groupName, String notificationKey, String fcmToken);
+//    Observable<String> createFCMGroup(String groupName, String fcmToken);
+//
+//    Observable<String> addUserToFCMGroup(String groupName, String notificationKey, String fcmToken);
 }

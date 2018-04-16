@@ -12,9 +12,6 @@ import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -82,14 +79,8 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
-	public void createChannel(String channelName) {
+	public Observable<Channel>  createChannel(String channelName) {
 		String fcmToken = getFCMToken();
-
-//		apiHelper.createFCMGroup(channelName, fcmToken)
-//				.observeOn(Schedulers.io())
-//				.subscribeOn(AndroidSchedulers.mainThread())
-//				.subscribe(notificationKey -> System.out.println(notificationKey));
-
 		String userId = getUserId();
 
 		if(fcmToken != null && userId != null){
@@ -97,16 +88,9 @@ public class DataManager implements IDataManager {
 			channel.owner = userId;
 			channel.channelName = channelName;
 			channel.membersFCMTokens.add(fcmToken);
-			Disposable disposal = apiHelper.createChannel(channel)
-					.subscribeOn(Schedulers.io())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(ch -> {
-						// here !!! you got channel.
-						System.out.println(ch.id + " "
-								+ ch.channelName + " "
-								+ ch.notificationKey + " "
-								+ ch.owner+" ");
-					}, throwable -> System.out.println(throwable.getMessage()));
-		}
+			return apiHelper.createChannel(channel);
+		} else{
+		    throw new IllegalArgumentException("Error on Facebook login or Firebase Cloud Messaging!");
+        }
 	}
 }

@@ -44,6 +44,7 @@ public final class AppConstants {
     public static final String EMAIL = "email";
     public static final String PUBLIC_PROFILE = "public_profile";
 
+    public static final String GROUP_AVATAR = "http://www.wiki-zero.com/index.php?q=aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy8yLzJmL0xvZ29fb2ZfTUVUVS5zdmc";
     private AppConstants() {
         // This utility class is not publicly instantiable
     }

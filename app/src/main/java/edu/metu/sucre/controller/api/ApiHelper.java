@@ -2,7 +2,6 @@ package edu.metu.sucre.controller.api;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -11,11 +10,8 @@ import edu.metu.sucre.controller.api.backend.BackendService;
 import edu.metu.sucre.controller.api.fcm.FCMGroupService;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
-import edu.metu.sucre.model.api.FCMChannel;
 import edu.metu.sucre.model.api.User;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,50 +92,50 @@ public class ApiHelper implements IApiHelper {
 		return backendService.updateChannel(id, memberToken);
 	}
 
-	@Override
-	public Observable<String> createFCMGroup(String groupName, String fcmToken) {
-		FCMChannel fcmChannel = new FCMChannel();
-		fcmChannel.notificationKeyName = groupName;
-		fcmChannel.operation = "create";
-		fcmChannel.registrationIds.add(fcmToken);
-
-		return Observable.create(e -> {
-			fcmGroupService.createGroup(fcmChannel)
-					.subscribeOn(Schedulers.io())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(fcmChannelResponse -> {
-								if(fcmChannelResponse.notificationKey != null){
-									e.onNext(fcmChannelResponse.notificationKey);
-								} else{
-									e.onError(new Throwable(fcmChannelResponse.error));
-								}
-							},
-							throwable -> Log.d("_______IA_______", throwable.getLocalizedMessage()));
-		});
-	}
-
-	@Override
-	public Observable<String> addUserToFCMGroup(String groupName, String notificationKey, String fcmToken) {
-		FCMChannel fcmChannel = new FCMChannel();
-		fcmChannel.notificationKeyName = groupName;
-		fcmChannel.notificationKey = notificationKey;
-		fcmChannel.operation = "add";
-		fcmChannel.registrationIds.add(fcmToken);
-
-		return Observable.create(e -> {
-			fcmGroupService.createGroup(fcmChannel)
-					.subscribeOn(Schedulers.io())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(fcmChannelResponse -> {
-								if(fcmChannelResponse.notificationKey != null){
-									e.onNext(fcmChannelResponse.notificationKey);
-								} else{
-									e.onError(new Throwable(fcmChannelResponse.error));
-								}
-							},
-							throwable -> Log.d("_______IA_______", throwable.getLocalizedMessage()));
-		});
-	}
+//	@Override
+//	public Observable<String> createFCMGroup(String groupName, String fcmToken) {
+//		FCMChannel fcmChannel = new FCMChannel();
+//		fcmChannel.notificationKeyName = groupName;
+//		fcmChannel.operation = "create";
+//		fcmChannel.registrationIds.add(fcmToken);
+//
+//		return Observable.create(e -> {
+//			fcmGroupService.createGroup(fcmChannel)
+//					.subscribeOn(Schedulers.io())
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(fcmChannelResponse -> {
+//								if(fcmChannelResponse.notificationKey != null){
+//									e.onNext(fcmChannelResponse.notificationKey);
+//								} else{
+//									e.onError(new Throwable(fcmChannelResponse.error));
+//								}
+//							},
+//							throwable -> Log.d("_______IA_______", throwable.getLocalizedMessage()));
+//		});
+//	}
+//
+//	@Override
+//	public Observable<String> addUserToFCMGroup(String groupName, String notificationKey, String fcmToken) {
+//		FCMChannel fcmChannel = new FCMChannel();
+//		fcmChannel.notificationKeyName = groupName;
+//		fcmChannel.notificationKey = notificationKey;
+//		fcmChannel.operation = "add";
+//		fcmChannel.registrationIds.add(fcmToken);
+//
+//		return Observable.create(e -> {
+//			fcmGroupService.createGroup(fcmChannel)
+//					.subscribeOn(Schedulers.io())
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(fcmChannelResponse -> {
+//								if(fcmChannelResponse.notificationKey != null){
+//									e.onNext(fcmChannelResponse.notificationKey);
+//								} else{
+//									e.onError(new Throwable(fcmChannelResponse.error));
+//								}
+//							},
+//							throwable -> Log.d("_______IA_______", throwable.getLocalizedMessage()));
+//		});
+//	}
 
 	private FBUser jsonToUser(JSONObject user) throws JSONException {
 		Uri picture = Uri.parse(user.getJSONObject("picture").getJSONObject("data").getString("url"));

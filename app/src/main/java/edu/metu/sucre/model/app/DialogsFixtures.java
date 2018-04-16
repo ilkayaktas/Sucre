@@ -34,7 +34,8 @@ public final class DialogsFixtures extends FixturesData {
                 users.size() > 1 ? groupChatImages.get(users.size() - 2) : getRandomAvatar(),
                 users,
                 getMessage(lastMessageCreatedAt),
-                i < 3 ? 3 - i : 0);
+                i < 3 ? 3 - i : 0,
+                "");
     }
 
     private static ArrayList<User> getUsers() {

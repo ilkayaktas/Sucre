@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -115,6 +116,11 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
     @Override
     public void onNewDialog(Dialog dialog) {
         dialogsAdapter.addItem(dialog);
+    }
+
+    @Override
+    public void showErrorToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

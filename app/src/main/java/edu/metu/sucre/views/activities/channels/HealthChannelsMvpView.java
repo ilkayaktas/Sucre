@@ -12,4 +12,5 @@ import edu.metu.sucre.views.activities.base.MvpView;
 public interface HealthChannelsMvpView extends MvpView {
     void onNewMessage(String dialogId, Message message);
     void onNewDialog(Dialog dialog);
+    void showErrorToast(String message);
 }

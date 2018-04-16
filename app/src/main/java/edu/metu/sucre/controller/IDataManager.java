@@ -16,6 +16,7 @@
 package edu.metu.sucre.controller;
 
 
+import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
@@ -36,7 +37,7 @@ public interface IDataManager {
 
     void subscribeToTopic(String topic);
 
-    void createChannel(String channelName);
+    Observable<Channel>  createChannel(String channelName);
 
     List<BloodSugar> getBloodSugar();
 
