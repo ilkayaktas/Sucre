@@ -63,6 +63,10 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 				.observeOn( AndroidSchedulers.mainThread())
 				.subscribe(user1 -> {
 					System.out.println();
-				});
+				}, this::onError);
+	}
+
+	private void onError(Throwable throwable) {
+		System.err.println(throwable.getMessage());
 	}
 }
