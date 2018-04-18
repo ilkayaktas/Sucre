@@ -37,15 +37,13 @@ public interface IApiHelper {
 
     Observable<User> getUser(String userId);
 
-    Observable<User> getUserByEmail(String email);
-
     Observable<User> saveUser(User user);
 
     Observable<List<Channel>> getUserChannels(String userId, String fcmToken);
 
     Observable<Channel> createChannel(Channel channel);
 
-    Observable<Channel> updateChannel(String id, String memberToken);
+    Observable<Channel> updateChannel(String id, String email);
 
 //    Observable<String> createFCMGroup(String groupName, String fcmToken);
 //

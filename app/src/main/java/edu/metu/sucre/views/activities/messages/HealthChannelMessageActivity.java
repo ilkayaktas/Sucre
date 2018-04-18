@@ -20,6 +20,7 @@ import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.Message;
 import edu.metu.sucre.model.app.MessagesFixtures;
+import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 
 import javax.inject.Inject;
@@ -52,10 +53,15 @@ public class HealthChannelMessageActivity extends BaseActivity
 	private Menu menu;
 	private int selectionCount;
 	private Date lastLoadedDate;
+	private String notificationKey = null;
+	private String dialogName = null;
+	private String dialogId = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		getArguments();
 
 		getActivityComponent().inject(this);
 		
@@ -65,6 +71,15 @@ public class HealthChannelMessageActivity extends BaseActivity
 		presenter.onAttach(HealthChannelMessageActivity.this);
 
 		initUI();
+	}
+
+	private void getArguments() {
+		Bundle b = getIntent().getExtras();
+		if(b != null){
+			notificationKey = b.getString(AppConstants.NOTIFICATION_KEY);
+			dialogName = b.getString(AppConstants.DIALOG_NAME);
+			dialogId = b.getString(AppConstants.DIALOG_ID);
+		}
 	}
 
 	@Override
@@ -206,8 +221,8 @@ public class HealthChannelMessageActivity extends BaseActivity
 				.setIcon(R.drawable.ic_settings)
 				.setTitle(R.string.text_input_title_messagescreen)
 				.setMessage(R.string.text_input_message_messagescreen)
-				.setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
-				.setConfirmButton(android.R.string.ok, email -> presenter.addUserToChannel(email))
+				//.setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
+				.setConfirmButton(android.R.string.ok, email -> presenter.addUserToChannel(dialogId, email))
 				.show();
 	}
 }

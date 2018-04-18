@@ -10,5 +10,5 @@ import edu.metu.sucre.views.activities.base.MvpPresenter;
 public interface HealthChannelMessageMvpPresenter<V extends HealthChannelMessageMvpView> extends MvpPresenter<V> {
     void sendMessage(String to, String message);
 
-    void addUserToChannel(String email);
+    void addUserToChannel(String dialogId, String email);
 }

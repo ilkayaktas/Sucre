@@ -74,11 +74,6 @@ public class ApiHelper implements IApiHelper {
 	}
 
 	@Override
-	public Observable<User> getUserByEmail(String email) {
-		return backendService.getUserByEmail(email);
-	}
-
-	@Override
 	public Observable<User> saveUser(User user) {
 		return backendService.saveUser(user);
 	}
@@ -94,8 +89,8 @@ public class ApiHelper implements IApiHelper {
 	}
 
 	@Override
-	public Observable<Channel> updateChannel(String id, String memberToken) {
-		return backendService.updateChannel(id, memberToken);
+	public Observable<Channel> updateChannel(String id, String email) {
+		return backendService.updateChannel(id, email);
 	}
 
 //	@Override

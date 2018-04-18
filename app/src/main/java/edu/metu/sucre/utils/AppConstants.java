@@ -45,6 +45,10 @@ public final class AppConstants {
     public static final String PUBLIC_PROFILE = "public_profile";
 
     public static final String GROUP_AVATAR = "https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg";
+    public static final String NOTIFICATION_KEY = "NotificationKey";
+    public static final String DIALOG_NAME = "DialogName";
+    public static final String DIALOG_ID = "DialogId";
+
     private AppConstants() {
         // This utility class is not publicly instantiable
     }

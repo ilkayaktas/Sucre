@@ -25,9 +25,6 @@ public interface BackendService {
     @GET("user/get")
     Observable<User> getUser(@Query("userId") String userId);
 
-    @GET("user/get")
-    Observable<User> getUserByEmail(@Query("email") String email);
-
     @POST("user/save")
     Observable<User> saveUser(@Body User user);
 
@@ -37,7 +34,7 @@ public interface BackendService {
     @POST("channel/create")
     Observable<Channel> createChannel(@Body Channel channel);
 
-    @PUT("channel/update")
-    Observable<Channel> updateChannel(@Query("id") String id, @Query("memberId") String memberId);
+    @POST("channel/update")
+    Observable<Channel> updateChannel(@Query("id") String id, @Query("email") String email);
 
 }

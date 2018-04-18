@@ -36,8 +36,6 @@ public interface IDataManager {
 
     String getUserId();
 
-    Observable<User> getUserByEmail(String email);
-
     void subscribeToTopic(String topic);
 
     Observable<Channel>  createChannel(String channelName);
@@ -51,4 +49,6 @@ public interface IDataManager {
     void deleteBloodSugar(String uuid);
 
     Observable<User> saveUser(User user);
+
+    Observable<Channel> addUserToChannel(String dialogId, String email);
 }

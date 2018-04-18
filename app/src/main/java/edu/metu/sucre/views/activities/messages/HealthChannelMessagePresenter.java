@@ -23,12 +23,12 @@ public class HealthChannelMessagePresenter<V extends HealthChannelMessageMvpView
 
 	@SuppressLint("CheckResult")
 	@Override
-	public void addUserToChannel(String email) {
-		getIDataManager().getUserByEmail(email)
+	public void addUserToChannel(String dialogId, String email) {
+		getIDataManager().addUserToChannel(dialogId, email)
 		.subscribeOn(Schedulers.io())
 		.observeOn(AndroidSchedulers.mainThread())
-		.subscribe(user -> {
-
+		.subscribe(channel -> {
+			System.out.println();
 		}, throwable -> {
 
 		});

@@ -1,5 +1,6 @@
 package edu.metu.sucre.views.activities.channels;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -20,6 +21,7 @@ import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.Dialog;
 import edu.metu.sucre.model.app.Message;
+import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.messages.HealthChannelMessageActivity;
 
@@ -106,7 +108,11 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
 
     @Override
     public void onDialogClick(Dialog dialog) {
-        startActivity(HealthChannelMessageActivity.class);
+        Intent intent = new Intent(this, HealthChannelMessageActivity.class);
+        intent.putExtra(AppConstants.DIALOG_ID, dialog.getId());
+        intent.putExtra(AppConstants.NOTIFICATION_KEY, dialog.getNotificationKey());
+        intent.putExtra(AppConstants.DIALOG_NAME, dialog.getDialogName());
+        startActivity(intent);
     }
 
     @Override

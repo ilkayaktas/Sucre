@@ -1,6 +1,7 @@
 package edu.metu.sucre.controller;
 
 import android.content.Context;
+import android.util.Log;
 import com.facebook.AccessToken;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -60,12 +61,18 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
+	public Observable<Channel> addUserToChannel(String dialogId, String email) {
+		return apiHelper.updateChannel(dialogId, email);
+	}
+
+	@Override
 	public Observable<FBUser> getFacebookProfile() {
 		return apiHelper.getFacebookProfile();
 	}
 
 	@Override
 	public String getFCMToken() {
+		Log.d("_______IA_______", FirebaseInstanceId.getInstance().getToken());
 		return FirebaseInstanceId.getInstance().getToken();
 	}
 
@@ -77,11 +84,6 @@ public class DataManager implements IDataManager {
 			return facebookToken.getUserId();
 		}
 		return null;
-	}
-
-	@Override
-	public Observable<User> getUserByEmail(String email) {
-		return apiHelper.getUserByEmail(email);
 	}
 
 	@Override
