@@ -10,6 +10,7 @@ import edu.metu.sucre.controller.api.backend.BackendService;
 import edu.metu.sucre.controller.api.fcm.FCMGroupService;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
+import edu.metu.sucre.model.api.Message;
 import edu.metu.sucre.model.api.User;
 import io.reactivex.Observable;
 import org.json.JSONArray;
@@ -96,6 +97,11 @@ public class ApiHelper implements IApiHelper {
 	@Override
 	public Observable<Channel> getChannel(String channelId) {
 		return backendService.getChannel(channelId);
+	}
+
+	@Override
+	public Observable<Void> sendMessage(Message message) {
+		return backendService.sendMessage(message);
 	}
 
 	private FBUser jsonToUser(JSONObject user) throws JSONException {

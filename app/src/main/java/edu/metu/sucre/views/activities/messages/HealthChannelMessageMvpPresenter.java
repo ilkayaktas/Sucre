@@ -1,6 +1,7 @@
 package edu.metu.sucre.views.activities.messages;
 
 
+import edu.metu.sucre.model.api.Message;
 import edu.metu.sucre.views.activities.base.MvpPresenter;
 
 /**
@@ -8,9 +9,11 @@ import edu.metu.sucre.views.activities.base.MvpPresenter;
  */
 
 public interface HealthChannelMessageMvpPresenter<V extends HealthChannelMessageMvpView> extends MvpPresenter<V> {
-    void sendMessage(String to, String message);
+    void sendMessage(Message message);
 
     void addUserToChannel(String dialogId, String email);
 
     void getUsersOfChannels(String channelId);
+
+    void getChannel(String channelId);
 }

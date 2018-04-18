@@ -11,4 +11,6 @@ public interface HealthChannelsMvpPresenter<V extends HealthChannelsMvpView> ext
     void addChannel(String channelName);
 
     void getUserChannels();
+
+    String getUserId();
 }

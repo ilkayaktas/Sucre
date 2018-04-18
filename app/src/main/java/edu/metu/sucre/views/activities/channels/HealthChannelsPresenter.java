@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.app.Dialog;
-import edu.metu.sucre.model.app.Message;
+import edu.metu.sucre.model.app.DialogMessage;
 import edu.metu.sucre.model.app.DialogUser;
 import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BasePresenter;
@@ -50,6 +50,11 @@ public class HealthChannelsPresenter<V extends HealthChannelsMvpView> extends Ba
 				}, throwable -> onError(throwable.getMessage()));
 	}
 
+	@Override
+	public String getUserId() {
+		return getIDataManager().getUserId();
+	}
+
 	private void onError(String message) {
 	    getMvpView().showErrorToast(message);
     }
@@ -66,7 +71,7 @@ public class HealthChannelsPresenter<V extends HealthChannelsMvpView> extends Ba
                                     channel.channelName,
                                     AppConstants.GROUP_AVATAR,
                                     new ArrayList<>(Collections.singletonList(user)),
-                                    new Message(String.valueOf(System.currentTimeMillis()), user, "messajjjjasdada"),
+                                    new DialogMessage(String.valueOf(System.currentTimeMillis()), user, "messajjjjasdada"),
                                     79,
                                     channel.notificationKey);
 

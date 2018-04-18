@@ -7,19 +7,19 @@ import java.util.ArrayList;
 /*
  * Created by troy379 on 04.04.17.
  */
-public class Dialog implements IDialog<Message> {
+public class Dialog implements IDialog<DialogMessage> {
 
     private String id;
     private String dialogPhoto;
     private String dialogName;
     private ArrayList<DialogUser> users;
-    private Message lastMessage;
+    private DialogMessage lastMessage;
     private String notificationKey;
 
     private int unreadCount;
 
     public Dialog(String id, String name, String photo,
-                  ArrayList<DialogUser> users, Message lastMessage, int unreadCount, String notificationKey) {
+                  ArrayList<DialogUser> users, DialogMessage lastMessage, int unreadCount, String notificationKey) {
 
         this.id = id;
         this.dialogName = name;
@@ -51,12 +51,12 @@ public class Dialog implements IDialog<Message> {
     }
 
     @Override
-    public Message getLastMessage() {
+    public DialogMessage getLastMessage() {
         return lastMessage;
     }
 
     @Override
-    public void setLastMessage(Message lastMessage) {
+    public void setLastMessage(DialogMessage lastMessage) {
         this.lastMessage = lastMessage;
     }
 

@@ -2,6 +2,8 @@ package edu.metu.sucre.di.modules;
 
 import android.app.Application;
 import android.content.Context;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
@@ -118,9 +120,13 @@ public class ApplicationModule {
 				.addInterceptor(logging)
 				.build();
 
+		Gson gson = new GsonBuilder()
+				.setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+				.create();
+
 		Retrofit retrofitApi = new Retrofit.Builder()
 				.baseUrl(BuildConfig.BACKEND_ENDPOINT)
-				.addConverterFactory(GsonConverterFactory.create())
+				.addConverterFactory(GsonConverterFactory.create(gson))
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.client(okClient)
 				.build();

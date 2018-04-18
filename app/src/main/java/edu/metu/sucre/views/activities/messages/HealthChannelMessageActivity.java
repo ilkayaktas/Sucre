@@ -18,18 +18,17 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
+import edu.metu.sucre.model.api.Channel;
+import edu.metu.sucre.model.api.Message;
 import edu.metu.sucre.model.api.User;
-import edu.metu.sucre.model.app.Message;
+import edu.metu.sucre.model.app.DialogMessage;
 import edu.metu.sucre.model.app.MessagesFixtures;
 import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class HealthChannelMessageActivity extends BaseActivity
 		implements HealthChannelMessageMvpView,
@@ -48,17 +47,16 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 	private static final int TOTAL_MESSAGES_COUNT = 100;
 
-	protected final String senderId = "0";
+	protected String senderId = "0";
 	protected ImageLoader imageLoader;
-	protected MessagesListAdapter<Message> messagesAdapter;
+	protected MessagesListAdapter<DialogMessage> messagesAdapter;
 
 	private Menu menu;
 	private int selectionCount;
 	private Date lastLoadedDate;
-	private String notificationKey = null;
-	private String dialogName = null;
 	private String dialogId = null;
-	private List<User> userList = new ArrayList<>();
+	private List<User> userListOfChannel = new ArrayList<>();
+	private Channel thisChannel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +77,8 @@ public class HealthChannelMessageActivity extends BaseActivity
 	private void getArguments() {
 		Bundle b = getIntent().getExtras();
 		if(b != null){
-			notificationKey = b.getString(AppConstants.NOTIFICATION_KEY);
-			dialogName = b.getString(AppConstants.DIALOG_NAME);
 			dialogId = b.getString(AppConstants.DIALOG_ID);
+			senderId = b.getString(AppConstants.SENDER_ID);
 		}
 	}
 
@@ -102,6 +99,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 		initAdapter();
 
 		presenter.getUsersOfChannels(dialogId);
+		presenter.getChannel(dialogId);
 	}
 
 	@Override
@@ -123,8 +121,8 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 	@Override
 	public boolean onSubmit(CharSequence input) {
-		messagesAdapter.addToStart(
-				MessagesFixtures.getTextMessage(input.toString()), true);
+		// messagesAdapter.addToStart(MessagesFixtures.getTextMessage(input.toString()), true);
+		presenter.sendMessage(createMessage(input.toString()));
 		return true;
 	}
 
@@ -159,13 +157,13 @@ public class HealthChannelMessageActivity extends BaseActivity
 	protected void loadMessages() {
 		//imitation of internet connection
 		new Handler().postDelayed(() -> {
-            ArrayList<Message> messages = MessagesFixtures.getMessages(lastLoadedDate);
+            ArrayList<DialogMessage> messages = MessagesFixtures.getMessages(lastLoadedDate);
             lastLoadedDate = messages.get(messages.size() - 1).getCreatedAt();
             messagesAdapter.addToEnd(messages, false);
         }, 1000);
 	}
 
-	private MessagesListAdapter.Formatter<Message> getMessageStringFormatter() {
+	private MessagesListAdapter.Formatter<DialogMessage> getMessageStringFormatter() {
 		return message -> {
             String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
                     .format(message.getCreatedAt());
@@ -233,6 +231,22 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 	@Override
 	public void addUser(User user) {
-		userList.add(user);
+		userListOfChannel.add(user);
+	}
+
+	@Override
+	public void addChannel(Channel channel) {
+		thisChannel = channel;
+	}
+
+	private Message createMessage(String text){
+		Message message = new Message();
+		message.messageText = text;
+		if(thisChannel != null){
+			message.toChannelId = thisChannel.id;
+		}
+		message.senderUserId = senderId;
+		message.createdAt = Calendar.getInstance().getTime();
+		return message;
 	}
 }

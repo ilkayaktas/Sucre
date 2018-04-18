@@ -21,7 +21,7 @@ import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.app.Dialog;
-import edu.metu.sucre.model.app.Message;
+import edu.metu.sucre.model.app.DialogMessage;
 import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.messages.HealthChannelMessageActivity;
@@ -114,8 +114,7 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
     public void onDialogClick(Dialog dialog) {
         Intent intent = new Intent(this, HealthChannelMessageActivity.class);
         intent.putExtra(AppConstants.DIALOG_ID, dialog.getId());
-        intent.putExtra(AppConstants.NOTIFICATION_KEY, dialog.getNotificationKey());
-        intent.putExtra(AppConstants.DIALOG_NAME, dialog.getDialogName());
+        intent.putExtra(AppConstants.SENDER_ID, presenter.getUserId());
         startActivity(intent);
     }
 
@@ -125,7 +124,7 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
     }
 
     @Override
-    public void onNewMessage(String dialogId, Message message) {
+    public void onNewMessage(String dialogId, DialogMessage message) {
         boolean isUpdated = dialogsAdapter.updateDialogWithMessage(dialogId, message);
         if (!isUpdated) {
             //Dialog with this ID doesn't exist, so you can create new Dialog or update all dialogs list

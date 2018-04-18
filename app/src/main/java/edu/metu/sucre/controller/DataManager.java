@@ -10,6 +10,7 @@ import edu.metu.sucre.controller.pref.IPreferenceHelper;
 import edu.metu.sucre.di.annotations.ApplicationContext;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
+import edu.metu.sucre.model.api.Message;
 import edu.metu.sucre.model.api.User;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
@@ -72,6 +73,11 @@ public class DataManager implements IDataManager {
 	@Override
 	public Observable<User> getUser(String userId) {
 		return apiHelper.getUser(userId);
+	}
+
+	@Override
+	public Observable<Void> sendMessage(Message message) {
+		return apiHelper.sendMessage(message);
 	}
 
 	@Override

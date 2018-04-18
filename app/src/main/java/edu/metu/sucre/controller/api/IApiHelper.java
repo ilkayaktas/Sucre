@@ -18,6 +18,7 @@ package edu.metu.sucre.controller.api;
 
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.FBUser;
+import edu.metu.sucre.model.api.Message;
 import edu.metu.sucre.model.api.User;
 import io.reactivex.Observable;
 
@@ -47,4 +48,5 @@ public interface IApiHelper {
 
     Observable<Channel> getChannel(String channelId);
 
+    Observable<Void> sendMessage(Message message);
 }

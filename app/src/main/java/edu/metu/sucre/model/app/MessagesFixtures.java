@@ -12,33 +12,33 @@ public final class MessagesFixtures extends FixturesData {
         throw new AssertionError();
     }
 
-    public static Message getImageMessage() {
-        Message message = new Message(getRandomId(), getUser(), null);
-        message.setImage(new Message.Image(getRandomImage()));
+    public static DialogMessage getImageMessage() {
+        DialogMessage message = new DialogMessage(getRandomId(), getUser(), null);
+        message.setImage(new DialogMessage.Image(getRandomImage()));
         return message;
     }
 
-    public static Message getVoiceMessage() {
-        Message message = new Message(getRandomId(), getUser(), null);
-        message.setVoice(new Message.Voice("http://example.com", rnd.nextInt(200) + 30));
+    public static DialogMessage getVoiceMessage() {
+        DialogMessage message = new DialogMessage(getRandomId(), getUser(), null);
+        message.setVoice(new DialogMessage.Voice("http://example.com", rnd.nextInt(200) + 30));
         return message;
     }
 
-    public static Message getTextMessage() {
+    public static DialogMessage getTextMessage() {
         return getTextMessage(getRandomMessage());
     }
 
-    public static Message getTextMessage(String text) {
-        return new Message(getRandomId(), getUser(), text);
+    public static DialogMessage getTextMessage(String text) {
+        return new DialogMessage(getRandomId(), getUser(), text);
     }
 
-    public static ArrayList<Message> getMessages(Date startDate) {
-        ArrayList<Message> messages = new ArrayList<>();
+    public static ArrayList<DialogMessage> getMessages(Date startDate) {
+        ArrayList<DialogMessage> messages = new ArrayList<>();
         for (int i = 0; i < 10/*days count*/; i++) {
             int countPerDay = rnd.nextInt(5) + 1;
 
             for (int j = 0; j < countPerDay; j++) {
-                Message message;
+                DialogMessage message;
                 if (i % 2 == 0 && j % 3 == 0) {
                     message = getImageMessage();
                 } else {

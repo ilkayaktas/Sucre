@@ -1,6 +1,7 @@
 package edu.metu.sucre.controller.api.backend;
 
 import edu.metu.sucre.model.api.Channel;
+import edu.metu.sucre.model.api.Message;
 import edu.metu.sucre.model.api.User;
 import io.reactivex.Observable;
 import retrofit2.http.*;
@@ -39,4 +40,7 @@ public interface BackendService {
 
     @GET("channel/get")
     Observable<Channel> getChannel(@Query("id") String channelId);
+
+    @POST("message/send")
+    Observable<Void> sendMessage(@Body Message message);
 }
