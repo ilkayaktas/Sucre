@@ -93,50 +93,10 @@ public class ApiHelper implements IApiHelper {
 		return backendService.updateChannel(id, email);
 	}
 
-//	@Override
-//	public Observable<String> createFCMGroup(String groupName, String fcmToken) {
-//		FCMChannel fcmChannel = new FCMChannel();
-//		fcmChannel.notificationKeyName = groupName;
-//		fcmChannel.operation = "create";
-//		fcmChannel.registrationIds.add(fcmToken);
-//
-//		return Observable.create(e -> {
-//			fcmGroupService.createGroup(fcmChannel)
-//					.subscribeOn(Schedulers.io())
-//					.observeOn(AndroidSchedulers.mainThread())
-//					.subscribe(fcmChannelResponse -> {
-//								if(fcmChannelResponse.notificationKey != null){
-//									e.onNext(fcmChannelResponse.notificationKey);
-//								} else{
-//									e.onError(new Throwable(fcmChannelResponse.error));
-//								}
-//							},
-//							throwable -> Log.d("_______IA_______", throwable.getLocalizedMessage()));
-//		});
-//	}
-//
-//	@Override
-//	public Observable<String> addUserToFCMGroup(String groupName, String notificationKey, String fcmToken) {
-//		FCMChannel fcmChannel = new FCMChannel();
-//		fcmChannel.notificationKeyName = groupName;
-//		fcmChannel.notificationKey = notificationKey;
-//		fcmChannel.operation = "add";
-//		fcmChannel.registrationIds.add(fcmToken);
-//
-//		return Observable.create(e -> {
-//			fcmGroupService.createGroup(fcmChannel)
-//					.subscribeOn(Schedulers.io())
-//					.observeOn(AndroidSchedulers.mainThread())
-//					.subscribe(fcmChannelResponse -> {
-//								if(fcmChannelResponse.notificationKey != null){
-//									e.onNext(fcmChannelResponse.notificationKey);
-//								} else{
-//									e.onError(new Throwable(fcmChannelResponse.error));
-//								}
-//							},
-//							throwable -> Log.d("_______IA_______", throwable.getLocalizedMessage()));
-//		});
-//	}
+	@Override
+	public Observable<Channel> getChannel(String channelId) {
+		return backendService.getChannel(channelId);
+	}
 
 	private FBUser jsonToUser(JSONObject user) throws JSONException {
 		Uri picture = Uri.parse(user.getJSONObject("picture").getJSONObject("data").getString("url"));

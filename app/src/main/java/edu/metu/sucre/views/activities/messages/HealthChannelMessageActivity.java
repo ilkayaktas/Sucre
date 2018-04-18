@@ -18,6 +18,7 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
+import edu.metu.sucre.model.api.User;
 import edu.metu.sucre.model.app.Message;
 import edu.metu.sucre.model.app.MessagesFixtures;
 import edu.metu.sucre.utils.AppConstants;
@@ -27,6 +28,7 @@ import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class HealthChannelMessageActivity extends BaseActivity
@@ -56,6 +58,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 	private String notificationKey = null;
 	private String dialogName = null;
 	private String dialogId = null;
+	private List<User> userList = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,8 @@ public class HealthChannelMessageActivity extends BaseActivity
 		imageLoader = (imageView, url) -> Picasso.with(HealthChannelMessageActivity.this).load(url).into(imageView);
 
 		initAdapter();
+
+		presenter.getUsersOfChannels(dialogId);
 	}
 
 	@Override
@@ -224,5 +229,10 @@ public class HealthChannelMessageActivity extends BaseActivity
 				//.setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
 				.setConfirmButton(android.R.string.ok, email -> presenter.addUserToChannel(dialogId, email))
 				.show();
+	}
+
+	@Override
+	public void addUser(User user) {
+		userList.add(user);
 	}
 }

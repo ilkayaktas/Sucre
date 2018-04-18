@@ -27,7 +27,7 @@ public final class DialogsFixtures extends FixturesData {
     }
 
     private static Dialog getDialog(int i, Date lastMessageCreatedAt) {
-        ArrayList<User> users = getUsers();
+        ArrayList<DialogUser> users = getUsers();
         return new Dialog(
                 getRandomId(),
                 users.size() > 1 ? groupChatTitles.get(users.size() - 2) : users.get(0).getName(),
@@ -38,8 +38,8 @@ public final class DialogsFixtures extends FixturesData {
                 "");
     }
 
-    private static ArrayList<User> getUsers() {
-        ArrayList<User> users = new ArrayList<>();
+    private static ArrayList<DialogUser> getUsers() {
+        ArrayList<DialogUser> users = new ArrayList<>();
         int usersCount = 1 + rnd.nextInt(4);
 
         for (int i = 0; i < usersCount; i++) {
@@ -49,8 +49,8 @@ public final class DialogsFixtures extends FixturesData {
         return users;
     }
 
-    private static User getUser() {
-        return new User(
+    private static DialogUser getUser() {
+        return new DialogUser(
                 getRandomId(),
                 getRandomName(),
                 getRandomAvatar(),

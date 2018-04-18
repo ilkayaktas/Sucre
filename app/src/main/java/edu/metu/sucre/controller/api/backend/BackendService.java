@@ -37,4 +37,6 @@ public interface BackendService {
     @POST("channel/update")
     Observable<Channel> updateChannel(@Query("id") String id, @Query("email") String email);
 
+    @GET("channel/get")
+    Observable<Channel> getChannel(@Query("id") String channelId);
 }

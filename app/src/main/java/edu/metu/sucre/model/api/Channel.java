@@ -15,9 +15,9 @@ public class Channel {
 
     public String notificationKey; // notification key for FCM messages
 
-    public List<String> guestUserId; // list of user ids
+    public List<String> guestUserIds; // list of user ids
 
     public Channel() {
-        guestUserId = new ArrayList<>();
+        guestUserIds = new ArrayList<>();
     }
 }

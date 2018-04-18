@@ -126,8 +126,8 @@
 
         <belka.us.androidtoggleswitch.widgets.ToggleSwitch
                 android:id="@+id/toggleSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:textSize="16sp"
                 custom:activeBgColor="@color/md_blue_grey_900"

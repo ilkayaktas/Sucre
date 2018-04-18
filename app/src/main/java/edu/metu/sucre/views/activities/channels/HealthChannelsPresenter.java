@@ -6,7 +6,7 @@ import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.app.Dialog;
 import edu.metu.sucre.model.app.Message;
-import edu.metu.sucre.model.app.User;
+import edu.metu.sucre.model.app.DialogUser;
 import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,7 +22,7 @@ import java.util.Collections;
 public class HealthChannelsPresenter<V extends HealthChannelsMvpView> extends BasePresenter<V>
 		implements HealthChannelsMvpPresenter<V> {
 
-	private User user;
+	private DialogUser user;
 
 	public HealthChannelsPresenter(IDataManager IDataManager) {
 		super(IDataManager);
@@ -61,15 +61,15 @@ public class HealthChannelsPresenter<V extends HealthChannelsMvpView> extends Ba
                 + channel.owner + " ");
 
 	    String userID = getIDataManager().getUserId();
-		user = new User(userID, "ilkay", "", true);
+		user = new DialogUser(userID, "ilkay", "", true);
 		Dialog dialog = new Dialog( channel.id,
                                     channel.channelName,
                                     AppConstants.GROUP_AVATAR,
                                     new ArrayList<>(Collections.singletonList(user)),
                                     new Message(String.valueOf(System.currentTimeMillis()), user, "messajjjjasdada"),
-                                    0,
+                                    79,
                                     channel.notificationKey);
 
-	    getMvpView().onNewDialog(dialog);
+	    getMvpView().onNewDialog(channel, dialog);
     }
 }

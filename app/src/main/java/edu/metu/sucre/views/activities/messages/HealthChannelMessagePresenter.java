@@ -2,9 +2,12 @@ package edu.metu.sucre.views.activities.messages;
 
 
 import android.annotation.SuppressLint;
+import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.views.activities.base.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import java.util.List;
 
 /**
  * Created by ilkay on 02/08/2017.
@@ -29,8 +32,27 @@ public class HealthChannelMessagePresenter<V extends HealthChannelMessageMvpView
 		.observeOn(AndroidSchedulers.mainThread())
 		.subscribe(channel -> {
 			System.out.println();
-		}, throwable -> {
+		}, throwable -> System.err.println(throwable.getMessage()));
+	}
 
-		});
+	@SuppressLint("CheckResult")
+	@Override
+	public void getUsersOfChannels(String channelId) {
+		getIDataManager().getChannel(channelId)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::getUsers, throwable -> System.err.println(throwable.getMessage()));
+	}
+
+	@SuppressLint("CheckResult")
+	private void getUsers(Channel channel) {
+		List<String> userIds = channel.guestUserIds;
+		for (String userId : userIds) {
+		    getIDataManager().getUser(userId)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(user -> getMvpView().addUser(user),
+							throwable -> System.err.println(throwable.getMessage()));
+		}
 	}
 }

@@ -15,15 +15,15 @@ public class Message implements IMessage,
     private String id;
     private String text;
     private Date createdAt;
-    private User user;
+    private DialogUser user;
     private Image image;
     private Voice voice;
 
-    public Message(String id, User user, String text) {
+    public Message(String id, DialogUser user, String text) {
         this(id, user, text, new Date());
     }
 
-    public Message(String id, User user, String text, Date createdAt) {
+    public Message(String id, DialogUser user, String text, Date createdAt) {
         this.id = id;
         this.text = text;
         this.user = user;
@@ -46,7 +46,7 @@ public class Message implements IMessage,
     }
 
     @Override
-    public User getUser() {
+    public DialogUser getUser() {
         return this.user;
     }
 

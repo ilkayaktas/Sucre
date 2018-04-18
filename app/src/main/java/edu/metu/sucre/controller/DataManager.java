@@ -1,7 +1,6 @@
 package edu.metu.sucre.controller;
 
 import android.content.Context;
-import android.util.Log;
 import com.facebook.AccessToken;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -66,13 +65,22 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
+	public Observable<Channel> getChannel(String channelId) {
+		return apiHelper.getChannel(channelId);
+	}
+
+	@Override
+	public Observable<User> getUser(String userId) {
+		return apiHelper.getUser(userId);
+	}
+
+	@Override
 	public Observable<FBUser> getFacebookProfile() {
 		return apiHelper.getFacebookProfile();
 	}
 
 	@Override
 	public String getFCMToken() {
-		Log.d("_______IA_______", FirebaseInstanceId.getInstance().getToken());
 		return FirebaseInstanceId.getInstance().getToken();
 	}
 
@@ -99,7 +107,7 @@ public class DataManager implements IDataManager {
 			Channel channel = new Channel();
 			channel.owner = userId;
 			channel.channelName = channelName;
-			channel.guestUserId.add(userId);
+			channel.guestUserIds.add(userId);
 			return apiHelper.createChannel(channel);
 		} else{
 		    throw new IllegalArgumentException("Error on Facebook login or Firebase Cloud Messaging!");

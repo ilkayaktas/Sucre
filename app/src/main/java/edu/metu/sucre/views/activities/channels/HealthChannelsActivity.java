@@ -19,6 +19,7 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
+import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.app.Dialog;
 import edu.metu.sucre.model.app.Message;
 import edu.metu.sucre.utils.AppConstants;
@@ -26,7 +27,9 @@ import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.messages.HealthChannelMessageActivity;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class HealthChannelsActivity extends BaseActivity implements HealthChannelsMvpView,
@@ -39,6 +42,7 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
 
     protected ImageLoader imageLoader;
     protected DialogsListAdapter<Dialog> dialogsAdapter;
+    private List<Channel> channelList = new ArrayList<>();
 
     @BindView(R.id.toolbar_title) TextView toolbarTitle;
     @BindView(R.id.dialogsList) DialogsList dialogsList;
@@ -129,7 +133,8 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
     }
 
     @Override
-    public void onNewDialog(Dialog dialog) {
+    public void onNewDialog(Channel channel, Dialog dialog) {
+        channelList.add(channel);
         dialogsAdapter.addItem(dialog);
     }
 

@@ -51,4 +51,8 @@ public interface IDataManager {
     Observable<User> saveUser(User user);
 
     Observable<Channel> addUserToChannel(String dialogId, String email);
+
+    Observable<Channel> getChannel(String channelId);
+
+    Observable<User> getUser(String userId);
 }
