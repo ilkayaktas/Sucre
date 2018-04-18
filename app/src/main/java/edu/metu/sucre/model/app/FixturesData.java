@@ -13,18 +13,18 @@ abstract class FixturesData {
 
     static ArrayList<String> avatars = new ArrayList<String>() {
         {
-            add("https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg");
-            add("https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg");
-            add("https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg");
-            add("https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg");
+            add("http://lorempixel.com/500/500/abstract/");
+            add("http://lorempixel.com/500/500/abstract/");
+            add("http://lorempixel.com/500/500/abstract/");
+            add("http://lorempixel.com/500/500/abstract/");
         }
     };
 
     static final ArrayList<String> groupChatImages = new ArrayList<String>() {
         {
-            add("https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg");
-            add("https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg");
-            add("https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg");
+            add("http://lorempixel.com/500/500/abstract/");
+            add("http://lorempixel.com/500/500/abstract/");
+            add("http://lorempixel.com/500/500/abstract/");
         }
     };
 
@@ -70,8 +70,8 @@ abstract class FixturesData {
 
     static final ArrayList<String> images = new ArrayList<String>() {
         {
-            add("https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg");
-            add("https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/salmon-dahlia-flower-350_5ae0c998.jpg");
+            add("http://lorempixel.com/500/500/abstract/");
+            add("http://lorempixel.com/500/500/abstract/");
         }
     };
 

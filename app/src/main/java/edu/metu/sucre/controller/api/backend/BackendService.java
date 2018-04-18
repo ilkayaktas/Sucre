@@ -29,7 +29,7 @@ public interface BackendService {
     Observable<User> saveUser(@Body User user);
 
     @GET("user/channel")
-    Observable<List<Channel>> getUserChannels(@Query("userId") String userId, @Query("fcmToken") String fcmToken);
+    Observable<List<Channel>> getUserChannels(@Query("userId") String userId);
 
     @POST("channel/create")
     Observable<Channel> createChannel(@Body Channel channel);

@@ -80,7 +80,7 @@ public class ApiHelper implements IApiHelper {
 
 	@Override
 	public Observable<List<Channel>> getUserChannels(String userId, String fcmToken) {
-		return backendService.getUserChannels(userId, fcmToken);
+		return backendService.getUserChannels(userId);
 	}
 
 	@Override

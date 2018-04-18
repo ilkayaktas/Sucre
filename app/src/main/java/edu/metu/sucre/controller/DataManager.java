@@ -93,14 +93,13 @@ public class DataManager implements IDataManager {
 
 	@Override
 	public Observable<Channel>  createChannel(String channelName) {
-		String fcmToken = getFCMToken();
 		String userId = getUserId();
 
-		if(fcmToken != null && userId != null){
+		if(userId != null){
 			Channel channel = new Channel();
 			channel.owner = userId;
 			channel.channelName = channelName;
-			channel.membersFCMTokens.add(fcmToken);
+			channel.guestUserId.add(userId);
 			return apiHelper.createChannel(channel);
 		} else{
 		    throw new IllegalArgumentException("Error on Facebook login or Firebase Cloud Messaging!");
