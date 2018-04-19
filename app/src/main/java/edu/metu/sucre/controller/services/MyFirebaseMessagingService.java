@@ -33,53 +33,46 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import edu.metu.sucre.R;
 import edu.metu.sucre.controller.jobs.MyJobService;
+import edu.metu.sucre.events.MessageEvent;
+import edu.metu.sucre.model.api.Message;
+import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.home.MainActivity;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
-
-    private static final String TAG = "_______IA_______";
 
     /**
      * Called when message is received.
      *
      * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
      */
-    // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
 
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d("_______IA_______", "from: " + remoteMessage.getFrom());
-        Map<String, String> m = remoteMessage.getData();
-        for (String s : m.values()) {
-            Log.d("_______IA_______", s);
-        }
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "DialogMessage data payload: " + remoteMessage.getData());
+            Map<String, String> data = remoteMessage.getData();
 
-            if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-     //           scheduleJob();
-            } else {
-                // Handle message within 10 seconds
-                handleNow();
-            }
+            Message message = new Message();
+            message.messageText = data.get("messageText");
+            message.createdAt = DateUtils.parseDateForMessaging(data.get("createdAt"));
+            message.senderUserId = data.get("senderUserId");
+            message.toChannelId = data.get("toChannelId");
+            message.id = data.get("id");
 
+
+            EventBus.getDefault().post(new MessageEvent(message));
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "DialogMessage Notification Body: " + remoteMessage.getNotification().getBody());
+            sendNotification(remoteMessage.getNotification().getBody());
         }
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
     // [END receive_message]
 
@@ -101,7 +94,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * Handle time allotted to BroadcastReceivers.
      */
     private void handleNow() {
-        Log.d(TAG, "Short lived task is done.");
+        Log.d("_______IA_______", "Short lived task is done.");
     }
 
     /**

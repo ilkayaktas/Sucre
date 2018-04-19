@@ -6,7 +6,6 @@ import android.content.Context;
 import dagger.Component;
 import edu.metu.sucre.App;
 import edu.metu.sucre.controller.IDataManager;
-import edu.metu.sucre.controller.api.ApiHelper;
 import edu.metu.sucre.di.annotations.ApplicationContext;
 import edu.metu.sucre.di.modules.ApplicationModule;
 
@@ -20,8 +19,6 @@ import javax.inject.Singleton;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
     void inject(App app);
-
-    void inject(ApiHelper apiHelper);
 
     @ApplicationContext
     Context context();

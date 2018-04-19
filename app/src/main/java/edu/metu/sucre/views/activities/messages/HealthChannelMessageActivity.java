@@ -18,16 +18,21 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
+import edu.metu.sucre.events.MessageEvent;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.Message;
 import edu.metu.sucre.model.api.User;
 import edu.metu.sucre.model.app.DialogMessage;
+import edu.metu.sucre.model.app.DialogUser;
 import edu.metu.sucre.model.app.MessagesFixtures;
 import edu.metu.sucre.utils.AppConstants;
+import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class HealthChannelMessageActivity extends BaseActivity
@@ -55,7 +60,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 	private int selectionCount;
 	private Date lastLoadedDate;
 	private String dialogId = null;
-	private List<User> userListOfChannel = new ArrayList<>();
+	private Map<String, User> userMapOfChannel = new HashMap<>();
 	private Channel thisChannel;
 
 	@Override
@@ -106,6 +111,13 @@ public class HealthChannelMessageActivity extends BaseActivity
 	protected void onStart() {
 		super.onStart();
 		messagesAdapter.addToStart(MessagesFixtures.getTextMessage(), true);
+		EventBus.getDefault().register(this);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		EventBus.getDefault().unregister(this);
 	}
 
 	@Override
@@ -121,9 +133,30 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 	@Override
 	public boolean onSubmit(CharSequence input) {
-		// messagesAdapter.addToStart(MessagesFixtures.getTextMessage(input.toString()), true);
 		presenter.sendMessage(createMessage(input.toString()));
 		return true;
+	}
+
+	@Override
+	public void onNewMessage(DialogMessage message){
+			messagesAdapter.addToStart(message,true);
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onMessageEvent(MessageEvent event) {
+		if (event.message.toChannelId != null && event.message.toChannelId.equals(thisChannel.id)) {
+
+			User senderUser = userMapOfChannel.get(event.message.senderUserId);
+
+			DialogMessage msg = new DialogMessage(event.message.id,
+					new DialogUser(senderUser.userId,
+							senderUser.name,
+							senderUser.picture, true),
+					event.message.messageText);
+
+			onNewMessage(msg);
+		}
+
 	}
 
 	@Override
@@ -165,8 +198,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 	private MessagesListAdapter.Formatter<DialogMessage> getMessageStringFormatter() {
 		return message -> {
-            String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
-                    .format(message.getCreatedAt());
+            String createdAt = DateUtils.formatDateForMessaging(message.getCreatedAt());
 
             String text = message.getText();
             if (text == null) text = "[attachment]";
@@ -231,7 +263,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 	@Override
 	public void addUser(User user) {
-		userListOfChannel.add(user);
+		userMapOfChannel.put(user.userId, user);
 	}
 
 	@Override

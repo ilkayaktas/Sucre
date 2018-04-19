@@ -74,7 +74,7 @@ public class LineChart extends CardController {
 
 		mChart.setTooltips(mTip);
 
-		// Data
+		// FCMData
 		LineSet  dataset = new LineSet(mLabels, mValues);
 		dataset.setColor(Color.parseColor("#b3b5bb"))
 				  .setFill(Color.parseColor("#2d374c"))
