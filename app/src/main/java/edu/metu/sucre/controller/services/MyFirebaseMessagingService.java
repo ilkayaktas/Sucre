@@ -57,6 +57,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Map<String, String> data = remoteMessage.getData();
 
+            for (String s : data.values()) {
+                System.out.println("_____"+s);
+            }
             Message message = new Message();
             message.messageText = data.get("messageText");
             message.createdAt = DateUtils.parseDateForMessaging(data.get("createdAt"));

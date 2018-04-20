@@ -17,7 +17,7 @@ public class DateUtils {
 
     public final static DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
     public final static DateFormat hourFormat = new SimpleDateFormat("HH:mm");
-    public final static DateFormat messageFormat = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault());
+    public final static DateFormat messageFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
     public static String getFormattedDate(Date date){
         return dateFormat.format(date);

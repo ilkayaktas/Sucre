@@ -2,6 +2,7 @@ package edu.metu.sucre.views.activities.home;
 
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import com.facebook.login.LoginManager;
 import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.model.api.FBUser;
@@ -17,7 +18,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 		implements MainMvpPresenter<V>{
-	
+
+	private static final String TAG = "MainPresenter";
+
 	public MainPresenter(IDataManager IDataManager) {
 		super(IDataManager);
 	}
@@ -58,6 +61,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 		user.picture = fbUser.getPicture().toString();
 		user.fcmToken = getIDataManager().getFCMToken();
 
+		Log.d(TAG, "saveUser: name: " + user.name + " userId: " + user.userId + " fcmToken: " + user.fcmToken);
 		getIDataManager().saveUser(user)
 				.subscribeOn(Schedulers.io())
 				.observeOn( AndroidSchedulers.mainThread())
