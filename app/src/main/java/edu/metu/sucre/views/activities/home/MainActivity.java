@@ -19,10 +19,9 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.BloodSugar;
@@ -33,6 +32,7 @@ import edu.metu.sucre.utils.KeyboardUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.channels.HealthChannelsActivity;
 import edu.metu.sucre.views.activities.login.LoginActivity;
+import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
 import edu.metu.sucre.views.widgets.dialogs.rateme.RateMe;
 
@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
     
@@ -149,14 +148,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void updateUIAfterRecord(BloodSugar bloodSugar) {
-//        new LovelyInfoDialog(this)
-//                .setTopColorRes(R.color.mobss_color_green)
-//                .setIcon(R.drawable.ic_check)
-//                .setTitle(R.string.record_success_title)
-//                .setMessage(getString(R.string.record_success) + "\n\n" + bloodSugar.value)
-//                .show();
-    
-//        String message = getString(R.string.record_success) + "\n" + bloodSugar.value;
         String message = bloodSugar.value + " mg/dL " + getString(R.string.record_success);
         Snackbar.make(microphoneRing, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
     }
@@ -164,24 +155,39 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     public void showPreviousRecords(View v){
         // LoginManager.getInstance().logOut();
 
-        FirebaseMessaging fm = FirebaseMessaging.getInstance();
-        String to = "APA91bE6WRDFcdj-AG__7ufG6cpP7IhoYMZQ-fjuSDN6H2MHQBuWW7-AVdST-C-TtLCe_nZKunzueScMAuK3NTbLS72hniDk_jkH7ZgsYg-8lqabAqBeh-g";
-        AtomicInteger msgId = new AtomicInteger();
-        fm.send(new RemoteMessage.Builder(to)
-                .setMessageId(String.valueOf(msgId))
-                .addData("hello", "world")
-                .build());
-
-//        YoYo.with(Techniques.Pulse)
-//                .duration(200)
-//                .onEnd(new YoYo.AnimatorCallback() {
-//                    @Override
-//                    public void call(Animator animator) {
-//                        startActivity(SugarLevelActivity.class);
-//                    }
-//                })
-//                .playOn(v);
+        YoYo.with(Techniques.Pulse)
+                .duration(200)
+                .onEnd(animator -> startActivity(SugarLevelActivity.class))
+                .playOn(v);
         
+    }
+
+    public void activityEntry(View v){
+        YoYo.with(Techniques.Pulse)
+                .duration(200)
+                .onEnd(animator -> startActivity(SugarLevelActivity.class))
+                .playOn(v);
+    }
+
+    public void treatmentEntry(View v){
+        YoYo.with(Techniques.Pulse)
+                .duration(200)
+                .onEnd(animator -> startActivity(SugarLevelActivity.class))
+                .playOn(v);
+    }
+
+    public void nutritionEntry(View v){
+        YoYo.with(Techniques.Pulse)
+                .duration(200)
+                .onEnd(animator -> startActivity(SugarLevelActivity.class))
+                .playOn(v);
+    }
+
+    public void openChatScreen(View view){
+        YoYo.with(Techniques.Pulse)
+                .duration(200)
+                .onEnd(animator -> startActivity(HealthChannelsActivity.class))
+                .playOn(view);
     }
 
     /**
@@ -240,12 +246,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     private void promptDatePicker(){
         new SingleDateAndTimePickerDialog.Builder(this)
-                //.bottomSheet()
-                //.curved()
-                //.minutesStep(15)
-
-                //.displayHours(false)
-                //.displayMinutes(false)
                 .minutesStep(5)
                 .bottomSheet()
                 .listener(new SingleDateAndTimePickerDialog.Listener() {
@@ -300,8 +300,4 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         presenter.saveBloodSugar(new BloodSugar(null, date, bloodSugarValue, sugarMeasurementType));
     }
 
-    @OnClick(R.id.toolbar_settings)
-    public void open(View view){
-        startActivity(HealthChannelsActivity.class);
-    }
 }

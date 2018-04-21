@@ -38,5 +38,9 @@
 
     <string name="text_input_message_messagescreen">Please enter email address of user!</string>
     <string name="text_input_title_messagescreen">Add User Into Channel</string>
+    <string name="treatment">Treatment</string>
+    <string name="nutrition">Nutrition</string>
+    <string name="activity">Activity</string>
+    <string name="listprev">List Previous</string>
 
 </resources>

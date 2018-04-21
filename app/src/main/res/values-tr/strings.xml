@@ -38,4 +38,8 @@
 
     <string name="text_input_message_messagescreen">Lütfen kullanıcının e-posta adresini giriniz!</string>
     <string name="text_input_title_messagescreen">Kanala Kullanıcı Ekle</string>
+    <string name="treatment">Tedavi</string>
+    <string name="nutrition">Beslenme</string>
+    <string name="activity">Aktivite</string>
+    <string name="listprev">Geçmiş Bilgisi</string>
 </resources>
