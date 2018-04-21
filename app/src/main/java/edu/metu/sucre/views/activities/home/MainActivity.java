@@ -153,8 +153,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     public void showPreviousRecords(View v){
-        // LoginManager.getInstance().logOut();
-
         YoYo.with(Techniques.Pulse)
                 .duration(200)
                 .onEnd(animator -> startActivity(SugarLevelActivity.class))
@@ -165,21 +163,49 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     public void activityEntry(View v){
         YoYo.with(Techniques.Pulse)
                 .duration(200)
-                .onEnd(animator -> startActivity(SugarLevelActivity.class))
+                .onEnd(animator -> {
+                    new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+                            .setTopColorRes(R.color.md_deep_orange_800)
+                            .setIcon(R.drawable.ic_settings)
+                            .setTitle(R.string.activity )
+                            .setMessage(R.string.activity_message)
+                            .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
+                            .setConfirmButton(android.R.string.ok, text -> {})
+                            .show();
+
+                })
                 .playOn(v);
     }
 
     public void treatmentEntry(View v){
         YoYo.with(Techniques.Pulse)
                 .duration(200)
-                .onEnd(animator -> startActivity(SugarLevelActivity.class))
+                .onEnd(animator -> {
+                    new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+                            .setTopColorRes(R.color.md_deep_orange_800)
+                            .setIcon(R.drawable.ic_settings)
+                            .setTitle(R.string.treatment)
+                            .setMessage(R.string.treatment_message)
+                            .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
+                            .setConfirmButton(android.R.string.ok, text -> {})
+                            .show();
+                })
                 .playOn(v);
     }
 
     public void nutritionEntry(View v){
         YoYo.with(Techniques.Pulse)
                 .duration(200)
-                .onEnd(animator -> startActivity(SugarLevelActivity.class))
+                .onEnd(animator -> {
+                    new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+                            .setTopColorRes(R.color.md_deep_orange_800)
+                            .setIcon(R.drawable.ic_settings)
+                            .setTitle(R.string.nutrition)
+                            .setMessage(R.string.nutrition_message)
+                            .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
+                            .setConfirmButton(android.R.string.ok, text -> {})
+                            .show();
+                })
                 .playOn(v);
     }
 

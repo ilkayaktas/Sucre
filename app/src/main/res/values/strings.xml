@@ -42,5 +42,8 @@
     <string name="nutrition">Nutrition</string>
     <string name="activity">Activity</string>
     <string name="listprev">List Previous</string>
+    <string name="activity_message">Enter activity data.</string>
+    <string name="treatment_message">Enter treatment data.</string>
+    <string name="nutrition_message">Enter nutrition data.</string>
 
 </resources>

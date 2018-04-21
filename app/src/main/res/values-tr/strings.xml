@@ -42,4 +42,7 @@
     <string name="nutrition">Beslenme</string>
     <string name="activity">Aktivite</string>
     <string name="listprev">Geçmiş Bilgisi</string>
+    <string name="activity_message">Aktivite bilgisi giriniz.</string>
+    <string name="treatment_message">Muayene bilgisi giriniz.</string>
+    <string name="nutrition_message">Beslenme bilgisi giriniz.</string>
 </resources>
