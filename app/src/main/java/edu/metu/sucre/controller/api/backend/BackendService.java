@@ -43,4 +43,7 @@ public interface BackendService {
 
     @POST("message/send")
     Observable<Void> sendMessage(@Body Message message);
+
+    @GET("message/get")
+    Observable<List<Message>> getMessages(@Query("channelId") String channelId);
 }

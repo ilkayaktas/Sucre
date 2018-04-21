@@ -37,6 +37,8 @@ public interface IDataManager {
 
     String getUserId();
 
+    Observable<User> getMe();
+
     void subscribeToTopic(String topic);
 
     Observable<Channel>  createChannel(String channelName);
@@ -58,4 +60,6 @@ public interface IDataManager {
     Observable<User> getUser(String userId);
 
     Observable<Void> sendMessage(Message message);
+
+    Observable<List<Message>> getMessages(String channelId);
 }

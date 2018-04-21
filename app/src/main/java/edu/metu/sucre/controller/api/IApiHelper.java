@@ -49,4 +49,6 @@ public interface IApiHelper {
     Observable<Channel> getChannel(String channelId);
 
     Observable<Void> sendMessage(Message message);
+
+    Observable<List<Message>> getMessages(String channelId);
 }

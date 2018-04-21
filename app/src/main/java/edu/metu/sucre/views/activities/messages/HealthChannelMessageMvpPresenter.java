@@ -16,4 +16,6 @@ public interface HealthChannelMessageMvpPresenter<V extends HealthChannelMessage
     void getUsersOfChannels(String channelId);
 
     void getChannel(String channelId);
+
+    void getMessages(String channelId);
 }

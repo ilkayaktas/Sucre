@@ -60,6 +60,19 @@ public class HealthChannelMessagePresenter<V extends HealthChannelMessageMvpView
 	}
 
 	@SuppressLint("CheckResult")
+	@Override
+	public void getMessages(String channelId) {
+		getIDataManager().getMessages(channelId)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(messages -> {
+					for (Message message : messages) {
+
+					}
+				}, throwable -> System.err.println(throwable.getMessage()));
+	}
+
+	@SuppressLint("CheckResult")
 	private void getUsers(Channel channel) {
 		List<String> userIds = channel.guestUserIds;
 		for (String userId : userIds) {

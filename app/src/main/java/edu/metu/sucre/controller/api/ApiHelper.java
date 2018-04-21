@@ -104,6 +104,11 @@ public class ApiHelper implements IApiHelper {
 		return backendService.sendMessage(message);
 	}
 
+	@Override
+	public Observable<List<Message>> getMessages(String channelId) {
+		return backendService.getMessages(channelId);
+	}
+
 	private FBUser jsonToUser(JSONObject user) throws JSONException {
 		Uri picture = Uri.parse(user.getJSONObject("picture").getJSONObject("data").getString("url"));
 		String name = user.getString("name");

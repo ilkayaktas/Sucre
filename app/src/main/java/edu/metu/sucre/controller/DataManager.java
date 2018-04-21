@@ -39,7 +39,6 @@ public class DataManager implements IDataManager {
 		this.apiHelper = apiHelper;
 	}
 
-
 	@Override
 	public List<BloodSugar> getBloodSugar() {
 		return dbHelper.getBloodSugar();
@@ -81,6 +80,11 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
+	public Observable<List<Message>> getMessages(String channelId) {
+		return apiHelper.getMessages(channelId);
+	}
+
+	@Override
 	public Observable<FBUser> getFacebookProfile() {
 		return apiHelper.getFacebookProfile();
 	}
@@ -100,6 +104,11 @@ public class DataManager implements IDataManager {
 		return null;
 	}
 
+	@Override
+	public Observable<User> getMe(){
+		String userID = getUserId();
+		return getUser(userID);
+	}
 	@Override
 	public void subscribeToTopic(String topic) {
 		FirebaseMessaging.getInstance().subscribeToTopic(topic);

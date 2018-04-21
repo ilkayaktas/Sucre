@@ -1,7 +1,6 @@
 package edu.metu.sucre.views.activities.messages;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,15 +66,19 @@ public class HealthChannelMessageActivity extends BaseActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// Get arguments
 		getArguments();
 
+		// Dependency Injection
 		getActivityComponent().inject(this);
-		
+
+		// Butterknife binding
 		setUnBinder(ButterKnife.bind(this));
 		
 		// Attach presenter
 		presenter.onAttach(HealthChannelMessageActivity.this);
 
+		// Init UI
 		initUI();
 	}
 
@@ -142,6 +145,23 @@ public class HealthChannelMessageActivity extends BaseActivity
 			messagesAdapter.addToStart(message,true);
 	}
 
+	@Override
+	public void loadMessagesToEnd(List<Message> messages) {
+		List<DialogMessage> msgList = new ArrayList<>();
+		for (Message m : messages) {
+			User senderUser = userMapOfChannel.get(m.senderUserId);
+
+			DialogMessage msg = new DialogMessage(m.id,
+					new DialogUser(senderUser.userId,
+							senderUser.name,
+							senderUser.picture, true),
+					m.messageText);
+
+			msgList.add(msg);
+		}
+		messagesAdapter.addToEnd(msgList, false);
+	}
+
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onMessageEvent(MessageEvent event) {
 		if (event.message.toChannelId != null && event.message.toChannelId.equals(thisChannel.id)) {
@@ -176,7 +196,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 	@Override
 	public void onLoadMore(int page, int totalItemsCount) {
 		if (totalItemsCount < TOTAL_MESSAGES_COUNT) {
-			loadMessages();
+//			presenter.getMessages(thisChannel.id);
 		}
 	}
 
@@ -185,15 +205,6 @@ public class HealthChannelMessageActivity extends BaseActivity
 		this.selectionCount = count;
 		menu.findItem(R.id.action_delete).setVisible(count > 0);
 		menu.findItem(R.id.action_copy).setVisible(count > 0);
-	}
-
-	protected void loadMessages() {
-		//imitation of internet connection
-		new Handler().postDelayed(() -> {
-            ArrayList<DialogMessage> messages = MessagesFixtures.getMessages(lastLoadedDate);
-            lastLoadedDate = messages.get(messages.size() - 1).getCreatedAt();
-            messagesAdapter.addToEnd(messages, false);
-        }, 1000);
 	}
 
 	private MessagesListAdapter.Formatter<DialogMessage> getMessageStringFormatter() {
