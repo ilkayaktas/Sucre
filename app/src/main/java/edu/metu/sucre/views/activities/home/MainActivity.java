@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
+import android.widget.ToggleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,7 +49,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     MainMvpPresenter<MainMvpView> presenter;
 
     @BindView(R.id.toolbar_title)TextView toolbar_title;
-    @BindView(R.id.toggleSwitch) ToggleSwitch toggleSwitch;
+    @BindView(R.id.toggleButton)
+    ToggleButton toggleButton;
     @BindView(R.id.microphoneRing) ImageView microphoneRing;
 
     private Date date = new Date(System.currentTimeMillis());
@@ -289,7 +290,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     private void saveBloodSugar(int bloodSugarValue){
         SugarMeasurementType sugarMeasurementType;
-        if(toggleSwitch.getCheckedTogglePosition() == 0){
+        if(toggleButton.isChecked()){
             sugarMeasurementType = SugarMeasurementType.PRE;
         } else{
             sugarMeasurementType = SugarMeasurementType.POST;

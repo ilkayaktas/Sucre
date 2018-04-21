@@ -73,7 +73,9 @@ public class HealthChannelsPresenter<V extends HealthChannelsMvpView> extends Ba
 							channel.channelName,
 							AppConstants.GROUP_AVATAR,
 							new ArrayList<>(Collections.singletonList(user)),
-							new DialogMessage(UUID.randomUUID().toString(), user, "Health Channel is created!"),
+							new DialogMessage(UUID.randomUUID().toString(),
+												user,
+												"Welcome to " + channel.channelName),
 							0,
 							channel.notificationKey);
 

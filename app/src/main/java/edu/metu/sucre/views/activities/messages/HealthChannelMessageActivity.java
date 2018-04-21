@@ -113,7 +113,8 @@ public class HealthChannelMessageActivity extends BaseActivity
 	@Override
 	protected void onStart() {
 		super.onStart();
-		messagesAdapter.addToStart(MessagesFixtures.getTextMessage(), true);
+		// TODO Get all previous messages
+		// messagesAdapter.addToStart(MessagesFixtures.getTextMessage(), true);
 		EventBus.getDefault().register(this);
 	}
 

@@ -32,7 +32,7 @@
     <string name="hint_enter_a_message">Mesaj yazınız!</string>
     <string name="date_header_yesterday">Dün</string>
     <string name="date_header_today">Bugün</string>
-    <string name="channels">Sağlık Kanalları</string>
+    <string name="channels">Health Channels</string>
     <string name="text_input_message">Lütfen sağlık kanalına bir isim veriniz!</string>
     <string name="text_input_title">Sağlık Kanalı İsmi</string>
 
