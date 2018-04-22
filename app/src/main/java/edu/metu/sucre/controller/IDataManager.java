@@ -16,10 +16,7 @@
 package edu.metu.sucre.controller;
 
 
-import edu.metu.sucre.model.api.Channel;
-import edu.metu.sucre.model.api.FBUser;
-import edu.metu.sucre.model.api.Message;
-import edu.metu.sucre.model.api.User;
+import edu.metu.sucre.model.api.*;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
 
@@ -62,4 +59,12 @@ public interface IDataManager {
     Observable<Void> sendMessage(Message message);
 
     Observable<List<Message>> getMessages(String channelId);
+
+    Observable<Void> saveHealthData(HealthData healthData);
+
+    Observable<List<HealthData>> getHealthData(String userId, String healthDataTypeId);
+
+    Observable<Void> saveBloodSugarToServer(BloodSugarData bloodSugar);
+
+    Observable<List<BloodSugarData>> getBloodSugarFromServer(String userId, String sugarMeasurementType);
 }

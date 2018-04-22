@@ -8,10 +8,7 @@ import edu.metu.sucre.controller.api.IApiHelper;
 import edu.metu.sucre.controller.db.IDbHelper;
 import edu.metu.sucre.controller.pref.IPreferenceHelper;
 import edu.metu.sucre.di.annotations.ApplicationContext;
-import edu.metu.sucre.model.api.Channel;
-import edu.metu.sucre.model.api.FBUser;
-import edu.metu.sucre.model.api.Message;
-import edu.metu.sucre.model.api.User;
+import edu.metu.sucre.model.api.*;
 import edu.metu.sucre.model.app.BloodSugar;
 import io.reactivex.Observable;
 
@@ -82,6 +79,26 @@ public class DataManager implements IDataManager {
 	@Override
 	public Observable<List<Message>> getMessages(String channelId) {
 		return apiHelper.getMessages(channelId);
+	}
+
+	@Override
+	public Observable<Void> saveHealthData(HealthData healthData) {
+		return apiHelper.saveHealthData(healthData);
+	}
+
+	@Override
+	public Observable<List<HealthData>> getHealthData(String userId, String healthDataTypeId) {
+		return apiHelper.getHealthData(userId, healthDataTypeId);
+	}
+
+	@Override
+	public Observable<Void> saveBloodSugarToServer(BloodSugarData bloodSugar) {
+		return apiHelper.saveBloodSugar(bloodSugar);
+	}
+
+	@Override
+	public Observable<List<BloodSugarData>> getBloodSugarFromServer(String userId, String sugarMeasurementType) {
+		return apiHelper.getBloodSugar(userId, sugarMeasurementType);
 	}
 
 	@Override

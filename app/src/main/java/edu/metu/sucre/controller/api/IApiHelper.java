@@ -16,10 +16,7 @@
 package edu.metu.sucre.controller.api;
 
 
-import edu.metu.sucre.model.api.Channel;
-import edu.metu.sucre.model.api.FBUser;
-import edu.metu.sucre.model.api.Message;
-import edu.metu.sucre.model.api.User;
+import edu.metu.sucre.model.api.*;
 import io.reactivex.Observable;
 
 import java.util.List;
@@ -51,4 +48,13 @@ public interface IApiHelper {
     Observable<Void> sendMessage(Message message);
 
     Observable<List<Message>> getMessages(String channelId);
+
+    Observable<Void> saveHealthData(HealthData healthData);
+
+    Observable<List<HealthData>> getHealthData(String userId, String healthDataTypeId);
+
+    Observable<Void> saveBloodSugar(BloodSugarData bloodSugar);
+
+    Observable<List<BloodSugarData>> getBloodSugar(String userId, String sugarMeasurementType);
+
 }

@@ -8,10 +8,7 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import edu.metu.sucre.controller.api.backend.BackendService;
 import edu.metu.sucre.controller.api.fcm.FCMGroupService;
-import edu.metu.sucre.model.api.Channel;
-import edu.metu.sucre.model.api.FBUser;
-import edu.metu.sucre.model.api.Message;
-import edu.metu.sucre.model.api.User;
+import edu.metu.sucre.model.api.*;
 import io.reactivex.Observable;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -107,6 +104,26 @@ public class ApiHelper implements IApiHelper {
 	@Override
 	public Observable<List<Message>> getMessages(String channelId) {
 		return backendService.getMessages(channelId);
+	}
+
+	@Override
+	public Observable<Void> saveHealthData(HealthData healthData) {
+		return backendService.saveHealthData(healthData);
+	}
+
+	@Override
+	public Observable<List<HealthData>> getHealthData(String userId, String healthDataTypeId) {
+		return backendService.getHealthData(userId, healthDataTypeId);
+	}
+
+	@Override
+	public Observable<Void> saveBloodSugar(BloodSugarData bloodSugar) {
+		return backendService.saveBloodSugar(bloodSugar);
+	}
+
+	@Override
+	public Observable<List<BloodSugarData>> getBloodSugar(String userId, String sugarMeasurementType) {
+		return backendService.getBloodSugar(userId, sugarMeasurementType);
 	}
 
 	private FBUser jsonToUser(JSONObject user) throws JSONException {

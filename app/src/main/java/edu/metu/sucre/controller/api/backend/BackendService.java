@@ -1,10 +1,11 @@
 package edu.metu.sucre.controller.api.backend;
 
-import edu.metu.sucre.model.api.Channel;
-import edu.metu.sucre.model.api.Message;
-import edu.metu.sucre.model.api.User;
+import edu.metu.sucre.model.api.*;
 import io.reactivex.Observable;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 import java.util.List;
 
@@ -46,4 +47,17 @@ public interface BackendService {
 
     @GET("message/get")
     Observable<List<Message>> getMessages(@Query("channelId") String channelId);
+
+    @POST("healthdata/save")
+    Observable<Void> saveHealthData(@Body HealthData healthData);
+
+    @GET("healthdata/get")
+    Observable<List<HealthData>> getHealthData(@Query("userId") String userId, @Query("healthDataType") String healthDataType);
+
+    @POST("bloodsugar/save")
+    Observable<Void> saveBloodSugar(@Body BloodSugarData bloodSugar);
+
+    @GET("bloodsugar/get")
+    Observable<List<BloodSugarData>> getBloodSugar(@Query("userId") String userId, @Query("sugarMeasurementType") String sugarMeasurementType);
+
 }
