@@ -6,6 +6,7 @@ import android.util.Log;
 import com.facebook.login.LoginManager;
 import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.model.api.FBUser;
+import edu.metu.sucre.model.api.HealthData;
 import edu.metu.sucre.model.api.User;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.views.activities.base.BasePresenter;
@@ -50,6 +51,18 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 	@Override
 	public boolean isFacebookTokenAvailable() {
 		return getIDataManager().getUserId() != null;
+	}
+
+	@SuppressLint("CheckResult")
+	@Override
+	public void saveHealthData(HealthData healthData) {
+		healthData.userId = getIDataManager().getUserId();
+
+		getIDataManager().saveHealthData(healthData)
+				.subscribeOn(Schedulers.io())
+				.observeOn( AndroidSchedulers.mainThread())
+				.subscribe(healthData1 -> getMvpView().healthDataSaved(healthData1)
+				, this::onError );
 	}
 
 	@SuppressLint("CheckResult")

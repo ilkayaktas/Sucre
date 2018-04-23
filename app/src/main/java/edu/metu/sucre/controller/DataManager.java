@@ -82,7 +82,7 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
-	public Observable<Void> saveHealthData(HealthData healthData) {
+	public Observable<HealthData> saveHealthData(HealthData healthData) {
 		return apiHelper.saveHealthData(healthData);
 	}
 
@@ -92,7 +92,7 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
-	public Observable<Void> saveBloodSugarToServer(BloodSugarData bloodSugar) {
+	public Observable<BloodSugarData> saveBloodSugarToServer(BloodSugarData bloodSugar) {
 		return apiHelper.saveBloodSugar(bloodSugar);
 	}
 

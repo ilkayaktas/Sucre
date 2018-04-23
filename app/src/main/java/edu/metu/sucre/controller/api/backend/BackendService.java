@@ -49,13 +49,13 @@ public interface BackendService {
     Observable<List<Message>> getMessages(@Query("channelId") String channelId);
 
     @POST("healthdata/save")
-    Observable<Void> saveHealthData(@Body HealthData healthData);
+    Observable<HealthData> saveHealthData(@Body HealthData healthData);
 
     @GET("healthdata/get")
     Observable<List<HealthData>> getHealthData(@Query("userId") String userId, @Query("healthDataType") String healthDataType);
 
     @POST("bloodsugar/save")
-    Observable<Void> saveBloodSugar(@Body BloodSugarData bloodSugar);
+    Observable<BloodSugarData> saveBloodSugar(@Body BloodSugarData bloodSugar);
 
     @GET("bloodsugar/get")
     Observable<List<BloodSugarData>> getBloodSugar(@Query("userId") String userId, @Query("sugarMeasurementType") String sugarMeasurementType);

@@ -24,6 +24,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import edu.metu.sucre.R;
+import edu.metu.sucre.model.api.HealthData;
 import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.ListItem;
 import edu.metu.sucre.model.app.SugarMeasurementType;
@@ -152,6 +153,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         Snackbar.make(microphoneRing, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
     }
 
+    @Override
+    public void healthDataSaved(HealthData healthData) {
+        Snackbar.make(microphoneRing, "Health Data saved: "+healthData.dataText, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+    }
+
     public void showPreviousRecords(View v){
         YoYo.with(Techniques.Pulse)
                 .duration(200)
@@ -170,7 +176,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                             .setTitle(R.string.activity )
                             .setMessage(R.string.activity_message)
                             .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
-                            .setConfirmButton(android.R.string.ok, text -> {})
+                            .setConfirmButton(android.R.string.ok, text -> {
+                                presenter.saveHealthData(new HealthData(text, text, HealthData.HealthDataType.ACTIVITY));
+                            })
                             .show();
 
                 })
@@ -187,7 +195,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                             .setTitle(R.string.treatment)
                             .setMessage(R.string.treatment_message)
                             .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
-                            .setConfirmButton(android.R.string.ok, text -> {})
+                            .setConfirmButton(android.R.string.ok, text -> {
+                                presenter.saveHealthData(new HealthData(text, text, HealthData.HealthDataType.TREATMENT));
+                            })
                             .show();
                 })
                 .playOn(v);
@@ -203,7 +213,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                             .setTitle(R.string.nutrition)
                             .setMessage(R.string.nutrition_message)
                             .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
-                            .setConfirmButton(android.R.string.ok, text -> {})
+                            .setConfirmButton(android.R.string.ok, text -> {
+                                presenter.saveHealthData(new HealthData(text, text, HealthData.HealthDataType.NUTRITION));
+                            })
                             .show();
                 })
                 .playOn(v);

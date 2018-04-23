@@ -107,7 +107,7 @@ public class ApiHelper implements IApiHelper {
 	}
 
 	@Override
-	public Observable<Void> saveHealthData(HealthData healthData) {
+	public Observable<HealthData> saveHealthData(HealthData healthData) {
 		return backendService.saveHealthData(healthData);
 	}
 
@@ -117,7 +117,7 @@ public class ApiHelper implements IApiHelper {
 	}
 
 	@Override
-	public Observable<Void> saveBloodSugar(BloodSugarData bloodSugar) {
+	public Observable<BloodSugarData> saveBloodSugar(BloodSugarData bloodSugar) {
 		return backendService.saveBloodSugar(bloodSugar);
 	}
 

@@ -49,11 +49,11 @@ public interface IApiHelper {
 
     Observable<List<Message>> getMessages(String channelId);
 
-    Observable<Void> saveHealthData(HealthData healthData);
+    Observable<HealthData> saveHealthData(HealthData healthData);
 
     Observable<List<HealthData>> getHealthData(String userId, String healthDataTypeId);
 
-    Observable<Void> saveBloodSugar(BloodSugarData bloodSugar);
+    Observable<BloodSugarData> saveBloodSugar(BloodSugarData bloodSugar);
 
     Observable<List<BloodSugarData>> getBloodSugar(String userId, String sugarMeasurementType);
 

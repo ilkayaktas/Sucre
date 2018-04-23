@@ -60,11 +60,11 @@ public interface IDataManager {
 
     Observable<List<Message>> getMessages(String channelId);
 
-    Observable<Void> saveHealthData(HealthData healthData);
+    Observable<HealthData> saveHealthData(HealthData healthData);
 
     Observable<List<HealthData>> getHealthData(String userId, String healthDataTypeId);
 
-    Observable<Void> saveBloodSugarToServer(BloodSugarData bloodSugar);
+    Observable<BloodSugarData> saveBloodSugarToServer(BloodSugarData bloodSugar);
 
     Observable<List<BloodSugarData>> getBloodSugarFromServer(String userId, String sugarMeasurementType);
 }

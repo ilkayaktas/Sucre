@@ -1,5 +1,6 @@
 package edu.metu.sucre.model.api;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -13,6 +14,13 @@ public class HealthData {
     public String dataText;
     public String dataTextDetail;
     public HealthDataType healthDataType;
+
+    public HealthData(String dataText, String dataTextDetail, HealthDataType healthDataType) {
+        this.dataText = dataText;
+        this.dataTextDetail = dataTextDetail;
+        this.healthDataType = healthDataType;
+        date = Calendar.getInstance().getTime();
+    }
 
     public enum HealthDataType{
         TREATMENT(1),
