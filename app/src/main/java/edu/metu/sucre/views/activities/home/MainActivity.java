@@ -32,6 +32,7 @@ import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.utils.KeyboardUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.channels.HealthChannelsActivity;
+import edu.metu.sucre.views.activities.healthdatalist.HealthDataListActivity;
 import edu.metu.sucre.views.activities.login.LoginActivity;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
@@ -183,6 +184,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
                 })
                 .playOn(v);
+
+        startActivity(HealthDataListActivity.class);
     }
 
     public void treatmentEntry(View v){

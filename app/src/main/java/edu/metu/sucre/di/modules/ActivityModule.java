@@ -12,6 +12,9 @@ import edu.metu.sucre.di.annotations.PerActivity;
 import edu.metu.sucre.views.activities.channels.HealthChannelsMvpPresenter;
 import edu.metu.sucre.views.activities.channels.HealthChannelsMvpView;
 import edu.metu.sucre.views.activities.channels.HealthChannelsPresenter;
+import edu.metu.sucre.views.activities.healthdatalist.HealthDataListMvpPresenter;
+import edu.metu.sucre.views.activities.healthdatalist.HealthDataListMvpView;
+import edu.metu.sucre.views.activities.healthdatalist.HealthDataListPresenter;
 import edu.metu.sucre.views.activities.home.MainMvpPresenter;
 import edu.metu.sucre.views.activities.home.MainMvpView;
 import edu.metu.sucre.views.activities.home.MainPresenter;
@@ -117,6 +120,12 @@ public class ActivityModule {
     @PerActivity
     HealthChannelMessageMvpPresenter<HealthChannelMessageMvpView> providesHealthChannelMessageMvpPresenter(IDataManager IDataManager){
         return new HealthChannelMessagePresenter<>(IDataManager);
+    }
+
+    @Provides
+    @PerActivity
+    HealthDataListMvpPresenter<HealthDataListMvpView> providesHealthDataListMvpPresenter(IDataManager IDataManager){
+        return new HealthDataListPresenter<>(IDataManager);
     }
 
 }

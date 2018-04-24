@@ -23,6 +23,7 @@ public class HealthData {
     }
 
     public enum HealthDataType{
+        ALL(0),
         TREATMENT(1),
         NUTRITION(2),
         ACTIVITY(3);

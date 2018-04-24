@@ -21,6 +21,7 @@ import edu.metu.sucre.di.annotations.PerActivity;
 import edu.metu.sucre.di.modules.ActivityModule;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.channels.HealthChannelsActivity;
+import edu.metu.sucre.views.activities.healthdatalist.HealthDataListActivity;
 import edu.metu.sucre.views.activities.home.MainActivity;
 import edu.metu.sucre.views.activities.login.LoginActivity;
 import edu.metu.sucre.views.activities.messages.HealthChannelMessageActivity;
@@ -54,4 +55,6 @@ public interface ActivityComponent {
     void inject(HealthChannelMessageActivity healthChannelMessageActivity);
 
     void inject(HealthChannelsActivity healthChannelsActivity);
+
+    void inject(HealthDataListActivity healthDataListActivity);
 }

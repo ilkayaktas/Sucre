@@ -47,6 +47,10 @@
                   android:screenOrientation="portrait"
                   android:theme="@style/Theme.Design.Light.NoActionBar"/>
 
+        <activity android:name=".views.activities.healthdatalist.HealthDataListActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/Theme.Design.Light.NoActionBar"/>
+
         <!-- [START firebase_service] -->
         <service
                 android:name=".controller.services.MyFirebaseMessagingService">
