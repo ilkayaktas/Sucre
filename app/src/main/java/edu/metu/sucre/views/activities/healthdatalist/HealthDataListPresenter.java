@@ -7,8 +7,6 @@ import edu.metu.sucre.views.activities.base.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import java.util.Random;
-
 /**
  * Created by ilkay on 02/08/2017.
  */
@@ -19,19 +17,20 @@ public class HealthDataListPresenter<V extends HealthDataListMvpView> extends Ba
 		super(IDataManager);
 	}
 
-	@Override
-	public void provideContent() {
-		String str = String.valueOf(new Random().nextDouble());
-		getMvpView().updateUI(str);
-	}
-
 	@SuppressLint("CheckResult")
 	@Override
 	public void getHealthData(String userId) {
+		getMvpView().setLoading(true);
+
 		getIDataManager().getHealthData(userId, HealthData.HealthDataType.ALL.name())
 				.subscribeOn(Schedulers.io())
 				.observeOn( AndroidSchedulers.mainThread())
 				.subscribe(healthDataList -> getMvpView().showHealthData(healthDataList)
-				, throwable -> System.err.println(throwable));
+				, throwable -> {
+						System.err.println(throwable);
+						if(getMvpView()!= null){
+							getMvpView().setLoading(false);
+						}
+					});
 	}
 }

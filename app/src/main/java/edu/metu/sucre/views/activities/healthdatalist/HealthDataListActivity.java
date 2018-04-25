@@ -11,11 +11,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.api.HealthData;
+import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.adapters.HealthDataListAdapter;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,10 +31,13 @@ public class HealthDataListActivity extends BaseActivity implements HealthDataLi
 	@BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 	@BindView(R.id.rv_recycler) RecyclerView recyclerView;
 	private HealthDataListAdapter recyclerViewAdapter;
+	private String senderId = "0";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		getArguments();
 
 		getActivityComponent().inject(this);
 
@@ -46,20 +49,26 @@ public class HealthDataListActivity extends BaseActivity implements HealthDataLi
 		initUI();
 	}
 
+	private void getArguments() {
+		Bundle b = getIntent().getExtras();
+		if(b != null){
+			senderId = b.getString(AppConstants.SENDER_ID);
+		}
+	}
+
 	@Override
 	protected void initUI() {
 		setFont();
 
-		initRecylerView();
-
+		mPresenter.getHealthData(senderId);
 		swipeRefreshLayout.setOnRefreshListener(() -> {
-			mPresenter.provideContent();
+			mPresenter.getHealthData(senderId);
 		});
 	}
 
-	private void initRecylerView(){
+	private void initRecylerView(List<HealthData> healthDataList){
 
-		recyclerViewAdapter = new HealthDataListAdapter(this, Arrays.asList("One", "Two", "Three"), recyclerView);
+		recyclerViewAdapter = new HealthDataListAdapter(this, healthDataList, recyclerView);
 
 		RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
 		recyclerView.setLayoutManager(mLayoutManager);
@@ -95,13 +104,13 @@ public class HealthDataListActivity extends BaseActivity implements HealthDataLi
 	}
 
 	@Override
-	public void updateUI(String text) {
-		((HealthDataListAdapter)recyclerView.getAdapter()).addNewItem(text);
-		swipeRefreshLayout.setRefreshing(false);
+	public void showHealthData(List<HealthData> healthDataList) {
+		initRecylerView(healthDataList);
+		setLoading(false);
 	}
 
 	@Override
-	public void showHealthData(List<HealthData> healthDataList) {
-
+	public void setLoading(boolean isLoading) {
+		swipeRefreshLayout.setRefreshing(isLoading);
 	}
 }

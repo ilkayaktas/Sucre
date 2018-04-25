@@ -11,7 +11,8 @@ import java.util.List;
  */
 
 public interface HealthDataListMvpView extends MvpView {
-    void updateUI(String text);
 
     void showHealthData(List<HealthData> healthDataList);
+
+    void setLoading(boolean isLoading);
 }

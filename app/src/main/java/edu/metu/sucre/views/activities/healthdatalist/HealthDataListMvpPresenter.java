@@ -8,7 +8,5 @@ import edu.metu.sucre.views.activities.base.MvpPresenter;
  */
 
 public interface HealthDataListMvpPresenter<V extends HealthDataListMvpView> extends MvpPresenter<V> {
-    void provideContent();
-
     void getHealthData(String userId);
 }
