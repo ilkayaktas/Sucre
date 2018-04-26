@@ -65,6 +65,11 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 				, this::onError );
 	}
 
+	@Override
+	public String getUserId() {
+		return getIDataManager().getUserId();
+	}
+
 	@SuppressLint("CheckResult")
 	private void saveUser(FBUser fbUser){
 		User user = new User();

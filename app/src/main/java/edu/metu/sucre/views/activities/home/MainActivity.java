@@ -50,8 +50,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     MainMvpPresenter<MainMvpView> presenter;
 
     @BindView(R.id.toolbar_title)TextView toolbar_title;
-    @BindView(R.id.toggleButton)
-    ToggleButton toggleButton;
+    @BindView(R.id.toggleButton) ToggleButton toggleButton;
     @BindView(R.id.microphoneRing) ImageView microphoneRing;
 
     private Date date = new Date(System.currentTimeMillis());
@@ -185,7 +184,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 })
                 .playOn(v);
 
-        startActivity(HealthDataListActivity.class);
+        Intent intent = new Intent(this, HealthDataListActivity.class);
+        intent.putExtra(AppConstants.SENDER_ID, presenter.getUserId());
+        startActivity(intent);
     }
 
     public void treatmentEntry(View v){
