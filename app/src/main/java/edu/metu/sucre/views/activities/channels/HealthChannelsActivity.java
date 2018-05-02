@@ -134,7 +134,7 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
     @Override
     public void onNewDialog(Channel channel, Dialog dialog) {
         channelList.add(channel);
-        dialogsAdapter.addItem(dialog);
+        dialogsAdapter.addItem(0, dialog);
     }
 
     @Override

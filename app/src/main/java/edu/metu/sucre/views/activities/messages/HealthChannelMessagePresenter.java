@@ -2,6 +2,7 @@ package edu.metu.sucre.views.activities.messages;
 
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import edu.metu.sucre.model.api.Channel;
 import edu.metu.sucre.model.api.Message;
 import edu.metu.sucre.views.activities.base.BasePresenter;
@@ -67,8 +68,9 @@ public class HealthChannelMessagePresenter<V extends HealthChannelMessageMvpView
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(messages -> {
 					for (Message message : messages) {
-
+						Log.d("_______IA_______", message.messageText);
 					}
+					getMvpView().loadMessagesToEnd(messages);
 				}, throwable -> System.err.println(throwable.getMessage()));
 	}
 

@@ -175,7 +175,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                             .setIcon(R.drawable.ic_settings)
                             .setTitle(R.string.activity )
                             .setMessage(R.string.activity_message)
-                            .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
                             .setConfirmButton(android.R.string.ok, text -> {
                                 presenter.saveHealthData(new HealthData(text, text, HealthData.HealthDataType.ACTIVITY));
                             })
@@ -198,7 +197,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                             .setIcon(R.drawable.ic_settings)
                             .setTitle(R.string.treatment)
                             .setMessage(R.string.treatment_message)
-                            .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
                             .setConfirmButton(android.R.string.ok, text -> {
                                 presenter.saveHealthData(new HealthData(text, text, HealthData.HealthDataType.TREATMENT));
                             })
@@ -216,7 +214,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                             .setIcon(R.drawable.ic_settings)
                             .setTitle(R.string.nutrition)
                             .setMessage(R.string.nutrition_message)
-                            .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
                             .setConfirmButton(android.R.string.ok, text -> {
                                 presenter.saveHealthData(new HealthData(text, text, HealthData.HealthDataType.NUTRITION));
                             })

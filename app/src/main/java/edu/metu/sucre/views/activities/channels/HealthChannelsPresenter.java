@@ -56,7 +56,9 @@ public class HealthChannelsPresenter<V extends HealthChannelsMvpView> extends Ba
 	}
 
 	private void onError(String message) {
-	    getMvpView().showErrorToast(message);
+		if(getMvpView() != null){
+	    	getMvpView().showErrorToast(message);
+		}
     }
 
     @SuppressLint("CheckResult")

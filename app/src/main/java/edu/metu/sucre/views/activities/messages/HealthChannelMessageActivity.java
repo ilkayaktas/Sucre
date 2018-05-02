@@ -160,7 +160,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 			msgList.add(msg);
 		}
-		messagesAdapter.addToEnd(msgList, false);
+		messagesAdapter.addToEnd(msgList, true);
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
@@ -281,6 +281,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 	@Override
 	public void addChannel(Channel channel) {
 		thisChannel = channel;
+		presenter.getMessages(thisChannel.id);
 	}
 
 	private Message createMessage(String text){
