@@ -15,10 +15,12 @@ public class BloodSugarData {
     public String userId;
     public SugarMeasurementType sugarMeasurementType; // 1 means pre, 2 means post
 
-    public BloodSugarData(String id, Date date, int value, SugarMeasurementType sugarMeasurementType) {
+    public BloodSugarData(String id, Date date, int value, SugarMeasurementType sugarMeasurementType, String userId) {
         this.id = id;
         this.date = date;
         this.value = value;
         this.sugarMeasurementType = sugarMeasurementType;
+        this.userId = userId;
     }
+
 }

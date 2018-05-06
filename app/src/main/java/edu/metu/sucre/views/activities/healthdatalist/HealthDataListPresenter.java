@@ -33,4 +33,18 @@ public class HealthDataListPresenter<V extends HealthDataListMvpView> extends Ba
 						}
 					});
 	}
+
+	@SuppressLint("CheckResult")
+	@Override
+	public void getUser(String userId) {
+		getIDataManager().getUser(userId)
+				.subscribeOn(Schedulers.io())
+				.observeOn( AndroidSchedulers.mainThread())
+				.subscribe(user -> {
+					if(getMvpView() != null){
+						getMvpView().updateTitleWithUserNameSurname(user.name);
+					}
+				}, throwable -> System.err.println(throwable.toString()));
+
+	}
 }

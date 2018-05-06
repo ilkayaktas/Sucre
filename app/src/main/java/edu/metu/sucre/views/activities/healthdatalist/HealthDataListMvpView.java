@@ -15,4 +15,6 @@ public interface HealthDataListMvpView extends MvpView {
     void showHealthData(List<HealthData> healthDataList);
 
     void setLoading(boolean isLoading);
+
+    void updateTitleWithUserNameSurname(String userNameSurname);
 }

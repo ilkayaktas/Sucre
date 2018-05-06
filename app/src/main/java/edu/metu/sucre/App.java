@@ -1,6 +1,8 @@
 package edu.metu.sucre;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 import com.google.firebase.FirebaseApp;
 import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.di.components.ApplicationComponent;
@@ -31,6 +33,12 @@ public class App extends Application {
 
         initializeInjector();
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     private void initializeInjector(){

@@ -1,9 +1,11 @@
 package edu.metu.sucre.views.activities.messages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -27,6 +29,7 @@ import edu.metu.sucre.model.app.MessagesFixtures;
 import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
+import edu.metu.sucre.views.activities.healthdatalist.HealthDataListActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -40,6 +43,7 @@ public class HealthChannelMessageActivity extends BaseActivity
 					MessageInput.AttachmentsListener,
 					MessagesListAdapter.SelectionListener,
 					MessagesListAdapter.OnLoadMoreListener,
+					MessagesListAdapter.OnMessageViewClickListener<DialogMessage>,
 					DateFormatter.Formatter  {
 	
 	@Inject
@@ -167,15 +171,18 @@ public class HealthChannelMessageActivity extends BaseActivity
 	public void onMessageEvent(MessageEvent event) {
 		if (event.message.toChannelId != null && event.message.toChannelId.equals(thisChannel.id)) {
 
-			User senderUser = userMapOfChannel.get(event.message.senderUserId);
+			User msgSentBy = userMapOfChannel.get(event.message.senderUserId);
+
+			if(msgSentBy == null)return;
 
 			DialogMessage msg = new DialogMessage(event.message.id,
-					new DialogUser(senderUser.userId,
-							senderUser.name,
-							senderUser.picture, true),
+					new DialogUser(msgSentBy.userId,
+							msgSentBy.name,
+							msgSentBy.picture, true),
 					event.message.messageText);
 
 			onNewMessage(msg);
+
 		}
 
 	}
@@ -273,6 +280,13 @@ public class HealthChannelMessageActivity extends BaseActivity
 				.show();
 	}
 
+	@OnClick(R.id.iv_showOwner)
+	public void onShowOwnerClicked(){
+		Intent intent = new Intent(this, HealthDataListActivity.class);
+		intent.putExtra(AppConstants.SENDER_ID, thisChannel.owner);
+		startActivity(intent);
+	}
+
 	@Override
 	public void addUser(User user) {
 		userMapOfChannel.put(user.userId, user);
@@ -293,5 +307,10 @@ public class HealthChannelMessageActivity extends BaseActivity
 		message.senderUserId = senderId;
 		message.createdAt = Calendar.getInstance().getTime();
 		return message;
+	}
+
+	@Override
+	public void onMessageViewClick(View view, DialogMessage message) {
+		Toast.makeText(this, "assadada", Toast.LENGTH_SHORT).show();
 	}
 }

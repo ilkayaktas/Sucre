@@ -37,6 +37,8 @@ import edu.metu.sucre.events.MessageEvent;
 import edu.metu.sucre.model.api.Message;
 import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.home.MainActivity;
+import edu.metu.sucre.views.widgets.notification.MobssNotification;
+import edu.metu.sucre.views.widgets.notification.MobssNotificationBuilder;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
@@ -57,9 +59,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Map<String, String> data = remoteMessage.getData();
 
-            for (String s : data.values()) {
-                System.out.println("_____"+s);
-            }
             Message message = new Message();
             message.messageText = data.get("messageText");
             message.createdAt = DateUtils.parseDateForMessaging(data.get("createdAt"));
@@ -67,6 +66,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             message.toChannelId = data.get("toChannelId");
             message.id = data.get("id");
 
+
+
+            MobssNotification notification = MobssNotificationBuilder.instance()
+                    .context(this)
+                    .invocationActivity(MainActivity.class)
+                    .title("Sağlık Mesajınız Var")
+                    .message(message.messageText)
+                    .smallIcon(R.mipmap.ic_launcher)
+                    .build();
+
+            notification.showNotification();
 
             EventBus.getDefault().post(new MessageEvent(message));
         }

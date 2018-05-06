@@ -183,9 +183,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 })
                 .playOn(v);
 
-        Intent intent = new Intent(this, HealthDataListActivity.class);
-        intent.putExtra(AppConstants.SENDER_ID, presenter.getUserId());
-        startActivity(intent);
     }
 
     public void treatmentEntry(View v){

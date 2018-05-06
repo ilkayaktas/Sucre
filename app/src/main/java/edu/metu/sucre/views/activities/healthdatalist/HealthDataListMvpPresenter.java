@@ -9,4 +9,6 @@ import edu.metu.sucre.views.activities.base.MvpPresenter;
 
 public interface HealthDataListMvpPresenter<V extends HealthDataListMvpView> extends MvpPresenter<V> {
     void getHealthData(String userId);
+
+    void getUser(String userId);
 }

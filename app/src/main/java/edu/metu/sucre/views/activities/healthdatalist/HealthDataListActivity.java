@@ -31,7 +31,7 @@ public class HealthDataListActivity extends BaseActivity implements HealthDataLi
 	@BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 	@BindView(R.id.rv_recycler) RecyclerView recyclerView;
 	private HealthDataListAdapter recyclerViewAdapter;
-	private String senderId = "0";
+	private String patientId = "0";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class HealthDataListActivity extends BaseActivity implements HealthDataLi
 	private void getArguments() {
 		Bundle b = getIntent().getExtras();
 		if(b != null){
-			senderId = b.getString(AppConstants.SENDER_ID);
+			patientId = b.getString(AppConstants.SENDER_ID);
 		}
 	}
 
@@ -60,9 +60,11 @@ public class HealthDataListActivity extends BaseActivity implements HealthDataLi
 	protected void initUI() {
 		setFont();
 
-		mPresenter.getHealthData(senderId);
+		mPresenter.getUser(patientId);
+
+		mPresenter.getHealthData(patientId);
 		swipeRefreshLayout.setOnRefreshListener(() -> {
-			mPresenter.getHealthData(senderId);
+			mPresenter.getHealthData(patientId);
 		});
 	}
 
@@ -112,5 +114,10 @@ public class HealthDataListActivity extends BaseActivity implements HealthDataLi
 	@Override
 	public void setLoading(boolean isLoading) {
 		swipeRefreshLayout.setRefreshing(isLoading);
+	}
+
+	@Override
+	public void updateTitleWithUserNameSurname(String userNameSurname) {
+		toolbarTitle.setText(userNameSurname);
 	}
 }

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 import com.facebook.login.LoginManager;
 import edu.metu.sucre.controller.IDataManager;
+import edu.metu.sucre.model.api.BloodSugarData;
 import edu.metu.sucre.model.api.FBUser;
 import edu.metu.sucre.model.api.HealthData;
 import edu.metu.sucre.model.api.User;
@@ -26,9 +27,20 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 		super(IDataManager);
 	}
 	
+	@SuppressLint("CheckResult")
 	@Override
 	public void saveBloodSugar(BloodSugar bloodSugar) {
 		getIDataManager().saveBloodSugar(bloodSugar);
+
+		getIDataManager().saveBloodSugarToServer(new BloodSugarData(bloodSugar.uuid,
+																	bloodSugar.date,
+																	bloodSugar.value,
+																	bloodSugar.sugarMeasurementType,
+																	getUserId()))
+				.subscribeOn(Schedulers.io())
+				.observeOn( AndroidSchedulers.mainThread())
+				.subscribe(bloodSugarData -> {},
+						throwable -> Log.e(TAG, "saveBloodSugar: ", throwable));
 
 		getMvpView().updateUIAfterRecord(bloodSugar);
 	}
