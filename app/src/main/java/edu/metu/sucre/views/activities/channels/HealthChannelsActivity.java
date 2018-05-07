@@ -162,7 +162,6 @@ public class HealthChannelsActivity extends BaseActivity implements HealthChanne
                 .setIcon(R.drawable.ic_settings)
                 .setTitle(R.string.text_input_title)
                 .setMessage(R.string.text_input_message)
-                .setInputFilter(R.string.text_input_error_message, text -> text.matches("\\w+"))
                 .setConfirmButton(android.R.string.ok, text -> presenter.addChannel(text))
                 .show();
     }

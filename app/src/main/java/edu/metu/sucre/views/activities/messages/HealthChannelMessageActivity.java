@@ -154,13 +154,22 @@ public class HealthChannelMessageActivity extends BaseActivity
 	public void loadMessagesToEnd(List<Message> messages) {
 		List<DialogMessage> msgList = new ArrayList<>();
 		for (Message m : messages) {
+
 			User senderUser = userMapOfChannel.get(m.senderUserId);
+
+			if(senderUser == null){
+				senderUser = new User();
+				senderUser.userId = UUID.randomUUID().toString();
+				senderUser.name = "Sucre";
+				senderUser.picture = "https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg";
+			}
 
 			DialogMessage msg = new DialogMessage(m.id,
 					new DialogUser(senderUser.userId,
 							senderUser.name,
 							senderUser.picture, true),
-					m.messageText);
+					m.messageText,
+					m.createdAt);
 
 			msgList.add(msg);
 		}
@@ -293,8 +302,9 @@ public class HealthChannelMessageActivity extends BaseActivity
 	}
 
 	@Override
-	public void addChannel(Channel channel) {
+	public void updateChannelInfo(Channel channel) {
 		thisChannel = channel;
+		toolbarTitle.setText(channel.channelName);
 		presenter.getMessages(thisChannel.id);
 	}
 

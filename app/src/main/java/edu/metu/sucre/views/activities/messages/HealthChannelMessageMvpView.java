@@ -16,7 +16,7 @@ import java.util.List;
 public interface HealthChannelMessageMvpView extends MvpView {
     void addUser(User user);
 
-    void addChannel(Channel channel);
+    void updateChannelInfo(Channel channel);
 
     void onNewMessage(DialogMessage message);
 

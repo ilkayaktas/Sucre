@@ -56,7 +56,7 @@ public class HealthChannelMessagePresenter<V extends HealthChannelMessageMvpView
 		getIDataManager().getChannel(channelId)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(channel -> getMvpView().addChannel(channel),
+				.subscribe(channel -> getMvpView().updateChannelInfo(channel),
 						throwable -> System.err.println(throwable.getMessage()));
 	}
 
