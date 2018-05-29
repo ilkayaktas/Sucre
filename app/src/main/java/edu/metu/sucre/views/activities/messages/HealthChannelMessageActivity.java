@@ -296,6 +296,11 @@ public class HealthChannelMessageActivity extends BaseActivity
 		startActivity(intent);
 	}
 
+	@OnClick(R.id.iv_blood)
+	public void onShowOwnerBloodSugar(){
+
+	}
+
 	@Override
 	public void addUser(User user) {
 		userMapOfChannel.put(user.userId, user);

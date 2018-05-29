@@ -1,11 +1,17 @@
 package edu.metu.sucre.views.fragments.listfragment;
 
 
-import java.util.List;
-
+import android.annotation.SuppressLint;
 import edu.metu.sucre.controller.IDataManager;
+import edu.metu.sucre.model.api.BloodSugarData;
 import edu.metu.sucre.model.app.BloodSugar;
+import edu.metu.sucre.model.app.SugarMeasurementType;
 import edu.metu.sucre.views.activities.base.BasePresenter;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by iaktas on 14.03.2017.
@@ -16,9 +22,23 @@ public class ListPresenter<V extends ListMvpView> extends BasePresenter<V> imple
         super(IDataManager);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void getAllBloodSugarMeasurements() {
-        List<BloodSugar> bloodSugarList =  getIDataManager().getBloodSugar();
+//        List<BloodSugar> bloodSugarList =  getIDataManager().getBloodSugar();
+        List<BloodSugar> bloodSugarList =  new ArrayList<>();
+        String userId = getIDataManager().getUserId();
+        getIDataManager().getBloodSugarFromServer(userId, SugarMeasurementType.PRE.toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn( AndroidSchedulers.mainThread())
+                .subscribe(bloodSugarData -> {
+                    for (BloodSugarData bloodSugarData1 : bloodSugarData) {
+                        bloodSugarList.add(new BloodSugar(bloodSugarData1.id,
+                                                            bloodSugarData1.date,
+                                                            bloodSugarData1.value,
+                                                            bloodSugarData1.sugarMeasurementType));
+                    }
+                }, System.err::println);
         getMvpView().updateBloodSugarList(bloodSugarList);
     }
     
