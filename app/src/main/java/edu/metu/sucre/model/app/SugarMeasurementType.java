@@ -5,6 +5,7 @@ package edu.metu.sucre.model.app;
  */
 
 public enum SugarMeasurementType {
+    ALL(0),
     PRE(1),
     POST(2);
 

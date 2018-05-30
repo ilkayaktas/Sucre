@@ -67,4 +67,6 @@ public interface IDataManager {
     Observable<BloodSugarData> saveBloodSugarToServer(BloodSugarData bloodSugar);
 
     Observable<List<BloodSugarData>> getBloodSugarFromServer(String userId, String sugarMeasurementType);
+
+    Observable<BloodSugarData> deleteBloodSugarFromServer(String bloodSugarId);
 }

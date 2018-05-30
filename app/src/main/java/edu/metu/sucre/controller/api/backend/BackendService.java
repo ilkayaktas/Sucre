@@ -2,10 +2,7 @@ package edu.metu.sucre.controller.api.backend;
 
 import edu.metu.sucre.model.api.*;
 import io.reactivex.Observable;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import java.util.List;
 
@@ -59,5 +56,8 @@ public interface BackendService {
 
     @GET("bloodsugar/get")
     Observable<List<BloodSugarData>> getBloodSugar(@Query("userId") String userId, @Query("sugarMeasurementType") String sugarMeasurementType);
+
+    @DELETE("bloodsugar/delete")
+    Observable<BloodSugarData> deleteBloodSugar(@Query("bloodSugarId") String bloodSugarId);
 
 }

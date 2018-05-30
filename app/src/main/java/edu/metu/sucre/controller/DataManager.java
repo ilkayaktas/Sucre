@@ -102,6 +102,11 @@ public class DataManager implements IDataManager {
 	}
 
 	@Override
+	public Observable<BloodSugarData> deleteBloodSugarFromServer(String bloodSugarId) {
+		return apiHelper.deleteBloodSugar(bloodSugarId);
+	}
+
+	@Override
 	public Observable<FBUser> getFacebookProfile() {
 		return apiHelper.getFacebookProfile();
 	}

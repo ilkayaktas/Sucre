@@ -2,6 +2,7 @@ package edu.metu.sucre.views.fragments.listfragment;
 
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.model.api.BloodSugarData;
 import edu.metu.sucre.model.app.BloodSugar;
@@ -28,7 +29,7 @@ public class ListPresenter<V extends ListMvpView> extends BasePresenter<V> imple
 //        List<BloodSugar> bloodSugarList =  getIDataManager().getBloodSugar();
         List<BloodSugar> bloodSugarList =  new ArrayList<>();
         String userId = getIDataManager().getUserId();
-        getIDataManager().getBloodSugarFromServer(userId, SugarMeasurementType.PRE.toString())
+        getIDataManager().getBloodSugarFromServer(userId, SugarMeasurementType.ALL.name())
                 .subscribeOn(Schedulers.io())
                 .observeOn( AndroidSchedulers.mainThread())
                 .subscribe(bloodSugarData -> {
@@ -38,12 +39,18 @@ public class ListPresenter<V extends ListMvpView> extends BasePresenter<V> imple
                                                             bloodSugarData1.value,
                                                             bloodSugarData1.sugarMeasurementType));
                     }
-                }, System.err::println);
-        getMvpView().updateBloodSugarList(bloodSugarList);
+                }, System.err::println, () -> getMvpView().updateBloodSugarList(bloodSugarList));
     }
     
+    @SuppressLint("CheckResult")
     @Override
     public void deleteBloodSugarValue(String uuid) {
-        getIDataManager().deleteBloodSugar(uuid);
+//        getIDataManager().deleteBloodSugar(uuid);
+        getIDataManager().deleteBloodSugarFromServer(uuid)
+                .subscribeOn(Schedulers.io())
+                .observeOn( AndroidSchedulers.mainThread())
+                .subscribe(bloodSugarData -> {
+                    System.out.println("BloodSugarData is deleted: " + bloodSugarData.toString());
+                }, System.err::println);
     }
 }

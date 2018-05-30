@@ -18,6 +18,7 @@ package edu.metu.sucre.controller.api;
 
 import edu.metu.sucre.model.api.*;
 import io.reactivex.Observable;
+import retrofit2.http.Query;
 
 import java.util.List;
 
@@ -56,5 +57,7 @@ public interface IApiHelper {
     Observable<BloodSugarData> saveBloodSugar(BloodSugarData bloodSugar);
 
     Observable<List<BloodSugarData>> getBloodSugar(String userId, String sugarMeasurementType);
+
+    Observable<BloodSugarData> deleteBloodSugar(String bloodSugarId);
 
 }
