@@ -8,11 +8,6 @@
 
     <solid android:color="@android:color/transparent"/>
 
-    <corners
-        android:bottomLeftRadius="@dimen/button_corner_radius"
-        android:bottomRightRadius="@dimen/button_corner_radius"
-        android:topLeftRadius="@dimen/button_corner_radius"
-        android:topRightRadius="@dimen/button_corner_radius"/>
     <padding
         android:left="10dp"
         android:right="10dp"

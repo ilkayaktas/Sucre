@@ -4,7 +4,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/mobss_color_blue"
         android:fitsSystemWindows="true">
 
 
@@ -90,7 +89,7 @@
                     android:layout_height="140dp"
                     android:id="@+id/button2"
                     android:background="@drawable/button_stroke"
-                    android:textColor="@color/white"
+                    android:textColor="@color/mobss_color_blue"
                     android:textStyle="bold"
                     android:onClick="treatmentEntry"
                     app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +102,7 @@
                     android:layout_width="160dp"
                     android:layout_height="140dp"
                     android:background="@drawable/button_stroke"
-                    android:textColor="@color/white"
+                    android:textColor="@color/mobss_color_blue"
                     android:textStyle="bold"
                     android:onClick="nutritionEntry"
                     android:id="@+id/button3"
@@ -116,7 +115,7 @@
                     android:layout_width="160dp"
                     android:layout_height="140dp"
                     android:background="@drawable/button_stroke"
-                    android:textColor="@color/white"
+                    android:textColor="@color/mobss_color_blue"
                     android:textStyle="bold"
                     android:id="@+id/button4"
                     android:onClick="activityEntry"
@@ -130,7 +129,7 @@
                     android:layout_height="140dp"
                     android:id="@+id/button5"
                     android:background="@drawable/button_stroke"
-                    android:textColor="@color/white"
+                    android:textColor="@color/mobss_color_blue"
                     android:textStyle="bold"
                     android:onClick="showPreviousRecords"
                     app:layout_constraintTop_toBottomOf="@id/guideline2"
