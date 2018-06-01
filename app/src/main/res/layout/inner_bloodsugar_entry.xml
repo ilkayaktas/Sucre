@@ -5,7 +5,7 @@
         android:layout_height="wrap_content"
         android:background="@color/mobss_color_blue"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:elevation="5dp"
+        android:elevation="10dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -69,7 +69,7 @@
             android:textOn="@string/pre"
             android:textOff="@string/post"
             android:background="@drawable/button_stroke_nocorner"
-            android:textColor="#FFECCC"
+            android:textColor="@color/mobss_color_white"
             android:id="@+id/toggleButton"
             android:checked="true"
             app:layout_constraintStart_toStartOf="parent"

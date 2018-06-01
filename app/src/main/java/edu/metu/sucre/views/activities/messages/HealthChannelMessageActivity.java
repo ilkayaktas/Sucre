@@ -30,6 +30,7 @@ import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.healthdatalist.HealthDataListActivity;
+import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -298,7 +299,9 @@ public class HealthChannelMessageActivity extends BaseActivity
 
 	@OnClick(R.id.iv_blood)
 	public void onShowOwnerBloodSugar(){
-
+        Intent intent = new Intent(this, SugarLevelActivity.class);
+        intent.putExtra(AppConstants.SENDER_ID, thisChannel.owner);
+        startActivity(intent);
 	}
 
 	@Override

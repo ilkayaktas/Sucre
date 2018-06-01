@@ -2,7 +2,6 @@ package edu.metu.sucre.views.fragments.listfragment;
 
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import edu.metu.sucre.controller.IDataManager;
 import edu.metu.sucre.model.api.BloodSugarData;
 import edu.metu.sucre.model.app.BloodSugar;
@@ -25,11 +24,10 @@ public class ListPresenter<V extends ListMvpView> extends BasePresenter<V> imple
 
     @SuppressLint("CheckResult")
     @Override
-    public void getAllBloodSugarMeasurements() {
+    public void getAllBloodSugarMeasurements(String patientId) {
 //        List<BloodSugar> bloodSugarList =  getIDataManager().getBloodSugar();
         List<BloodSugar> bloodSugarList =  new ArrayList<>();
-        String userId = getIDataManager().getUserId();
-        getIDataManager().getBloodSugarFromServer(userId, SugarMeasurementType.ALL.name())
+        getIDataManager().getBloodSugarFromServer(patientId, SugarMeasurementType.ALL.name())
                 .subscribeOn(Schedulers.io())
                 .observeOn( AndroidSchedulers.mainThread())
                 .subscribe(bloodSugarData -> {

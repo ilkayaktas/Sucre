@@ -32,7 +32,6 @@ import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.utils.KeyboardUtils;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.channels.HealthChannelsActivity;
-import edu.metu.sucre.views.activities.healthdatalist.HealthDataListActivity;
 import edu.metu.sucre.views.activities.login.LoginActivity;
 import edu.metu.sucre.views.activities.sugarlevel.SugarLevelActivity;
 import edu.metu.sucre.views.widgets.dialogs.rateme.Config;
@@ -161,7 +160,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     public void showPreviousRecords(View v){
         YoYo.with(Techniques.Pulse)
                 .duration(200)
-                .onEnd(animator -> startActivity(SugarLevelActivity.class))
+                .onEnd(animator -> {
+                    Intent intent = new Intent(this, SugarLevelActivity.class);
+                    intent.putExtra(AppConstants.SENDER_ID, presenter.getUserId());
+                    startActivity(intent);
+                })
                 .playOn(v);
         
     }
@@ -171,8 +174,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 .duration(200)
                 .onEnd(animator -> {
                     new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
-                            .setTopColorRes(R.color.md_deep_orange_800)
-                            .setIcon(R.drawable.ic_settings)
+                            .setTopColorRes(R.color.md_blue_100)
+                            .setIcon(R.drawable.activity)
                             .setTitle(R.string.activity )
                             .setMessage(R.string.activity_message)
                             .setConfirmButton(android.R.string.ok, text -> {
@@ -190,8 +193,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 .duration(200)
                 .onEnd(animator -> {
                     new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
-                            .setTopColorRes(R.color.md_deep_orange_800)
-                            .setIcon(R.drawable.ic_settings)
+                            .setTopColorRes(R.color.md_blue_100)
+                            .setIcon(R.drawable.treatment)
                             .setTitle(R.string.treatment)
                             .setMessage(R.string.treatment_message)
                             .setConfirmButton(android.R.string.ok, text -> {
@@ -207,8 +210,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 .duration(200)
                 .onEnd(animator -> {
                     new LovelyTextInputDialog(this, R.style.EditTextTintTheme)
-                            .setTopColorRes(R.color.md_deep_orange_800)
-                            .setIcon(R.drawable.ic_settings)
+                            .setTopColorRes(R.color.md_blue_100)
+                            .setIcon(R.drawable.nutrition)
                             .setTitle(R.string.nutrition)
                             .setMessage(R.string.nutrition_message)
                             .setConfirmButton(android.R.string.ok, text -> {

@@ -8,7 +8,7 @@ import edu.metu.sucre.views.activities.base.MvpPresenter;
  */
 
 public interface ListMvpPresenter <V extends ListMvpView> extends MvpPresenter<V> {
-    void getAllBloodSugarMeasurements();
+    void getAllBloodSugarMeasurements(String patientId);
     
     void deleteBloodSugarValue(String uuid);
 }

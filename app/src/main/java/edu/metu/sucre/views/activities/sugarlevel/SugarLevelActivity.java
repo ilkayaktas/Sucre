@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
 import edu.metu.sucre.model.app.BloodSugar;
+import edu.metu.sucre.utils.AppConstants;
 import edu.metu.sucre.views.activities.base.BaseActivity;
 import edu.metu.sucre.views.activities.base.BaseFragment;
 import edu.metu.sucre.views.adapters.ViewPagerAdapter;
@@ -36,10 +37,13 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 	
 	@BindView(R.id.view_pager_for_fragment) NonScrollableViewPager view_pager_for_fragment;
 	private ViewPagerAdapter mPagerAdapter;
+	private String patientId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		getArguments();
 
 		getActivityComponent().inject(this);
 		
@@ -51,6 +55,13 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 		addCustomActionBar();
 
 		setViewPager();
+	}
+
+	private void getArguments() {
+		Bundle b = getIntent().getExtras();
+		if(b != null){
+			patientId = b.getString(AppConstants.SENDER_ID);
+		}
 	}
 
 	@Override
@@ -66,7 +77,7 @@ public class SugarLevelActivity extends BaseActivity implements SugarLevelMvpVie
 	private void setViewPager(){
 
 		List<BaseFragment> fragmentList = new ArrayList<>();
-		fragmentList.add(ListFragment.newInstance());
+		fragmentList.add(ListFragment.newInstance(patientId));
 		fragmentList.add(StatisticsFragment.newInstance());
 		mPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
 		view_pager_for_fragment.setAdapter(mPagerAdapter);

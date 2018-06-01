@@ -9,22 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.metu.sucre.R;
-import edu.metu.sucre.views.adapters.RecyclerViewAdapter;
 import edu.metu.sucre.events.ListItemClickedEvent;
 import edu.metu.sucre.events.ListItemDeletedEvent;
 import edu.metu.sucre.events.ShareWithClickedEvent;
@@ -32,7 +19,17 @@ import edu.metu.sucre.model.app.BloodSugar;
 import edu.metu.sucre.model.app.CardItem;
 import edu.metu.sucre.utils.DateUtils;
 import edu.metu.sucre.views.activities.base.BaseFragment;
+import edu.metu.sucre.views.adapters.RecyclerViewAdapter;
 import edu.metu.sucre.views.fragments.statisticsfragment.OnShareButtonClickedListener;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import static edu.metu.sucre.utils.AppConstants.REPORT_RECORD_HISTORY_COUNT;
 
@@ -42,6 +39,7 @@ import static edu.metu.sucre.utils.AppConstants.REPORT_RECORD_HISTORY_COUNT;
 
 public class ListFragment extends BaseFragment implements ListMvpView{
 
+    private static String patiendIdKey;
     @Inject
     ListMvpPresenter<ListMvpView> mPresenter;
 
@@ -50,9 +48,11 @@ public class ListFragment extends BaseFragment implements ListMvpView{
     private List<BloodSugar> bloodSugarList = null;
     private OnBloodSugarSelectedListener mCallback;
     private OnShareButtonClickedListener mCallbackShare;
-    
-    public static ListFragment newInstance(){
+
+    public static ListFragment newInstance(String patientId){
         Bundle args = new Bundle();
+        patiendIdKey = "PATIENT_ID";
+        args.putString(patiendIdKey, patientId);
         ListFragment fragment = new ListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -63,13 +63,15 @@ public class ListFragment extends BaseFragment implements ListMvpView{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recylerview, container, false);
 
+        String patientId = getArguments().getString(patiendIdKey);
+
         getActivityComponent().inject(this);
 
         setUnBinder(ButterKnife.bind(this, view));
 
         mPresenter.onAttach(this);
 
-        mPresenter.getAllBloodSugarMeasurements();
+        mPresenter.getAllBloodSugarMeasurements(patientId);
 
         return view;
     }
