@@ -10,3 +10,6 @@ If you want to use it, you should run [Message Transfer Server](https://github.c
 ```groovy
 buildConfigField "String", "BACKEND_ENDPOINT", "\"http://192.168.1.26:8080/\""
 ```
+
+You can find detailed article in [Medium](https://medium.com/@ilkayaktas/why-did-i-build-a-diabetes-management-platform-10e7423b8e82).
+
